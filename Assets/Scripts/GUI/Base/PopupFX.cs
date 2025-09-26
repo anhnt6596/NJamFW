@@ -37,7 +37,7 @@ public class PopupAppear_Fade : IPopupAppear
         CanvasGroup cg = popup.GetComponent<CanvasGroup>();
         if (!cg) cg = popup.gameObject.AddComponent<CanvasGroup>();
         cg.alpha = 0;
-        cg.DOFade(1, 0.3f);
+        cg.DOFade(1, 0.3f).SetUpdate(true);
     }
 }
 
@@ -49,7 +49,9 @@ public class PopupDisappear_Fade : IPopupDisappear
     {
         CanvasGroup cg = popup.GetComponent<CanvasGroup>();
         if (!cg) cg = popup.gameObject.AddComponent<CanvasGroup>();
-        cg.DOFade(0, 0.2f).OnComplete(() => closeAction());
+        cg.DOFade(0, 0.2f)
+            .SetUpdate(true)
+            .OnComplete(() => closeAction());
     }
 }
 
@@ -69,9 +71,11 @@ public class PopupAppear_Zoom : IPopupAppear
         CanvasGroup cg = popup.GetComponent<CanvasGroup>();
         if (!cg) cg = popup.gameObject.AddComponent<CanvasGroup>();
         cg.alpha = 0;
-        cg.DOFade(1, 0.3f);
+        cg.DOFade(1, 0.3f).SetUpdate(true);
         firstChild.localScale = Vector3.zero;
-        firstChild.DOScale(firstChildScale, 0.3f).SetEase(Ease.OutBack);
+        firstChild.DOScale(firstChildScale, 0.3f)
+            .SetEase(Ease.OutBack)
+            .SetUpdate(true);
     }
 }
 
@@ -90,9 +94,10 @@ public class PopupDisappear_Zoom : IPopupDisappear
     {
         CanvasGroup cg = popup.GetComponent<CanvasGroup>();
         if (!cg) cg = popup.gameObject.AddComponent<CanvasGroup>();
-        cg.DOFade(0, 0.2f).OnComplete(() => closeAction());
+        cg.DOFade(0, 0.2f).SetUpdate(true).OnComplete(() => closeAction());
         firstChild.DOScale(firstChildScale * 0.3f, 0.2f)
             .SetEase(Ease.InOutSine)
+            .SetUpdate(true)
             .OnComplete(() =>
         {
             firstChild.localScale = firstChildScale;

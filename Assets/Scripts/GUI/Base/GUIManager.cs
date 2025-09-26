@@ -31,12 +31,18 @@ public class GUIManager : MonoBehaviour, IManager
     }
     public void StartUp()
     {
-
+        ActionService.Sub<ChangeSceneAction>(OnSceneChanged);
     }
     public void Cleanup()
     {
-
+        ActionService.Unsub<ChangeSceneAction>(OnSceneChanged);
     }
+
+    private void OnSceneChanged(ChangeSceneAction action)
+    {
+        HideAllGUIs();
+    }
+
     private void CreateLayer(GUILayer layerId)
     {
         GameObject panel = new GameObject("Layer-System: " + layerId);
@@ -90,11 +96,17 @@ public class GUIManager : MonoBehaviour, IManager
         if (guis.ContainsKey(guiId) && guis[guiId].IsActive) guis[guiId].Hide();
         return default;
     }
+
+    public void HideAllGUIs()
+    {
+        foreach (var gui in guis.Values) gui.Hide();
+    }
+
     public void LoadAllPopupAssets()
     {
         PopupPrefabs.Clear();
         var ps = Resources.LoadAll("", typeof(BasePopup));
         foreach (var p in ps) PopupPrefabs.Add((BaseGUI)p);
-        EditorUtility.SetDirty(this);
+        //EditorUtility.SetDirty(this);
     }
 }

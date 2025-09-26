@@ -18,4 +18,15 @@ public static class TransformExt
         }
         return null;
     }
+    public static IEnumerable<Transform> DirectChildren(this Transform t)
+    {
+        for (int i = 0; i < t.childCount; i++)
+            yield return t.GetChild(i);
+    }
+
+    public static IEnumerable<GameObject> DirectChildGameObjects(this Transform t)
+    {
+        for (int i = 0; i < t.childCount; i++)
+            yield return t.GetChild(i).gameObject;
+    }
 }
