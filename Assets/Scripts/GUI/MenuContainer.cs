@@ -54,6 +54,7 @@ public class MenuContainer : MonoBehaviour
     public void StartGame() => App.Get<ChangeSceneUI>().DoLoadScene(SceneName.GameScene);
 
     public void OpenAboutUsPopup() => App.Get<GUIManager>().ShowGui<AboutUsPopup>();
+    public void OpenHelpPopup() => App.Get<GUIManager>().ShowGui<HelpPopup>();
 
     public void OpenSettings()
     {
