@@ -19,7 +19,7 @@ public class GUIManager : MonoBehaviour, IManager
 {
     protected List<BaseGUI> PopupPrefabs { get; } = new();
 
-    protected List<Transform> layers = new List<Transform>();
+    protected List<RectTransform> layers = new List<RectTransform>();
     protected Dictionary<string, BaseGUI> guis = new Dictionary<string, BaseGUI>();
     public void Init()
     {
@@ -60,10 +60,10 @@ public class GUIManager : MonoBehaviour, IManager
         rectTransform.sizeDelta = parentRectTransform.sizeDelta;
         rectTransform.localScale = Vector3.one;
 
-        layers.Add(panel.transform);
+        layers.Add(rectTransform);
     }
 
-    public Transform GetLayer(GUILayer id) => layers[((int)id)];
+    public RectTransform GetLayer(GUILayer id) => layers[((int)id)];
 
     public T ShowGui<T>() where T : BaseGUI
     {

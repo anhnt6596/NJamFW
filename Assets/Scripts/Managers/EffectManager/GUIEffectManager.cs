@@ -1,4 +1,5 @@
 using Core;
+using Lean.Pool;
 using UnityEngine;
 
 public class GUIEffectManager : MonoBehaviour, IManager
@@ -14,8 +15,23 @@ public class GUIEffectManager : MonoBehaviour, IManager
 
     public void Cleanup() { }
 
-    public GameObject FlyText()
+    public ScreenText ShowScreenTextWP(string content, Vector3 wPos, Color color, GUILayer layer = GUILayer.GUI)
     {
-        return default;
+        var screenPos = Camera.main.WorldToScreenPoint(wPos);
+        return ShowScreenText(content, wPos, color, layer);
+    }
+
+    public ScreenText ShowScreenText(string content, Vector3 screenPos, Color color, GUILayer layer = GUILayer.GUI)
+    {
+        var text = LeanPool.Spawn(screenTextPrefab);
+        var guiLayer = _guiMgr.GetLayer(layer);
+        text.transform.parent = guiLayer;
+
+        Vector2 uiPos;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(guiLayer, screenPos, Camera.main, out uiPos);
+        text.transform.position = screenPos;
+
+        text.Show(content, color, () => LeanPool.Despawn(text));
+        return text;
     }
 }

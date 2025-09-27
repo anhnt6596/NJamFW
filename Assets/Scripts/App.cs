@@ -17,6 +17,7 @@ public class App : BaseApp
         Configs.Load();
         ResourceProvider.LoadAllResourceSets();
         AddManager<SceneService>();
+        AddManager(gameObject.AddComponent<TouchService>());
         AddManager(gameObject.GetComponentInChildren<GUIManager>());
         AddManager(gameObject.GetComponentInChildren<ChangeSceneUI>());
         AddManager(gameObject.GetComponentInChildren<GUIEffectManager>());
@@ -25,6 +26,11 @@ public class App : BaseApp
     protected override void StartApp()
     {
         Get<SceneService>().LoadScene(SceneName.MenuScene);
+        // TODO Test ScreenText
+        ActionService.Sub<TouchDownAction>(action =>
+        {
+            Get<GUIEffectManager>().ShowScreenText("AAAAA", action.Finger.ScreenPosition, Color.white);
+        });
     }
 
     public void LoadSceneGame()

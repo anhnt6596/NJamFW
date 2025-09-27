@@ -2,7 +2,7 @@ using Core;
 using Lean.Touch;
 using UnityEngine;
 
-public class TouchService : MonoBehaviour
+public class TouchService : MonoBehaviour, IManager
 {
     //public delegate void TouchDownEvent(Vector2 touch);
     //public event TouchDownEvent touchDown;

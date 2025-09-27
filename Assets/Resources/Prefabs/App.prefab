@@ -105,6 +105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c839e1351477b94e9ea0d2b3907e9eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  screenTextPrefab: {fileID: 4827730186046915674, guid: bf7d4c3e133c7d342a68cdca272a3c11, type: 3}
 --- !u!1 &269739497863451048
 GameObject:
   m_ObjectHideFlags: 0
