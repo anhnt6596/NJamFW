@@ -15,6 +15,7 @@ public class App : BaseApp
     protected override void SetAllManagers()
     {
         Configs.Load();
+        ResourceProvider.LoadAllResourceSets();
         AddManager<SceneService>();
         AddManager(gameObject.GetComponentInChildren<GUIManager>());
         AddManager(gameObject.GetComponentInChildren<ChangeSceneUI>());
