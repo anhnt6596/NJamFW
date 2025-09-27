@@ -24,4 +24,12 @@ public static class ResourceProvider
             }
         }
     }
+
+    public static T GetSet<T>() where T : ResourceSet
+    {
+        if (resourceSets.ContainsKey(typeof(T))) return (T)resourceSets[typeof(T)];
+        return default;
+    }
+
+    public static SoundResourceSet Sound => GetSet<SoundResourceSet>();
 }

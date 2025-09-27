@@ -12,5 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad683bb00e11fe04db39f80f2f223ca2, type: 3}
   m_Name: SoundResourceSet
   m_EditorClassIdentifier: 
-  backgroundMusic: {fileID: 0}
-  buttonSound: {fileID: 0}
+  music:
+    backgroundMusic: {fileID: 0}
+    gameMusic: {fileID: 0}
+    climaxMusic: {fileID: 0}
+  general:
+    button: {fileID: 8300000, guid: 9e471882e50fade43ac4a33c2f2770eb, type: 3}

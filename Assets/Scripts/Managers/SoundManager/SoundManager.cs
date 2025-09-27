@@ -1,9 +1,9 @@
 using UnityEngine;
 using Core;
 
-public class SoundManager : MonoBehaviour, IManager
+public class SoundManager : MonoBehaviour
 {
-    public static SoundManager Instance;
+    private static SoundManager Instance;
 
     [Header("Audio Sources")]
     [SerializeField] private AudioSource musicSource;
@@ -14,7 +14,6 @@ public class SoundManager : MonoBehaviour, IManager
 
     private void Awake()
     {
-        // Singleton
         if (Instance == null)
         {
             Instance = this;
@@ -26,7 +25,6 @@ public class SoundManager : MonoBehaviour, IManager
             return;
         }
 
-        // Load state t? PlayerPrefs
         musicEnabled = PlayerPrefs.GetInt("MusicEnabled", 1) == 1;
         sfxEnabled = PlayerPrefs.GetInt("SFXEnabled", 1) == 1;
 
@@ -34,22 +32,19 @@ public class SoundManager : MonoBehaviour, IManager
     }
 
     // ================== MUSIC ==================
-    public void PlayMusic(AudioClip clip, bool loop = true)
+    public static void PlayMusic(AudioClip clip, bool loop = true)
     {
-        if (!musicEnabled || clip == null) return;
+        if (!Instance.musicEnabled || clip == null) return;
 
-        musicSource.clip = clip;
-        musicSource.loop = loop;
-        musicSource.Play();
+        Instance.musicSource.clip = clip;
+        Instance.musicSource.loop = loop;
+        Instance.musicSource.Play();
     }
-
-    public void StopMusic()
-    {
-        musicSource.Stop();
-    }
+    public static void StopMusic() => Instance.musicSource.Stop();
 
     // ================== SFX ==================
-    public void PlaySFX(AudioClip clip)
+    public static void Play(AudioClip clip) => Instance.PlaySFX(clip);
+    private void PlaySFX(AudioClip clip)
     {
         if (!sfxEnabled || clip == null) return;
 
@@ -57,18 +52,18 @@ public class SoundManager : MonoBehaviour, IManager
     }
 
     // ================== TOGGLE ==================
-    public void ToggleMusic()
+    public static void ToggleMusic()
     {
-        musicEnabled = !musicEnabled;
-        PlayerPrefs.SetInt("MusicEnabled", musicEnabled ? 1 : 0);
-        ApplySettings();
+        Instance.musicEnabled = !Instance.musicEnabled;
+        PlayerPrefs.SetInt("MusicEnabled", Instance.musicEnabled ? 1 : 0);
+        Instance.ApplySettings();
     }
 
-    public void ToggleSFX()
+    public static void ToggleSFX()
     {
-        sfxEnabled = !sfxEnabled;
-        PlayerPrefs.SetInt("SFXEnabled", sfxEnabled ? 1 : 0);
-        ApplySettings();
+        Instance.sfxEnabled = !Instance.sfxEnabled;
+        PlayerPrefs.SetInt("SFXEnabled", Instance.sfxEnabled ? 1 : 0);
+        Instance.ApplySettings();
     }
 
     private void ApplySettings()
@@ -78,21 +73,6 @@ public class SoundManager : MonoBehaviour, IManager
     }
 
     // ================== GET STATE ==================
-    public bool IsMusicEnabled() => musicEnabled;
-    public bool IsSFXEnabled() => sfxEnabled;
-
-    public void Init()
-    {
-
-    }
-
-    public void StartUp()
-    {
-
-    }
-
-    public void Cleanup()
-    {
-
-    }
+    public static bool IsMusicEnabled() => Instance.musicEnabled;
+    public static bool IsSFXEnabled() => Instance.sfxEnabled;
 }
