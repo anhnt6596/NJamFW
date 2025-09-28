@@ -20,7 +20,7 @@ public class App : BaseApp
         AddManager(gameObject.GetComponentInChildren<GUIManager>());
         AddManager(gameObject.GetComponentInChildren<ChangeSceneUI>());
         AddManager(gameObject.GetComponentInChildren<GUIEffectManager>());
-        AddManager<GameManager>();
+        AddManager(gameObject.GetComponentInChildren<GameManager>());
     }
 
     protected override void StartApp()

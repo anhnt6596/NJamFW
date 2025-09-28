@@ -3,9 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : IManager
+public class GameManager : MonoBehaviour, IManager
 {
-    private Game RunningGame { get; set; }
+    // use for store current game state
+    [SerializeField] GameState gameState;
+
+    public Game RunningGame { get; private set; } = null;
 
     public void Init()
     {
@@ -24,8 +27,10 @@ public class GameManager : IManager
 
     public void StartNewGame(int level = 0)
     {
-        var game = new Game(level);
+        gameState.Reset();
+        RunningGame = new Game(level, gameState);
         App.Get<ChangeSceneUI>().DoLoadScene(SceneName.GameScene);
+        RunningGame.StartGame();
     }
 
     public void PauseGame()
@@ -43,5 +48,11 @@ public class GameManager : IManager
     {
         Time.timeScale = 1;
         App.Get<ChangeSceneUI>().DoLoadScene(SceneName.MenuScene);
+        RunningGame = null;
+    }
+
+    private void Update()
+    {
+        if (RunningGame != null) RunningGame.Update();
     }
 }
