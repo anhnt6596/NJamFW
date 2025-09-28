@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class App : BaseApp
 {
     public new static T Get<T>() where T : IManager => Instance.Get<T>();
-    [SerializeField] ChangeSceneUI changeSceneUI;
     protected override void ConfigApp()
     {
         Input.multiTouchEnabled = false;
@@ -21,6 +20,7 @@ public class App : BaseApp
         AddManager(gameObject.GetComponentInChildren<GUIManager>());
         AddManager(gameObject.GetComponentInChildren<ChangeSceneUI>());
         AddManager(gameObject.GetComponentInChildren<GUIEffectManager>());
+        AddManager<GameManager>();
     }
 
     protected override void StartApp()
@@ -30,14 +30,6 @@ public class App : BaseApp
         ActionService.Sub<TouchDownAction>(action =>
         {
             Get<GUIEffectManager>().ShowScreenText("AAAAA", action.Finger.ScreenPosition, Color.white);
-        });
-    }
-
-    public void LoadSceneGame()
-    {
-        changeSceneUI.Cover(() =>
-        {
-            Get<SceneService>().LoadScene(SceneName.GameScene);
         });
     }
 

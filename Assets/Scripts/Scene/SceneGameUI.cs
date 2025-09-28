@@ -6,7 +6,6 @@ public class SceneGameUI : MonoBehaviour
 {
     public void OnClickPause()
     {
-        Time.timeScale = 0;
-        App.Get<GUIManager>().ShowGui<PausePopup>();
+        App.Get<GameManager>().PauseGame();
     }
 }
