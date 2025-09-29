@@ -6,17 +6,17 @@ public class SelectionCards
 {
     Game Game { get; }
     List<CardEnum> RollableCards { get; }
-    public List<SelectionCard> Cards { get; }
+    public List<CardEnum> Cards => Game.State.cards;
+    public List<int> LockedIdxs => Game.State.lockedCardIdxs;
     public SelectionCards(Game game)
     {
         Game = game;
         RollableCards = GetRollableCard();
-        Cards = new();
     }
 
     public void Roll()
     {
-        var newCards = RollCards(Cards);
+        var newCards = RollCards(Cards, LockedIdxs);
         Cards.Clear();
         Cards.AddRange(newCards);
     }
@@ -29,29 +29,31 @@ public class SelectionCards
         return result;
     }
 
-    private List<SelectionCard> RollCards(List<SelectionCard> last)
+    private List<CardEnum> RollCards(List<CardEnum> lastRoll, List<int> lockedCardIdxs)
     {
-        if (last == null) last = new List<SelectionCard>();
-        List<SelectionCard> result = new();
-        List<CardEnum> lockedCards = last.Where(c => c.isLocked).Select(c => c.cardType).ToList();
+        List<CardEnum> result = new();
+        // 
+        List<CardEnum> lockedCards = new List<CardEnum>();
+        // them logic roll sau k ra card roll truoc sau, bay h chi ignore locked card thoi
+        for (int i = 0; i < lastRoll.Count; i++)
+        {
+            if (lockedCardIdxs.Contains(i))
+            {
+                lockedCards.Add(lastRoll[i]);
+            }
+        }
+
         var rollableCards = RollableCards.Where(c => !lockedCards.Contains(c)).ToList();
         var newListCard = RandomHelper.RandomUniqueList(rollableCards, Configs.GamePlay.SelectionCardNumber);
         for (int i = 0; i < newListCard.Count; i++)
         {
-            SelectionCard lastCardInThisIndex = null;
-            if (last.Count > i) lastCardInThisIndex = last[i];
-            if (lastCardInThisIndex != null && lastCardInThisIndex.isLocked)
+            if (lockedCardIdxs.Contains(i))
             {
-                result.Add(lastCardInThisIndex);
+                result.Add(lastRoll[i]);
             }
             else
             {
-                result.Add(new SelectionCard()
-                {
-                    cardType = newListCard[i],
-                    isLocked = false,
-                    isSelected = false
-                });
+                result.Add(newListCard[i]);
             }
         }
         return result;

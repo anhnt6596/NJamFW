@@ -16,23 +16,31 @@ public class CardBar : MonoBehaviour
         game = App.Get<GameManager>().RunningGame;
 
         Game.OnCardRolled += OnCardRolled;
+        Game.OnCardLocked += OnCardLocked;
         DisplayCards();
     }
 
     private void OnDisable()
     {
         Game.OnCardRolled -= OnCardRolled;
+        Game.OnCardLocked -= OnCardLocked;
     }
     private void OnCardRolled() => DisplayCards();
 
+    private void OnCardLocked()
+    {
+        cardUIs.ForEach(c => c.DisplayLock());
+    }
+
+
     private void DisplayCards()
     {
-        var cards = game.SelectionCards.Cards;
+        var cards = game.State.cards;
         for (int i = 0; i < cardUIs.Count; i++)
         {
             if (i < cards.Count)
             {
-                cardUIs[i].SetCard(cards[i]);
+                cardUIs[i].SetCard(i, cards[i]);
                 cardUIs[i].gameObject.SetActive(true);
             }
             else

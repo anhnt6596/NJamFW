@@ -14,46 +14,33 @@ public class CardUI : MonoBehaviour
     [SerializeField] Image lockIcon;
     Game game;
 
-    public SelectionCard Card { get; private set; }
+    public int Index { get; private set; }
+    public CardEnum Card { get; private set; }
     public CardConfig CardConfig { get; private set; }
 
-    public void SetCard(SelectionCard card)
+    public void SetCard(int index, CardEnum card)
     {
         game = App.Get<GameManager>().RunningGame;
+        Index = index;
         Card = card;
-        CardConfig = Configs.GetCardConfig(card.cardType);
+        CardConfig = Configs.GetCardConfig(card);
         DisplayCardInfo();
-        DisplayLockInfo();
-    }
-
-    private void OnEnable()
-    {
-        Game.OnCardLocked += OnCardLocked;
-    }
-
-    private void OnDisable()
-    {
-        Game.OnCardLocked -= OnCardLocked;
-    }
-
-    private void OnCardLocked(SelectionCard card)
-    {
-        DisplayLockInfo();
+        DisplayLock();
     }
 
     private void DisplayCardInfo()
     {
-        cardArt.sprite = ResourceProvider.GetCardArt(Card.cardType);
-        cardName.text = Card.cardType.ToString();
+        cardArt.sprite = ResourceProvider.GetCardArt(Card);
+        cardName.text = Card.ToString();
         energy.text = CardConfig.GetCost().ToString();
     }
 
-    public void DisplayLockInfo()
+    public void DisplayLock()
     {
-        bool hasLockedCard = game.GetLockedCard() != null;
-        if (hasLockedCard)
+        bool isMaxLocked = game.IsMaxLockedCard;
+        if (isMaxLocked)
         {
-            if (Card.isLocked)
+            if (game.State.lockedCardIdxs.Contains(Index))
             {
                 lockButton.gameObject.SetActive(true);
                 lockIcon.sprite = ResourceProvider.Icon.locked;
@@ -72,6 +59,6 @@ public class CardUI : MonoBehaviour
 
     public void OnClickLock()
     {
-        game.DoLockCard(Card);
+        game.DoLockCard(Index);
     }
 }

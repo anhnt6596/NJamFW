@@ -8,7 +8,7 @@ public class Game
 {
     #region Game Events
     public static event Action OnCardRolled;
-    public static event Action<SelectionCard> OnCardLocked;
+    public static event Action OnCardLocked;
     #endregion Game Events
 
     public SelectionCards SelectionCards { get; }
@@ -37,18 +37,20 @@ public class Game
         RollSelectionCards();
     }
 
-    public SelectionCard GetLockedCard()
+    public List<int> GetLockedCard()
     {
-        return SelectionCards.Cards.FirstOrDefault(c => c.isLocked);
+        return State.lockedCardIdxs;
     }
 
-    public void DoLockCard(SelectionCard card)
-    {
-        if (GetLockedCard() != null) return;
+    public bool IsMaxLockedCard => State.lockedCardIdxs.Count >= Configs.GamePlay.MaxLockedCard;
 
-        var found = SelectionCards.Cards.First(c => c == card);
-        found.isLocked = true;
-        OnCardLocked?.Invoke(found);
+    public void DoLockCard(int cardIdx)
+    {
+        if (IsMaxLockedCard) return;
+        if (State.lockedCardIdxs.Contains(cardIdx)) return;
+
+        State.lockedCardIdxs.Add(cardIdx);
+        OnCardLocked?.Invoke();
     }
 
     private void RollSelectionCards()
