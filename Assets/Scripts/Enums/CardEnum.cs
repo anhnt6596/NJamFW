@@ -11,4 +11,5 @@ public enum CardEnum
     ArtilleryTowerBuff,
     IceAge,
     TimeFreeze,
+    FreeNext3Reroll,
 }

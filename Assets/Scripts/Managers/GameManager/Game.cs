@@ -1,14 +1,21 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Game
 {
+    #region Game Events
+    public event Action OnCardRolled;
+    #endregion Game Events
+
+    public SelectionCards SelectionCards { get; }
     public Game(int level, GameState state)
     {
         Level = level;
-        this.State = state;
+        State = state;
         gameConfig = Configs.GamePlay;
+        SelectionCards = new SelectionCards(this);
     }
     public GameState State { get; private set; }
     private GamePlayConfig gameConfig;
@@ -18,6 +25,20 @@ public class Game
     public void StartGame()
     {
         IsRunning = true;
+        RollSelectionCards();
+    }
+
+    public void PayToRerollCards()
+    {
+        if (State.energy < gameConfig.RerollCardCost) return;
+        IncreaseEnergy(-gameConfig.RerollCardCost);
+        RollSelectionCards();
+    }
+
+    private void RollSelectionCards()
+    {
+        SelectionCards.Roll();
+        OnCardRolled?.Invoke();
     }
 
     public void Update()

@@ -32,4 +32,9 @@ public static class ResourceProvider
     }
 
     public static SoundResourceSet Sound => GetSet<SoundResourceSet>();
+
+    public static Sprite GetCardArt(CardEnum card)
+    {
+        return Resources.Load<Sprite>($"Images/CardArts/{card.ToString()}");
+    }
 }

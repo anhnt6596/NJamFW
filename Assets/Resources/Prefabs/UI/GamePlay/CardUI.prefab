@@ -372,7 +372,7 @@ GameObject:
   - component: {fileID: 993707458844517061}
   - component: {fileID: 6525903741082927405}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: cardName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -506,6 +506,7 @@ GameObject:
   - component: {fileID: 7761775074692097336}
   - component: {fileID: 3207970877941167439}
   - component: {fileID: 9080522736399335507}
+  - component: {fileID: 7616789102614710849}
   m_Layer: 5
   m_Name: CardUI
   m_TagString: Untagged
@@ -587,3 +588,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 1
+--- !u!114 &7616789102614710849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4096431474178775543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d61fca871325a6e44912536d2b66920f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardArt: {fileID: 647315395040333919}
+  cardName: {fileID: 6525903741082927405}
+  energy: {fileID: 7681176612782511586}
