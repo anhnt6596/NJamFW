@@ -1,12 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Game
 {
     #region Game Events
-    public event Action OnCardRolled;
+    public static event Action OnCardRolled;
+    public static event Action<SelectionCard> OnCardLocked;
     #endregion Game Events
 
     public SelectionCards SelectionCards { get; }
@@ -33,6 +35,20 @@ public class Game
         if (State.energy < gameConfig.RerollCardCost) return;
         IncreaseEnergy(-gameConfig.RerollCardCost);
         RollSelectionCards();
+    }
+
+    public SelectionCard GetLockedCard()
+    {
+        return SelectionCards.Cards.FirstOrDefault(c => c.isLocked);
+    }
+
+    public void DoLockCard(SelectionCard card)
+    {
+        if (GetLockedCard() != null) return;
+
+        var found = SelectionCards.Cards.First(c => c == card);
+        found.isLocked = true;
+        OnCardLocked?.Invoke(found);
     }
 
     private void RollSelectionCards()

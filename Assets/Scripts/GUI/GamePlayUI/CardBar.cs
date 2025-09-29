@@ -15,13 +15,13 @@ public class CardBar : MonoBehaviour
     {
         game = App.Get<GameManager>().RunningGame;
 
-        game.OnCardRolled += OnCardRolled;
+        Game.OnCardRolled += OnCardRolled;
         DisplayCards();
     }
 
     private void OnDisable()
     {
-        game.OnCardRolled -= OnCardRolled;
+        Game.OnCardRolled -= OnCardRolled;
     }
     private void OnCardRolled() => DisplayCards();
 

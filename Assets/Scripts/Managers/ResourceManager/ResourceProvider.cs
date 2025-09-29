@@ -32,6 +32,7 @@ public static class ResourceProvider
     }
 
     public static SoundResourceSet Sound => GetSet<SoundResourceSet>();
+    public static IconResourceSet Icon => GetSet<IconResourceSet>();
 
     public static Sprite GetCardArt(CardEnum card)
     {
