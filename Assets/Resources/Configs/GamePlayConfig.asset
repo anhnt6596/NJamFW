@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseEnergyPerSec: 0.2
   maxEnergy: 10
-  rerollEnergy: 1
+  rerollCardCost: 1
   selectionCardNumber: 3
