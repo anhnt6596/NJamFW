@@ -37,11 +37,6 @@ public class Game
         RollSelectionCards();
     }
 
-    public List<int> GetLockedCard()
-    {
-        return State.lockedCardIdxs;
-    }
-
     public bool IsMaxLockedCard => State.lockedCardIdxs.Count >= Configs.GamePlay.MaxLockedCard;
 
     public void DoLockCard(int cardIdx)
@@ -51,6 +46,12 @@ public class Game
 
         State.lockedCardIdxs.Add(cardIdx);
         OnCardLocked?.Invoke();
+    }
+
+    public void DoSelectCard(int cardIdx)
+    {
+        State.selectedCardIdx = cardIdx;
+
     }
 
     private void RollSelectionCards()

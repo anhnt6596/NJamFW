@@ -12,4 +12,10 @@ public abstract class CardConfig : ScriptableObject
     public CardEnum Card => card;
     public int GetCost(int useTime = 0) => cost + useTime * escalatingCost;
     public bool IsUse => isUse;  // bien tam thoi, neu false thi la config khong duoc su dung
+
+    //public virtual void OnCardSelected()
+    //{
+    //    var game = App.Get<GameManager>().RunningGame;
+    //    game.
+    //}
 }

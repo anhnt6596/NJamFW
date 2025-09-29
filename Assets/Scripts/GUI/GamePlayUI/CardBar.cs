@@ -8,6 +8,7 @@ public class CardBar : MonoBehaviour
 {
     [SerializeField] List<CardUI> cardUIs;
     [SerializeField] Button rerollButton;
+    [SerializeField] Image rerollButtonEnergyLoad;
 
     Game game;
 
@@ -65,6 +66,8 @@ public class CardBar : MonoBehaviour
         rerollButton.interactable =
             game.IsRunning &&
             game.State.energy >= Configs.GamePlay.RerollCardCost;
+
+        rerollButtonEnergyLoad.fillAmount = Mathf.Clamp01(1 - game.State.energy / Configs.GamePlay.RerollCardCost);
     }
 
     public void OnClickReroll()

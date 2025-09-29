@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a24f2dcca4a256140bda161544727277, type: 3}
   m_Name: ArcherTower
   m_EditorClassIdentifier: 
-  card: 0
+  card: 1
   cost: 3
   escalatingCost: 1
+  isUse: 1
   tower: 0

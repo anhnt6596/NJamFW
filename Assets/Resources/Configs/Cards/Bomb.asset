@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ac7fdcbb4d777c48b7694f42484b760, type: 3}
   m_Name: Bomb
   m_EditorClassIdentifier: 
-  card: 4
+  card: 5
   cost: 1
   escalatingCost: 0
   isUse: 1

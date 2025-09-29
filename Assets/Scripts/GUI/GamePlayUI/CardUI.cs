@@ -12,6 +12,7 @@ public class CardUI : MonoBehaviour
     [SerializeField] TextMeshProUGUI energy;
     [SerializeField] Button lockButton;
     [SerializeField] Image lockIcon;
+    [SerializeField] Image energyLoadImg;
     Game game;
 
     public int Index { get; private set; }
@@ -60,5 +61,18 @@ public class CardUI : MonoBehaviour
     public void OnClickLock()
     {
         game.DoLockCard(Index);
+    }
+
+    public void OnClickSelectCard()
+    {
+        Debug.Log($"Card Selected | idx {Index} | type {Card}");
+        if (game.State.energy >= CardConfig.GetCost()) game.DoSelectCard(Index);
+    }
+
+    private void Update()
+    {
+        if (game == null) return;
+        //if (game.) neu trang thai game la dang pick card thi oke
+        energyLoadImg.fillAmount = Mathf.Clamp01(1 - game.State.energy / CardConfig.GetCost());
     }
 }

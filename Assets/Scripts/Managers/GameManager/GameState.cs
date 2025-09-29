@@ -17,4 +17,6 @@ public class GameState : ScriptableObject
         lockedCardIdxs = new List<int>();
         selectedCardIdx = -1;
     }
+
+    public CardEnum selectCard => cards.GetOrDefault(selectedCardIdx);
 }
