@@ -7,7 +7,7 @@ using UnityEngine;
 public class Game
 {
     #region Game Events
-    public static event Action OnCardRolled;
+    public static event Action OnCardsRolled;
     public static event Action OnCardLocked;
     #endregion Game Events
 
@@ -27,14 +27,14 @@ public class Game
     public void StartGame()
     {
         IsRunning = true;
-        RollSelectionCards();
+        RollCards();
     }
 
     public void PayToRerollCards()
     {
         if (State.energy < gameConfig.RerollCardCost) return;
         IncreaseEnergy(-gameConfig.RerollCardCost);
-        RollSelectionCards();
+        RollCards();
     }
 
     public bool IsMaxLockedCard => State.lockedCardIdxs.Count >= Configs.GamePlay.MaxLockedCard;
@@ -48,16 +48,36 @@ public class Game
         OnCardLocked?.Invoke();
     }
 
-    public void DoSelectCard(int cardIdx)
+    public float GetCardCost(CardEnum card)
     {
-        State.selectedCardIdx = cardIdx;
-
+        // them so luot da su dung card trong game vao day
+        var usedTime = State.selectedCards.Count(c => c == card);
+        return Configs.GetCardConfig(card).GetCost(usedTime);
     }
 
-    private void RollSelectionCards()
+    public void DoSelectCard(int cardIdx)
+    {
+        var cardEnum = State.cards[cardIdx];
+        var energyCost = GetCardCost(cardEnum);
+
+        if (State.energy < energyCost) return;
+
+        IncreaseEnergy(-energyCost);
+
+        if (State.lockedCardIdxs.Contains(cardIdx)) State.lockedCardIdxs.Remove(cardIdx);
+        State.selectingCardIdx = cardIdx;
+
+        // Do Card Action
+
+        // Test Skip qua phase action cua card, reroll luon
+        State.selectedCards.Add(cardEnum);
+        RollCards();
+    }
+
+    private void RollCards()
     {
         SelectionCards.Roll();
-        OnCardRolled?.Invoke();
+        OnCardsRolled?.Invoke();
     }
 
     public void Update()

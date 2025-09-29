@@ -8,15 +8,17 @@ public class GameState : ScriptableObject
     public float energy;
     public List<CardEnum> cards;
     public List<int> lockedCardIdxs;
-    public int selectedCardIdx;
+    public int selectingCardIdx;
+    public List<CardEnum> selectedCards;
 
     public void Reset()
     {
         energy = 0;
         cards = new List<CardEnum>();
         lockedCardIdxs = new List<int>();
-        selectedCardIdx = -1;
+        selectingCardIdx = -1;
+        selectedCards = new List<CardEnum>();
     }
 
-    public CardEnum selectCard => cards.GetOrDefault(selectedCardIdx);
+    public CardEnum selectCard => cards.GetOrDefault(selectingCardIdx);
 }

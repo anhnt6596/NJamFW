@@ -33,7 +33,7 @@ public class CardUI : MonoBehaviour
     {
         cardArt.sprite = ResourceProvider.GetCardArt(Card);
         cardName.text = Card.ToString();
-        energy.text = CardConfig.GetCost().ToString();
+        energy.text = game.GetCardCost(Card).ToString();
     }
 
     public void DisplayLock()
@@ -73,6 +73,6 @@ public class CardUI : MonoBehaviour
     {
         if (game == null) return;
         //if (game.) neu trang thai game la dang pick card thi oke
-        energyLoadImg.fillAmount = Mathf.Clamp01(1 - game.State.energy / CardConfig.GetCost());
+        energyLoadImg.fillAmount = Mathf.Clamp01(1 - game.State.energy / game.GetCardCost(Card));
     }
 }
