@@ -4,13 +4,12 @@ public enum CardEnum
     ArcherTower = 1,
     MageTower = 2,
     ArtilleryTower = 3,
-    Baracks = 4,
+
     Bomb = 5,
-    BombRain = 6,
-    AllTowerBuff = 7,
-    ArcherTowerBuff = 8,
-    ArtilleryTowerBuff = 9,
-    IceAge = 10,
+    Lightning = 6,
+    DarkHole = 7,
+    RollToEnergy = 8,
+
     TimeFreeze = 11,
     FreeBomb = 12,
     Add1Energy = 13,

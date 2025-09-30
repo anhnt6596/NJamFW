@@ -10,6 +10,7 @@ public class CardUI : MonoBehaviour
     [SerializeField] Image cardArt;
     [SerializeField] TextMeshProUGUI cardName;
     [SerializeField] TextMeshProUGUI energy;
+    [SerializeField] TextMeshProUGUI detail;
     [SerializeField] Button lockButton;
     [SerializeField] Image lockIcon;
     [SerializeField] Image energyLoadImg;
@@ -34,6 +35,7 @@ public class CardUI : MonoBehaviour
         cardArt.sprite = ResourceProvider.GetCardArt(Card);
         cardName.text = Card.ToString();
         energy.text = game.GetCardCost(Card).ToString();
+        detail.text = CardConfig.GetDetailInfo(game);
     }
 
     public void DisplayLock()

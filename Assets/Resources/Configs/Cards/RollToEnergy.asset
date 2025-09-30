@@ -9,12 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d808f76af4405a43979906cdfb77691, type: 3}
-  m_Name: Add1Energy
+  m_Script: {fileID: 11500000, guid: 42bb0414aef297a40a18ef6e2c4a9fbf, type: 3}
+  m_Name: RollToEnergy
   m_EditorClassIdentifier: 
-  card: 13
-  cost: 0
+  card: 8
+  cost: 2
   escalatingCost: 0
-  maxSellectedTime: 2
+  maxSellectedTime: 1
   isUse: 1
-  value: 1
+  requiredRoll: 5
+  energyEachRoll: 0.5

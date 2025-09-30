@@ -16,11 +16,12 @@ public abstract class CardConfig : ScriptableObject
     public virtual int GetCost(Game game)
     {
         var useTime = game.State.selectedCards.Count(c => c == card);
-        return cost + useTime * escalatingCost;
+        return Mathf.Clamp(cost + useTime * escalatingCost, 0, (int)Configs.GamePlay.MaxEnergy);
     }
     public bool IsUse => isUse;  // bien tam thoi, neu false thi la config khong duoc su dung
 
     public abstract void ApplySellectedEffect(Game game);
+    public virtual string GetDetailInfo(Game game) => "";
     public virtual bool CanBeRoll(Game game)
     {
         if (ReachLimitedRoll(game)) return false;

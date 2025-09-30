@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FreeBomb
   m_EditorClassIdentifier: 
   card: 12
-  cost: 5
+  cost: 3
   escalatingCost: 0
   maxSellectedTime: 1
   isUse: 1

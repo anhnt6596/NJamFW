@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,8 @@ public class GameState : ScriptableObject
     public int selectingCardIdx;
     public List<CardEnum> selectedCards;
     public int freeRoll;
+    public int autoRolled;
+    public int proactiveRolled;
 
     public void Reset()
     {
@@ -19,8 +22,12 @@ public class GameState : ScriptableObject
         lockedCardIdxs = new List<int>();
         selectingCardIdx = -1;
         selectedCards = new List<CardEnum>();
-        freeRoll = 0;
+        freeRoll = Configs.GamePlay.InitFreeReroll;
+        autoRolled = 0;
+        proactiveRolled = 0;
     }
-
+    public int energyFloor => Mathf.FloorToInt(energy);
     public CardEnum selectCard => cards.GetOrDefault(selectingCardIdx);
+    public int totalRolled => autoRolled + proactiveRolled;
+
 }

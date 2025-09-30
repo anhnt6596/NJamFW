@@ -27,7 +27,7 @@ public class Game
     public void StartGame()
     {
         IsRunning = true;
-        RollCards();
+        RollCards(true);
     }
 
     public void DoPayReroll()
@@ -80,13 +80,40 @@ public class Game
 
         // Test Skip qua phase action cua card, reroll luon
         State.selectedCards.Add(cardEnum);
-        RollCards();
+        RollCards(true);
     }
 
-    private void RollCards()
+    private void RollCards(bool isAutoRoll = false)
     {
         SelectionCards.Roll();
+
+        if (isAutoRoll) State.autoRolled++;
+        else
+        {
+            IncreaseEnergy(GetRollEnergy());
+            State.proactiveRolled++;
+        }
+
         OnCardsRolled?.Invoke();
+    }
+
+    private float GetRollEnergy()
+    {
+        float baseRollEnergy = 0;
+        foreach (var modifier in GetAllModifiers<IRollEnergyModifier>())
+        {
+            baseRollEnergy = modifier.ModifyRollEnergy(baseRollEnergy);
+        }
+        return baseRollEnergy;
+    }
+
+    private IEnumerable<T> GetAllModifiers<T>() where T: IModifier
+    {
+        foreach (var card in State.selectedCards)
+        {
+            var config = Configs.GetCardConfig(card);
+            if (config is T modifier) yield return modifier;
+        }
     }
 
     public void Update()

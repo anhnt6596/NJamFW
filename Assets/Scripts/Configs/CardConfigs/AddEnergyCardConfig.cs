@@ -12,4 +12,10 @@ public class AddEnergyCardConfig : CardConfig
     {
         game.IncreaseEnergy(value);
     }
+
+    public override bool CanBeRoll(Game game)
+    {
+        if (game.State.energyFloor > GetCost(game)) return false;
+        return base.CanBeRoll(game);
+    }
 }

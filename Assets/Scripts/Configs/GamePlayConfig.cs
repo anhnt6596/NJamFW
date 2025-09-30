@@ -8,12 +8,14 @@ public class GamePlayConfig : ScriptableObject
     [SerializeField] float baseEnergyPerSec = 0.1f;
     [SerializeField] float maxEnergy = 10f;
     [SerializeField] float rerollCardCost = 1f;
+    [SerializeField] int initFreeReroll = 1;
     [SerializeField] int selectionCardNumber = 3;
     [SerializeField] int maxLockedCard = 1;
 
     public float BaseEnergyPerSec => baseEnergyPerSec;
     public float MaxEnergy => maxEnergy;
     public float RerollCardCost => rerollCardCost;
+    public int InitFreeReroll => initFreeReroll;
     public int SelectionCardNumber => selectionCardNumber;
     public int MaxLockedCard => maxLockedCard;
 }

@@ -12,4 +12,10 @@ public class AddFreeRollCardConfig : CardConfig
     {
         game.State.freeRoll += value;
     }
+
+    public override bool CanBeRoll(Game game)
+    {
+        if (game.State.totalRolled < value) return false;
+        return base.CanBeRoll(game);
+    }
 }

@@ -9,12 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d808f76af4405a43979906cdfb77691, type: 3}
-  m_Name: Add1Energy
+  m_Script: {fileID: 11500000, guid: a7db9425e7daa40459f8166565511432, type: 3}
+  m_Name: Lightning
   m_EditorClassIdentifier: 
-  card: 13
+  card: 6
   cost: 0
-  escalatingCost: 0
-  maxSellectedTime: 2
+  escalatingCost: 1
+  maxSellectedTime: -1
   isUse: 1
-  value: 1
+  init: 1
+  increase: 2
+  damageEach: 50
+  damageType: 1
