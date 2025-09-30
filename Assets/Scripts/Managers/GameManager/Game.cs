@@ -30,10 +30,18 @@ public class Game
         RollCards();
     }
 
-    public void PayToRerollCards()
+    public void DoPayReroll()
     {
+        if (State.freeRoll > 0)
+        {
+            State.freeRoll--;
+            RollCards();
+            return;
+        }
+
         if (State.energy < gameConfig.RerollCardCost) return;
         IncreaseEnergy(-gameConfig.RerollCardCost);
+
         RollCards();
     }
 
@@ -52,7 +60,7 @@ public class Game
     {
         // them so luot da su dung card trong game vao day
         var usedTime = State.selectedCards.Count(c => c == card);
-        return Configs.GetCardConfig(card).GetCost(usedTime);
+        return Configs.GetCardConfig(card).GetCost(this);
     }
 
     public void DoSelectCard(int cardIdx)
@@ -68,6 +76,7 @@ public class Game
         State.selectingCardIdx = cardIdx;
 
         // Do Card Action
+        Configs.GetCardConfig(cardEnum).ApplySellectedEffect(this);
 
         // Test Skip qua phase action cua card, reroll luon
         State.selectedCards.Add(cardEnum);
@@ -90,7 +99,7 @@ public class Game
         IncreaseEnergy(gameConfig.BaseEnergyPerSec * Time.deltaTime);
     }
 
-    private void IncreaseEnergy(float value)
+    public void IncreaseEnergy(float value)
     {
         State.energy = Mathf.Clamp(State.energy + value, 0, gameConfig.MaxEnergy);
     }

@@ -1,21 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using static Lean.Touch.LeanSelectableByFinger;
 
 public abstract class CardConfig : ScriptableObject
 {
     [SerializeField] CardEnum card;
     [SerializeField] int cost = 1;
     [SerializeField] int escalatingCost = 0;
+    [SerializeField] int maxSellectedTime = -1;
     [SerializeField] bool isUse = true;
 
     public CardEnum Card => card;
-    public int GetCost(int useTime = 0) => cost + useTime * escalatingCost;
+    public virtual int GetCost(Game game)
+    {
+        var useTime = game.State.selectedCards.Count(c => c == card);
+        return cost + useTime * escalatingCost;
+    }
     public bool IsUse => isUse;  // bien tam thoi, neu false thi la config khong duoc su dung
 
-    //public virtual void OnCardSelected()
-    //{
-    //    var game = App.Get<GameManager>().RunningGame;
-    //    game.
-    //}
+    public abstract void ApplySellectedEffect(Game game);
+    public virtual bool CanBeRoll(Game game)
+    {
+        if (ReachLimitedRoll(game)) return false;
+        return true;
+    }
+
+    protected bool ReachLimitedRoll(Game game)
+    {
+        return (maxSellectedTime != -1 && game.State.selectedCards.Count(c => c == card) >= maxSellectedTime);
+    }
 }

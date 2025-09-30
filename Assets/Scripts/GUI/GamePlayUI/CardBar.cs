@@ -7,8 +7,6 @@ using UnityEngine.UI;
 public class CardBar : MonoBehaviour
 {
     [SerializeField] List<CardUI> cardUIs;
-    [SerializeField] Button rerollButton;
-    [SerializeField] Image rerollButtonEnergyLoad;
 
     Game game;
 
@@ -49,29 +47,5 @@ public class CardBar : MonoBehaviour
                 cardUIs[i].gameObject.SetActive(false);
             }
         }
-    }
-
-    public void DisplaySelectableCards()
-    {
-
-    }
-
-    private void Update()
-    {
-        DisplayRerollButtonStatus();
-    }
-
-    private void DisplayRerollButtonStatus()
-    {
-        rerollButton.interactable =
-            game.IsRunning &&
-            game.State.energy >= Configs.GamePlay.RerollCardCost;
-
-        rerollButtonEnergyLoad.fillAmount = Mathf.Clamp01(1 - game.State.energy / Configs.GamePlay.RerollCardCost);
-    }
-
-    public void OnClickReroll()
-    {
-        game.PayToRerollCards();
     }
 }

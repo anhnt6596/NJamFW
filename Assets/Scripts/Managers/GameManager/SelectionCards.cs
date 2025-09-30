@@ -43,7 +43,10 @@ public class SelectionCards
             }
         }
 
-        var rollableCards = RollableCards.Where(c => !lockedCards.Contains(c)).ToList();
+        var rollableCards = RollableCards
+            .Where(c => !lockedCards.Contains(c))
+            .Where(c => Configs.GetCardConfig(c).CanBeRoll(Game))
+            .ToList();
         var newListCard = RandomHelper.RandomUniqueList(rollableCards, Configs.GamePlay.SelectionCardNumber);
         for (int i = 0; i < newListCard.Count; i++)
         {

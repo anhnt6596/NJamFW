@@ -12,5 +12,9 @@ public enum CardEnum
     ArtilleryTowerBuff = 9,
     IceAge = 10,
     TimeFreeze = 11,
-    FreeNext3Reroll = 12,
+    FreeBomb = 12,
+    Add1Energy = 13,
+    Add5Energy = 14,
+    Add3Roll = 15,
+    Add7Roll = 16,
 }

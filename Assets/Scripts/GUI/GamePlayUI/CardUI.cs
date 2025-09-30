@@ -66,7 +66,7 @@ public class CardUI : MonoBehaviour
     public void OnClickSelectCard()
     {
         Debug.Log($"Card Selected | idx {Index} | type {Card}");
-        if (game.State.energy >= CardConfig.GetCost()) game.DoSelectCard(Index);
+        if (game.State.energy >= CardConfig.GetCost(game)) game.DoSelectCard(Index);
     }
 
     private void Update()
