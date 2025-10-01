@@ -7,12 +7,14 @@ public static class Configs
 {
     public static GamePlayConfig GamePlay;
     public static Dictionary<CardEnum, CardConfig> CardConfigs { get; } = new();
-    public static CardConfig GetCardConfig(CardEnum card) => CardConfigs.First(CardEnum => CardEnum.Key == card).Value;
-
+    public static Dictionary<EnemyEnum, EnemyConfig> EnemyConfigs { get; } = new();
+    public static CardConfig GetCardConfig(CardEnum card) => CardConfigs[card];
+    public static EnemyConfig GetEnemyConfig(EnemyEnum enemy) => EnemyConfigs[enemy];
     public static void Load()
     {
         GamePlay = (GamePlayConfig)Resources.LoadAll("", typeof(GamePlayConfig))[0];
         LoadCardConfigs();
+        LoadEnemyConfigs();
     }
 
     private static void LoadCardConfigs()
@@ -23,6 +25,16 @@ public static class Configs
         {
             var config = (CardConfig) configObj;
             if (!CardConfigs.ContainsKey(config.Card)) CardConfigs.Add(config.Card, config);
+        }
+    }
+    private static void LoadEnemyConfigs()
+    {
+        EnemyConfigs.Clear();
+        var allConfigs = Resources.LoadAll("", typeof(EnemyConfig));
+        foreach (var configObj in allConfigs)
+        {
+            var config = (EnemyConfig) configObj;
+            if (!EnemyConfigs.ContainsKey(config.EnemyEnum)) EnemyConfigs.Add(config.EnemyEnum, config);
         }
     }
 }
