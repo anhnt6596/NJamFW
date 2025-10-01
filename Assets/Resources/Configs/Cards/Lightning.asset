@@ -18,7 +18,7 @@ MonoBehaviour:
   maxSellectedTime: -1
   isUse: 1
   init: 1
-  increase: 2
-  damageEach: 75
-  maxEnergy: 5
+  increase: 1
+  damageEach: 50
+  maxEnergy: 3
   damageType: 1

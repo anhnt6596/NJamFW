@@ -11,6 +11,7 @@ public class EnemyVisual : MonoBehaviour
     public float speed = 0.5f;
     public float maxHP = 100f;
     public float HP;
+    public DeffenseStats def;
     public bool isDead => HP <= 0;
     public float movingDist = 0;
     public Transform healthNode;
@@ -53,10 +54,11 @@ public class EnemyVisual : MonoBehaviour
     }
 
 
-    public void TakeDamage(Damage dmg)
+    public void TakeDamage(Damage dmgInput)
     {
         if (HP <= 0) return;
-        HP -= dmg.amount;
+        var damageTake = GamePlayUtils.CalculateDamage(dmgInput, def);
+        HP -= dmgInput.amount;
         if (HP <= 0) Die();
     }
 

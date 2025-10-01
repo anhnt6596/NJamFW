@@ -94,7 +94,7 @@ public class Stage : MonoBehaviour
         }
     }
 
-    float delayEachLightning = 0.3f;
+    float delayEachLightning = 0.5f;
     float lightningTime = 0.25f;
     private void Lightning(Damage dmg)
     {

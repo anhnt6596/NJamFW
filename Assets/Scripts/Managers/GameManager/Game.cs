@@ -109,7 +109,7 @@ public class Game
         return baseRollEnergy;
     }
 
-    private IEnumerable<T> GetAllModifiers<T>() where T: IModifier
+    public IEnumerable<T> GetAllModifiers<T>() where T: IModifier
     {
         foreach (var card in State.selectedCards)
         {

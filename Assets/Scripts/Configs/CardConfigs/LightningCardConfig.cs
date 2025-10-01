@@ -14,8 +14,14 @@ public class LightningCardConfig : CardConfig
     public override void ApplySellectedEffect(Game game)
     {
         var times = GetLightingTime(game);
-        // Do Lightning Random Enemies "times" times
-        game.CastLightnings(times, new Damage(damageEach, DamageEnum.Magic));
+
+        float dmg = damageEach;
+        foreach (var modifier in game.GetAllModifiers<ILightningPowerModifier>())
+        {
+            dmg = modifier.ModifyLightningDamageEnergy(dmg);
+        }
+
+        game.CastLightnings(times, new Damage(dmg, DamageEnum.Magic));
     }
 
     public override string GetDetailInfo(Game game)
@@ -31,6 +37,6 @@ public class LightningCardConfig : CardConfig
 
     public override int GetCost(Game game)
     {
-        return Mathf.Clamp(0, base.GetCost(game), maxEnergy); 
+        return Mathf.Min(base.GetCost(game), maxEnergy); 
     }
 }

@@ -9,6 +9,7 @@ public enum CardEnum
     Lightning = 6,
     DarkHole = 7,
     RollToEnergy = 8,
+    LightningPower = 9,
 
     TimeFreeze = 11,
     FreeBomb = 12,
