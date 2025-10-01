@@ -8,9 +8,7 @@ using static CW.Common.CwInputManager;
 
 public class Level : MonoBehaviour
 {
-    [SerializeField] float spawnTime = 3f;
     [SerializeField] Transform enemyParent;
-    [SerializeField] EnemyVisual enemyPrefab;
     [SerializeField] Transform healthBarParent;
     
     public List<LineGroup> LineGroups { get; private set; } = new();
@@ -27,17 +25,19 @@ public class Level : MonoBehaviour
     {
         game = App.Get<GameManager>().RunningGame;
         Game.Lightnings += OnGameLightnings;
+        Game.StartNewWave += OnNewWaveStarted;
     }
 
     private void OnDisable()
     {
         Game.Lightnings -= OnGameLightnings;
+        Game.StartNewWave -= OnNewWaveStarted;
     }
 
-    void SpawnEnemy()
+    void SpawnEnemy(EnemyEnum enemyType, int gateIdx)
     {
-        var enemy = LeanPool.Spawn(enemyPrefab, enemyParent);
-        enemy.Setup(GetRandomMovingPath(Random.Range(0, LineGroups.Count)));
+        var enemy = LeanPool.Spawn(ResourceProvider.GetEnemyVisual(enemyType), enemyParent);
+        enemy.Setup(GetRandomMovingPath(gateIdx), Configs.GetEnemyConfig(enemyType));
         enemies.Add(enemy);
 
         var healthBar = LeanPool.Spawn(ResourceProvider.Component.HealthBar, healthBarParent);
@@ -73,16 +73,25 @@ public class Level : MonoBehaviour
         return lineGroup.GetRandomLine();
     }
 
-    float _spawnTimer;
-    float _lightningTimer;
     private void Update()
     {
-        _spawnTimer += Time.deltaTime;
-        _lightningTimer += Time.deltaTime;
-        if (_spawnTimer >= spawnTime)
+
+    }
+
+    private void OnNewWaveStarted(WaveConfig waveConfig)
+    {
+        foreach (var enemyGroup in waveConfig.EnemySpawnGroups)
         {
-            SpawnEnemy();
-            _spawnTimer -= spawnTime;
+            this.DelayCall(enemyGroup.Delay, () => SpawnSimulated(enemyGroup));
+        }
+    }
+
+    private void SpawnSimulated(EnemySpawnGroup group)
+    {
+        var space = group.Quantity == 0 ? 0 : group.SpawnTime / (group.Quantity);
+        for (int i = 0; i < group.Quantity; i++)
+        {
+            this.DelayCall(i * space, () => SpawnEnemy(group.Enemy, group.GateIdx));
         }
     }
 
@@ -108,5 +117,4 @@ public class Level : MonoBehaviour
             emenyTake.TakeDamage(dmg);
         });
     }
-
 }

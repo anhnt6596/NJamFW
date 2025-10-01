@@ -25,12 +25,11 @@ public class GameManager : MonoBehaviour, IManager
 
     }
 
-    public void StartNewGame(int level = 0)
+    public void CreateNewGame(int level = 0)
     {
         gameState.Reset();
         RunningGame = new Game(level, gameState);
         App.Get<ChangeSceneUI>().DoLoadScene(SceneName.GameScene);
-        RunningGame.StartGame();
     }
 
     public void PauseGame()

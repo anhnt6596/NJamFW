@@ -51,7 +51,7 @@ public class MenuContainer : MonoBehaviour
         }
     }
 
-    public void StartGame() => App.Get<GameManager>().StartNewGame();
+    public void StartGame() => App.Get<GameManager>().CreateNewGame();
     public void OpenAboutUsPopup() => App.Get<GUIManager>().ShowGui<AboutUsPopup>();
     public void OpenHelpPopup() => App.Get<GUIManager>().ShowGui<HelpPopup>();
 

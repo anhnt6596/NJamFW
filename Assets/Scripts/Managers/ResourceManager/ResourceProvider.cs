@@ -42,7 +42,7 @@ public static class ResourceProvider
         return Resources.Load<Sprite>($"Images/CardArts/{card}");
     }
 
-    public static EnemyVisual GetEnemyVisualArt(EnemyEnum enemy)
+    public static EnemyVisual GetEnemyVisual(EnemyEnum enemy)
     {
         return Resources.Load<EnemyVisual>($"Prefabs/Enemies/{enemy}");
     }

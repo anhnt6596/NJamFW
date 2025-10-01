@@ -7,6 +7,8 @@ using UnityEngine;
 public class Game
 {
     #region Game Events
+    public static event Action<WaveConfig> StartNewWave;
+
     public static event Action OnCardsRolled;
     public static event Action OnCardLocked;
 
@@ -18,18 +20,23 @@ public class Game
     {
         Level = level;
         State = state;
-        gameConfig = Configs.GamePlay;
+        GameConfig = Configs.GamePlay;
+        LevelConfig = Configs.GetLevelConfig(level);
         SelectionCards = new SelectionCards(this);
+        CurrentWave = -1;
     }
     public GameState State { get; private set; }
-    private GamePlayConfig gameConfig;
+    private GamePlayConfig GameConfig { get; set; }
+    private LevelConfig LevelConfig { get; set; }
     public int Level { get; }
+    public int CurrentWave { get; private set; }
     public bool IsRunning { get; private set; } = false;
 
     public void StartGame()
     {
         IsRunning = true;
         RollCards(true);
+        CheckRunNextWave();
     }
 
     public void DoPayReroll()
@@ -41,8 +48,8 @@ public class Game
             return;
         }
 
-        if (State.energy < gameConfig.RerollCardCost) return;
-        IncreaseEnergy(-gameConfig.RerollCardCost);
+        if (State.energy < GameConfig.RerollCardCost) return;
+        IncreaseEnergy(-GameConfig.RerollCardCost);
 
         RollCards();
     }
@@ -109,6 +116,20 @@ public class Game
         return baseRollEnergy;
     }
 
+    private void CheckRunNextWave()
+    {
+        CurrentWave++;
+        if (CurrentWave > LevelConfig.WaveCount)
+        {
+            // end game
+        }
+        else
+        {
+            var waveConfig = LevelConfig.GetWaveConfig(CurrentWave);
+            StartNewWave?.Invoke(waveConfig);
+        }
+    }
+
     public IEnumerable<T> GetAllModifiers<T>() where T: IModifier
     {
         foreach (var card in State.selectedCards)
@@ -125,12 +146,12 @@ public class Game
 
     private void UpdateEnergy()
     {
-        IncreaseEnergy(gameConfig.BaseEnergyPerSec * Time.deltaTime);
+        IncreaseEnergy(GameConfig.BaseEnergyPerSec * Time.deltaTime);
     }
 
     public void IncreaseEnergy(float value)
     {
-        State.energy = Mathf.Clamp(State.energy + value, 0, gameConfig.MaxEnergy);
+        State.energy = Mathf.Clamp(State.energy + value, 0, GameConfig.MaxEnergy);
     }
 
     #region Game Actions

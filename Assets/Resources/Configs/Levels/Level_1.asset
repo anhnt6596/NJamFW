@@ -10,14 +10,29 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4921543148624cb0b99b923a8e877596, type: 3}
-  m_Name: LevelConfig
+  m_Name: Level_1
   m_EditorClassIdentifier: Assembly-CSharp::LevelConfig
+  levelIdx: 0
   waveConfigs:
   - enemySpawnGroups:
-    - enemyEnum: 1
-      enemyCount: 1
-      gateIdx: 1
-    - enemyEnum: 2
-      enemyCount: 1
-      gateIdx: 1
-    spawnInterval: 1.5
+    - enemy: 1
+      quantity: 3
+      gateIdx: 0
+      delay: 0
+      spawnTime: 4
+    - enemy: 1
+      quantity: 3
+      gateIdx: 0
+      delay: 12
+      spawnTime: 4
+    - enemy: 1
+      quantity: 5
+      gateIdx: 0
+      delay: 24
+      spawnTime: 8
+    - enemy: 2
+      quantity: 1
+      gateIdx: 0
+      delay: 40
+      spawnTime: 8
+    waveMaxTime: 30

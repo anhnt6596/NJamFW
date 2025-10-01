@@ -8,8 +8,8 @@ using UnityEngine.U2D;
 public class EnemyVisual : MonoBehaviour
 {
     public IMovingPath line;
-    public float speed = 0.5f;
-    public float maxHP = 100f;
+    public float speed => config.Speed;
+    internal float maxHP => config.Hp;
     public float HP;
     public DeffenseStats def;
     public bool isDead => HP <= 0;
@@ -19,10 +19,14 @@ public class EnemyVisual : MonoBehaviour
     public System.Action<EnemyVisual> OnDeath;
     public System.Action<EnemyVisual> OnReachDestination;
 
-    public void Setup(IMovingPath line)
+    private EnemyConfig config;
+
+    public void Setup(IMovingPath line, EnemyConfig config)
     {
         this.line = line;
-        HP = maxHP;
+        this.config = config;
+        HP = config.Hp;
+        def = config.Def;
         movingDist = 0;
         transform.position = line.GetPointByDistance(0);
     }
@@ -58,7 +62,7 @@ public class EnemyVisual : MonoBehaviour
     {
         if (HP <= 0) return;
         var damageTake = GamePlayUtils.CalculateDamage(dmgInput, def);
-        HP -= dmgInput.amount;
+        HP -= damageTake.amount;
         if (HP <= 0) Die();
     }
 
