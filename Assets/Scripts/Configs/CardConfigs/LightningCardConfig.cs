@@ -6,7 +6,8 @@ using UnityEngine;
 public class LightningCardConfig : CardConfig
 {
     [SerializeField] int init = 1;
-    [SerializeField] int increase = 2;
+    [SerializeField] int increase = 1;
+    [SerializeField] int max = 10;
     [SerializeField] float damageEach = 100;
     [SerializeField] int maxEnergy = 3;
     [SerializeField] DamageEnum damageType = DamageEnum.Magic;
@@ -32,7 +33,7 @@ public class LightningCardConfig : CardConfig
     private int GetLightingTime(Game game)
     {
         var used = game.State.selectedCards.Count(c => c == CardEnum.Lightning);
-        return init + increase * used;
+        return Mathf.Min(init + increase * used, max);
     }
 
     public override int GetCost(Game game)

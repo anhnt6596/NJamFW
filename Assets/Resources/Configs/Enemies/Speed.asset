@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 589c6ea00bd54d8ab014f03ddba4899b, type: 3}
-  m_Name: MidTank
+  m_Name: Speed
   m_EditorClassIdentifier: 
-  enemyEnum: 2
-  hp: 100
-  speed: 1
+  type: 4
+  hp: 75
+  speed: 1.5
   damageToTower: 1
-  armor: 1
-  magicRes: 1
+  def:
+    armor: 0
+    magicRes: 0

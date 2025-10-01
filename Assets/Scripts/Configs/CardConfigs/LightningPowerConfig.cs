@@ -5,9 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "LightningPower", menuName = "Config/Card/Lightning Power")]
 public class LightningPowerConfig : CardConfig, ILightningPowerModifier
 {
-    [SerializeField] float damageIncrease = 25;
-
-    public float DamageIncrease => damageIncrease;
+    [SerializeField] float damageMult = 2;
+    [SerializeField] float lightningUsedToAppear = 5;
 
     public override void ApplySellectedEffect(Game game)
     {
@@ -16,17 +15,17 @@ public class LightningPowerConfig : CardConfig, ILightningPowerModifier
 
     public override bool CanBeRoll(Game game)
     {
-        if (!game.State.selectedCards.Contains(CardEnum.Lightning)) return false;
+        if (game.State.selectedCards.Count(c => c == CardEnum.Lightning) < lightningUsedToAppear) return false;
         return base.CanBeRoll(game);
     }
 
     public override string GetDetailInfo(Game game)
     {
-        return $"+Power";
+        return $"x{damageMult}DMG";
     }
 
     public float ModifyLightningDamageEnergy(float baseDmg)
     {
-        return baseDmg + damageIncrease;
+        return baseDmg * damageMult;
     }
 }

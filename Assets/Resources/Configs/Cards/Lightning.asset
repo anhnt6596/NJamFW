@@ -19,6 +19,7 @@ MonoBehaviour:
   isUse: 1
   init: 1
   increase: 1
-  damageEach: 50
+  max: 7
+  damageEach: 55
   maxEnergy: 3
   damageType: 1

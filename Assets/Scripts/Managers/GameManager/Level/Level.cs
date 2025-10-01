@@ -6,7 +6,7 @@ using System.Linq;
 using UnityEngine;
 using static CW.Common.CwInputManager;
 
-public class Stage : MonoBehaviour
+public class Level : MonoBehaviour
 {
     [SerializeField] float spawnTime = 3f;
     [SerializeField] Transform enemyParent;

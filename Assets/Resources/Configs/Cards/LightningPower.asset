@@ -15,6 +15,6 @@ MonoBehaviour:
   card: 9
   cost: 2
   escalatingCost: 0
-  maxSellectedTime: 2
+  maxSellectedTime: 1
   isUse: 1
-  damageIncrease: 25
+  damageIncrease: 2
