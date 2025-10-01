@@ -8,12 +8,14 @@ public class LightningCardConfig : CardConfig
     [SerializeField] int init = 1;
     [SerializeField] int increase = 2;
     [SerializeField] float damageEach = 100;
+    [SerializeField] int maxEnergy = 3;
     [SerializeField] DamageEnum damageType = DamageEnum.Magic;
 
     public override void ApplySellectedEffect(Game game)
     {
         var times = GetLightingTime(game);
         // Do Lightning Random Enemies "times" times
+        game.CastLightnings(times, new Damage(damageEach, DamageEnum.Magic));
     }
 
     public override string GetDetailInfo(Game game)
@@ -25,5 +27,10 @@ public class LightningCardConfig : CardConfig
     {
         var used = game.State.selectedCards.Count(c => c == CardEnum.Lightning);
         return init + increase * used;
+    }
+
+    public override int GetCost(Game game)
+    {
+        return Mathf.Clamp(0, base.GetCost(game), maxEnergy); 
     }
 }

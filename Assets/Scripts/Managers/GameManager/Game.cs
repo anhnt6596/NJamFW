@@ -9,6 +9,8 @@ public class Game
     #region Game Events
     public static event Action OnCardsRolled;
     public static event Action OnCardLocked;
+
+    public static event Action<int, Damage> Lightnings;
     #endregion Game Events
 
     public SelectionCards SelectionCards { get; }
@@ -130,4 +132,11 @@ public class Game
     {
         State.energy = Mathf.Clamp(State.energy + value, 0, gameConfig.MaxEnergy);
     }
+
+    #region Game Actions
+    public void CastLightnings(int times, Damage damage)
+    {
+        Lightnings?.Invoke(times, damage);
+    }
+    #endregion
 }

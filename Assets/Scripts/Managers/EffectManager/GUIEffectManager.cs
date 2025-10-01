@@ -18,7 +18,7 @@ public class GUIEffectManager : MonoBehaviour, IManager
     public ScreenText ShowScreenTextWP(string content, Vector3 wPos, Color color, GUILayer layer = GUILayer.GUI)
     {
         var screenPos = Camera.main.WorldToScreenPoint(wPos);
-        return ShowScreenText(content, wPos, color, layer);
+        return ShowScreenText(content, screenPos, color, layer);
     }
 
     public ScreenText ShowScreenText(string content, Vector3 screenPos, Color color, GUILayer layer = GUILayer.GUI)

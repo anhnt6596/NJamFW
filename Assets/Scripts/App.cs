@@ -20,6 +20,7 @@ public class App : BaseApp
         AddManager(gameObject.GetComponentInChildren<GUIManager>());
         AddManager(gameObject.GetComponentInChildren<ChangeSceneUI>());
         AddManager(gameObject.GetComponentInChildren<GUIEffectManager>());
+        AddManager(gameObject.GetComponentInChildren<EffectManager>());
         AddManager(gameObject.GetComponentInChildren<GameManager>());
     }
 

@@ -9,16 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7db9425e7daa40459f8166565511432, type: 3}
-  m_Name: Lightning
+  m_Script: {fileID: 11500000, guid: 53866499fad31c149ae7b34eb5787790, type: 3}
+  m_Name: StageSet
   m_EditorClassIdentifier: 
-  card: 6
-  cost: 0
-  escalatingCost: 1
-  maxSellectedTime: -1
-  isUse: 1
-  init: 1
-  increase: 2
-  damageEach: 75
-  maxEnergy: 5
-  damageType: 1
+  stages:
+  - {fileID: 4221542479547220379, guid: 8104a301a412a304d9e6af6cc7cc7b85, type: 3}

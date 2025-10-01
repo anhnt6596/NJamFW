@@ -33,6 +33,9 @@ public static class ResourceProvider
 
     public static SoundResourceSet Sound => GetSet<SoundResourceSet>();
     public static IconResourceSet Icon => GetSet<IconResourceSet>();
+    public static GameComponentSet Component => GetSet<GameComponentSet>();
+    public static EffectSet Effect => GetSet<EffectSet>();
+    public static Stage GetStage(int stageIdx) => GetSet<StageSet>().stages[stageIdx];
 
     public static Sprite GetCardArt(CardEnum card)
     {

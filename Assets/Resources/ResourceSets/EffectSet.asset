@@ -9,16 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7db9425e7daa40459f8166565511432, type: 3}
-  m_Name: Lightning
+  m_Script: {fileID: 11500000, guid: 9c506757aad343448a0ac24715a80149, type: 3}
+  m_Name: EffectSet
   m_EditorClassIdentifier: 
-  card: 6
-  cost: 0
-  escalatingCost: 1
-  maxSellectedTime: -1
-  isUse: 1
-  init: 1
-  increase: 2
-  damageEach: 75
-  maxEnergy: 5
-  damageType: 1
+  lazerBlue: {fileID: 335701130982456758, guid: 6f35ccbeb00794040ac4b65146c8fd7e, type: 3}
