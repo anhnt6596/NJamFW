@@ -25,11 +25,8 @@ public class EffectManager : MonoBehaviour, IManager
         var pos = wPos + Vector3.up * 2.2f;
         pos = GamePlayUtils.Y2Z(pos, -0.2f);
 
-        ParticleSystem effectLazer = ResourceProvider.Effect.lazerBlue;
-        if (upgraded)
-        {
-            effectLazer = ResourceProvider.Effect.lazerPurple;
-        }
+        ParticleSystem effectLazer = upgraded ? ResourceProvider.Effect.lazerPurple : ResourceProvider.Effect.lazerBlue;
+
         var lightning = LeanPool.Spawn(effectLazer, pos, Quaternion.identity, transform);
         lightning.Play();
         lightning.transform.localScale = Vector3.one * 0.5f;

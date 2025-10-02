@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e4f886127924e949a121cf3d8df114f, type: 3}
   m_Name: GameState
   m_EditorClassIdentifier: 
-  energy: 1.4857877
-  cards: 10000000080000000f000000
+  energy: 2.203151
+  cards: 0e0000000500000006000000
   lockedCardIdxs: 
-  selectingCardIdx: 0
-  selectedCards: 0d0000000b0000000b000000
-  freeRoll: 9994
-  autoRolled: 4
-  proactiveRolled: 6
+  selectingCardIdx: 1
+  selectedCards: 090000000d00000006000000
+  freeRoll: 1
+  autoRolled: 3
+  proactiveRolled: 0

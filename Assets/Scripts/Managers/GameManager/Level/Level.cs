@@ -117,18 +117,13 @@ public class Level : MonoBehaviour
         if (enemies.Count == 0) return;
         var emenyTake = enemies[Random.Range(0, enemies.Count)];
 
-        bool upgradedLightning = game.SelectionCards.Cards.Contains(CardEnum.LightningPower);
+        bool upgradedLightning = game.State.selectedCards.Contains(CardEnum.LightningPower);
         App.Get<EffectManager>().SpawnLightning(emenyTake.GetFuturePosition(lightningTime),upgradedLightning);
 
-        Damage tempDmg = new Damage(dmg.amount, dmg.type);
-        if (upgradedLightning)
-        {
-            tempDmg *= 2;
-        }
         this.DelayCall(lightningTime, () =>
         {
             if (emenyTake.isDead) return;
-            emenyTake.TakeDamage(tempDmg);
+            emenyTake.TakeDamage(dmg);
         });
     }
 
