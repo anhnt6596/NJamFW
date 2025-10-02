@@ -6,10 +6,6 @@ using UnityEngine;
 public class FreeBombCardConfig : CardConfig
 {
     [SerializeField] int bombUsed = 2;
-    public override void ApplySellectedEffect(Game game)
-    {
-        // sau nay se co cac the co modifier
-    }
     public override bool CanBeRoll(Game game)
     {
         if (game.State.selectedCards.Count(c => c == CardEnum.Bomb) < bombUsed) return false;

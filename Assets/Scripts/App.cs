@@ -27,11 +27,6 @@ public class App : BaseApp
     protected override void StartApp()
     {
         Get<SceneService>().LoadScene(SceneName.MenuScene);
-        // TODO Test ScreenText
-        ActionService.Sub<TouchDownAction>(action =>
-        {
-            Get<GUIEffectManager>().ShowScreenText("AAAAA", action.Finger.ScreenPosition, Color.white);
-        });
     }
 
     private void OnApplicationQuit()

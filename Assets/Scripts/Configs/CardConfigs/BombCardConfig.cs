@@ -4,11 +4,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Bomb", menuName = "Config/Card/Bomb")]
 public class BombCardConfig : CardConfig
 {
-    [SerializeField] float damageValue;
-    [SerializeField] DamageEnum damageType;
+    [SerializeField] Damage damage;
+    [SerializeField] Vector2 radius;
 
-    public float Damage => damageValue;
-    public DamageEnum DamageType => damageType;
+    public Damage Damage => damage;
+    public Vector2 Radius => radius;
 
     public override int GetCost(Game game)
     {
@@ -16,8 +16,8 @@ public class BombCardConfig : CardConfig
         return base.GetCost(game);
     }
 
-    public override void ApplySellectedEffect(Game game)
+    public override InputStateEnum ApplySellectedEffect(Game game)
     {
-        // change state to bomb
+        return InputStateEnum.PlacingBomb;
     }
 }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Unity.Burst.Intrinsics;
+using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
@@ -35,11 +36,9 @@ public class Tower : MonoBehaviour
         {
             Vector2 diff = e.transform.position - transform.position;
             var remainDest = e.remainingDist;
-            // --- check ellipse ---
-            float val = (diff.x * diff.x) / (rangeX * rangeX) +
-                        (diff.y * diff.y) / (rangeY * rangeY);
+            var inRange = GamePlayUtils.IsInRange(e.transform.position, transform.position, rangeX, rangeY);
 
-            if (val <= 1f && remainDest < nearestDest)
+            if (inRange && remainDest < nearestDest)
             {
                 nearestDest = remainDest;
                 target = e;

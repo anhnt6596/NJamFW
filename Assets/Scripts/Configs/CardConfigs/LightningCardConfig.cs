@@ -12,7 +12,7 @@ public class LightningCardConfig : CardConfig
     [SerializeField] int maxEnergy = 3;
     [SerializeField] DamageEnum damageType = DamageEnum.Magic;
 
-    public override void ApplySellectedEffect(Game game)
+    public override InputStateEnum ApplySellectedEffect(Game game)
     {
         var times = GetLightingTime(game);
 
@@ -23,6 +23,8 @@ public class LightningCardConfig : CardConfig
         }
 
         game.CastLightnings(times, new Damage(dmg, damageType));
+
+        return InputStateEnum.None;
     }
 
     public override string GetDetailInfo(Game game)

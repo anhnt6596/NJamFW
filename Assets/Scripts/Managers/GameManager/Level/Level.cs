@@ -28,6 +28,7 @@ public class Level : MonoBehaviour
 
         Game.Lightnings += OnGameLightnings;
         Game.FreezeAllEnemies += OnAllEnemiesFroze;
+        Game.BombDrop += OnBombDropped;
     }
 
     private void OnDisable()
@@ -36,6 +37,7 @@ public class Level : MonoBehaviour
 
         Game.Lightnings -= OnGameLightnings;
         Game.FreezeAllEnemies -= OnAllEnemiesFroze;
+        Game.BombDrop -= OnBombDropped;
     }
 
     void SpawnEnemy(EnemyEnum enemyType, int gateIdx)
@@ -130,5 +132,19 @@ public class Level : MonoBehaviour
             if (status != null) status.@params[0] = Mathf.Max(status.@params[0], duration);
             else enemy.statusList.Add(new UnitStatus(UnitStatusEnum.TimeFrozen, duration));
         }
+    }
+
+    private void OnBombDropped(Vector3 position, Damage damage, Vector2 radius)
+    {
+        this.DelayCall(0, () =>
+        {
+            App.Get<EffectManager>().SpawnBombEffect(position);
+            for (int i = enemies.Count; i > 0; i--)
+            {
+                var enemy = enemies[i - 1];
+                var v = GamePlayUtils.CheckElipse(enemy.transform.position, position, radius.x, radius.y);
+                if (v < 1) enemy.TakeDamage(damage * GamePlayUtils.GetAoEDamageMultiplier(v, 0.45f));
+            }
+        });
     }
 }

@@ -9,10 +9,6 @@ public class DarkHoleConfig : CardConfig
     [SerializeField] DamageEnum damageType = DamageEnum.True;
     [SerializeField] int appearAtTotalRoll = 15;
 
-    public override void ApplySellectedEffect(Game game)
-    {
-        // Deal damage to all enemies
-    }
     public override bool CanBeRoll(Game game)
     {
         if (game.State.totalRolled < appearAtTotalRoll) return false;

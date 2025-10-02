@@ -20,7 +20,10 @@ public abstract class CardConfig : ScriptableObject
     }
     public bool IsUse => isUse;  // bien tam thoi, neu false thi la config khong duoc su dung
 
-    public abstract void ApplySellectedEffect(Game game);
+    public virtual InputStateEnum ApplySellectedEffect(Game game)
+    {
+        return InputStateEnum.None;
+    }
     public virtual string GetDetailInfo(Game game) => "";
     public virtual bool CanBeRoll(Game game)
     {

@@ -8,9 +8,10 @@ public class AddEnergyCardConfig : CardConfig
 
     public float Value => value;
 
-    public override void ApplySellectedEffect(Game game)
+    public override InputStateEnum ApplySellectedEffect(Game game)
     {
         game.IncreaseEnergy(value);
+        return InputStateEnum.None;
     }
 
     public override bool CanBeRoll(Game game)

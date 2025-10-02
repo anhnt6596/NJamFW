@@ -8,9 +8,10 @@ public class AddFreeRollCardConfig : CardConfig
 
     public float Value => value;
 
-    public override void ApplySellectedEffect(Game game)
+    public override InputStateEnum ApplySellectedEffect(Game game)
     {
         game.State.freeRoll += value;
+        return base.ApplySellectedEffect(game);
     }
 
     public override bool CanBeRoll(Game game)

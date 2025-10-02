@@ -8,8 +8,6 @@ public class RollToEnergyCardConfig : CardConfig, IRollEnergyModifier
     [SerializeField] int requiredRoll = 5;
     [SerializeField] float energyEachRoll = 0.5f;
 
-    public override void ApplySellectedEffect(Game game) { }
-
     public override string GetDetailInfo(Game game)
     {
         return $"+{energyEachRoll}";

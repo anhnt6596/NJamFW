@@ -7,10 +7,11 @@ public class TimeFreezeCardConfig : CardConfig
 {
     [SerializeField] float freezeTime = 5;
     [SerializeField] int appearAtTotalRoll = 4;
-    public override void ApplySellectedEffect(Game game)
+    public override InputStateEnum ApplySellectedEffect(Game game)
     {
         // all enemy freeze for freezeTime seconds
         game.DoFrozenAllEnemies(freezeTime);
+        return InputStateEnum.None;
     }
     public override bool CanBeRoll(Game game)
     {

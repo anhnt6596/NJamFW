@@ -8,11 +8,6 @@ public class LightningPowerConfig : CardConfig, ILightningPowerModifier
     [SerializeField] float damageMult = 2;
     [SerializeField] float lightningUsedToAppear = 5;
 
-    public override void ApplySellectedEffect(Game game)
-    {
-        // do nothing
-    }
-
     public override bool CanBeRoll(Game game)
     {
         if (game.State.selectedCards.Count(c => c == CardEnum.Lightning) < lightningUsedToAppear) return false;

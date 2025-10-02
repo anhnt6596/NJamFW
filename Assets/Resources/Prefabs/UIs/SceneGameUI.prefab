@@ -235,9 +235,29 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4784256776793825176}
     m_Modifications:
+    - target: {fileID: 749515161167164685, guid: dfb1e298bc9fcf94fb36d646b9e66916, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 749515161167164685, guid: dfb1e298bc9fcf94fb36d646b9e66916, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 749515161167164685, guid: dfb1e298bc9fcf94fb36d646b9e66916, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 749515161167164685, guid: dfb1e298bc9fcf94fb36d646b9e66916, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1594727728574929923, guid: dfb1e298bc9fcf94fb36d646b9e66916, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -25.519775
+      objectReference: {fileID: 0}
+    - target: {fileID: 3205002784881687155, guid: dfb1e298bc9fcf94fb36d646b9e66916, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3205943885766470974, guid: dfb1e298bc9fcf94fb36d646b9e66916, type: 3}
       propertyPath: m_Pivot.x
@@ -321,7 +341,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3632836445121438644, guid: dfb1e298bc9fcf94fb36d646b9e66916, type: 3}
       propertyPath: m_Name
-      value: CardBar
+      value: GameUIBar
       objectReference: {fileID: 0}
     - target: {fileID: 5101932250844936383, guid: dfb1e298bc9fcf94fb36d646b9e66916, type: 3}
       propertyPath: m_AnchorMax.y
@@ -339,6 +359,22 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5791861429354527532, guid: dfb1e298bc9fcf94fb36d646b9e66916, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5791861429354527532, guid: dfb1e298bc9fcf94fb36d646b9e66916, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5791861429354527532, guid: dfb1e298bc9fcf94fb36d646b9e66916, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 5791861429354527532, guid: dfb1e298bc9fcf94fb36d646b9e66916, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -63
+      objectReference: {fileID: 0}
     - target: {fileID: 5871123770959531668, guid: dfb1e298bc9fcf94fb36d646b9e66916, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -370,6 +406,10 @@ PrefabInstance:
     - target: {fileID: 6643024609899240355, guid: dfb1e298bc9fcf94fb36d646b9e66916, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7460945217772201401, guid: dfb1e298bc9fcf94fb36d646b9e66916, type: 3}
+      propertyPath: m_text
+      value: Tab to drop Bomb
       objectReference: {fileID: 0}
     - target: {fileID: 8939206473767434421, guid: dfb1e298bc9fcf94fb36d646b9e66916, type: 3}
       propertyPath: m_AnchorMax.x

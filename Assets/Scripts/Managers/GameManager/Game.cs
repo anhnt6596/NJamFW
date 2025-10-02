@@ -9,11 +9,13 @@ public class Game
     #region Game Events
     public static event Action<WaveConfig> StartNewWave;
 
+    public static event Action<InputStateEnum> OnInputStateChanged;
     public static event Action OnCardsRolled;
     public static event Action OnCardLocked;
 
     public static event Action<int, Damage> Lightnings;
     public static event Action<float> FreezeAllEnemies;
+    public static event Action<Vector3, Damage, Vector2> BombDrop;
     #endregion Game Events
 
     public SelectionCards SelectionCards { get; }
@@ -31,6 +33,19 @@ public class Game
     private LevelConfig LevelConfig { get; set; }
     public int Level { get; }
     public int CurrentWave { get; private set; }
+    private InputStateEnum _inputStateEnum;
+    public InputStateEnum InputStateEnum
+    {
+        get => _inputStateEnum;
+        private set
+        {
+            if (_inputStateEnum != value)
+            {
+                _inputStateEnum = value;
+                OnInputStateChanged?.Invoke(_inputStateEnum);
+            }
+        }
+    }
     public bool IsRunning { get; private set; } = false;
 
     public void StartGame()
@@ -86,11 +101,16 @@ public class Game
         State.selectingCardIdx = cardIdx;
 
         // Do Card Action
-        Configs.GetCardConfig(cardEnum).ApplySellectedEffect(this);
-
-        // Test Skip qua phase action cua card, reroll luon
+        var inputState = Configs.GetCardConfig(cardEnum).ApplySellectedEffect(this);
         State.selectedCards.Add(cardEnum);
-        RollCards(true);
+        if (inputState == InputStateEnum.None || inputState == InputStateEnum.SelectingCard)
+        {
+            RollCards(true);
+        }
+        else
+        {
+            InputStateEnum = inputState;
+        }
     }
 
     private void RollCards(bool isAutoRoll = false)
@@ -104,6 +124,7 @@ public class Game
             State.proactiveRolled++;
         }
 
+        InputStateEnum = InputStateEnum.SelectingCard;
         OnCardsRolled?.Invoke();
     }
 
@@ -163,6 +184,15 @@ public class Game
     public void DoFrozenAllEnemies(float duration)
     {
         FreezeAllEnemies?.Invoke(duration);
+    }
+
+    public void DropBomb(Vector3 position)
+    {
+        if (InputStateEnum != InputStateEnum.PlacingBomb) return;
+        // hardcode goi config, sau nay lay dmg va radius tu modifier
+        var config = ((BombCardConfig)Configs.GetCardConfig(CardEnum.Bomb));
+        BombDrop?.Invoke(position, config.Damage, config.Radius);
+        RollCards(true);
     }
     #endregion
 }

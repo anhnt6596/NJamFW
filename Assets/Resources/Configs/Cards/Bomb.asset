@@ -15,6 +15,9 @@ MonoBehaviour:
   card: 5
   cost: 1
   escalatingCost: 0
+  maxSellectedTime: -1
   isUse: 1
-  damageValue: 100
-  damageType: 0
+  damage:
+    amount: 100
+    type: 0
+  radius: {x: 1, y: 0.7}

@@ -18,8 +18,6 @@ public class ZSort : MonoBehaviour
 
     void ApplyZSort()
     {
-        Vector3 pos = transform.position;
-        pos.z = pos.y * zOffsetFactor + extraOffset;
-        transform.position = pos;
+        transform.position = GamePlayUtils.Y2Z(transform.position, extraOffset);
     }
 }

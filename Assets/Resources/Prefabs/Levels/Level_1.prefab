@@ -635,7 +635,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 600123193385201067, guid: 799c526de19d1444499c6c1dd3c74244, type: 3}
   firePoint: {fileID: 3265915071557149751}
   damage:
-    amount: 20
+    amount: 5
     type: 0
 --- !u!114 &1558713481203976908
 MonoBehaviour:
@@ -1671,7 +1671,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 600123193385201067, guid: 799c526de19d1444499c6c1dd3c74244, type: 3}
   firePoint: {fileID: 2455054107835332719}
   damage:
-    amount: 20
+    amount: 5
     type: 0
 --- !u!114 &6439953381676166775
 MonoBehaviour:
@@ -2937,7 +2937,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 600123193385201067, guid: 799c526de19d1444499c6c1dd3c74244, type: 3}
   firePoint: {fileID: 2800697375673638514}
   damage:
-    amount: 20
+    amount: 5
     type: 0
 --- !u!114 &1621499233648196201
 MonoBehaviour:
