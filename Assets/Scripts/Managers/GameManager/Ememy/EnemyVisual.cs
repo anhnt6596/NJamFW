@@ -5,21 +5,14 @@ using System.Numerics;
 using UnityEngine;
 using UnityEngine.U2D;
 
-public class EnemyVisual : MonoBehaviour
+public class EnemyVisual : Unit
 {
-    public IMovingPath line;
-    public float speed => config.Speed;
-    internal float maxHP => config.Hp;
-    public float HP;
-    public DeffenseStats def;
-    public bool isDead => HP <= 0;
-    public float movingDist = 0;
-    public Transform healthNode;
-
-    public System.Action<EnemyVisual> OnDeath;
-    public System.Action<EnemyVisual> OnReachDestination;
-
     private EnemyConfig config;
+    public override float speed => config.Speed;
+    public override float maxHP => config.Hp;
+    public float movingDist = 0;
+    public IMovingPath line;
+    public System.Action<EnemyVisual> OnReachDestination;
 
     public void Setup(IMovingPath line, EnemyConfig config)
     {
@@ -29,6 +22,7 @@ public class EnemyVisual : MonoBehaviour
         def = config.Def;
         movingDist = 0;
         transform.position = line.GetPointByDistance(0);
+        statusList = new();
     }
 
     private void Update()
@@ -36,18 +30,49 @@ public class EnemyVisual : MonoBehaviour
         if (line == null) return;
         if (isDead) return;
 
+        ProcessMoving();
+        ApplyUpdateStatus();
+    }
+
+    private void ProcessMoving()
+    {
+        if (statusList.Exists(s => s.type == UnitStatusEnum.TimeFrozen)) return;
         // moving
         movingDist += Time.deltaTime * speed;
-
-        // check reach destination
         float totalLen = line.GetTotalLength();
-        if (movingDist >= totalLen)
+        if (movingDist >= totalLen) ReachDestination();
+        else transform.position = line.GetPointByDistance(movingDist);
+    }
+
+    private void ApplyUpdateStatus()
+    {
+        for (int i = statusList.Count; i > 0; i--)
         {
-            ReachDestination();
-        }
-        else
-        {
-            transform.position = line.GetPointByDistance(movingDist);
+            var status = statusList[i - 1];
+            switch (status.type)
+            {
+                //case UnitStatusEnum.Burning:
+                //    if (s.@params.Count < 2) break;
+                //    float burnDmg = s.@params[0];
+                //    float burnDur = s.@params[1];
+                //    TakeDamage(new Damage() { amount = burnDmg * Time.deltaTime, type = DamageType.Fire });
+                //    s.@params[1] -= Time.deltaTime;
+                //    if (s.@params[1] <= 0) s.@params[1] = 0;
+                //    break;
+                //case UnitStatusEnum.Poisoned:
+                //    if (s.@params.Count < 2) break;
+                //    float poisonDmg = s.@params[0];
+                //    float poisonDur = s.@params[1];
+                //    TakeDamage(new Damage() { amount = poisonDmg * Time.deltaTime, type = DamageType.Poison });
+                //    s.@params[1] -= Time.deltaTime;
+                //    if (s.@params[1] <= 0) s.@params[1] = 0;
+                //    break;
+                case UnitStatusEnum.TimeFrozen:
+                    float frozenDur = status.@params[0];
+                    status.@params[0] -= Time.deltaTime;
+                    if (status.@params[0] <= 0) statusList.Remove(status);
+                    break;
+            }
         }
     }
 
@@ -57,38 +82,9 @@ public class EnemyVisual : MonoBehaviour
         Destroy(gameObject);
     }
 
-
-    public void TakeDamage(Damage dmgInput)
-    {
-        if (HP <= 0) return;
-        var damageTake = GamePlayUtils.CalculateDamage(dmgInput, def);
-        HP -= damageTake.amount;
-        if (HP <= 0) Die();
-    }
-
-    void Die()
-    {
-        if (UnityEngine.Random.Range(0f, 1f) < 0.5f)
-        {
-            var text = dieText[UnityEngine.Random.Range(0, dieText.Count)];
-            App.Get<GUIEffectManager>().ShowScreenTextWP(text, healthNode.position, Color.white);
-        }
-        OnDeath?.Invoke(this);
-    }
-
     public UnityEngine.Vector3 GetFuturePosition(float v)
     {
         float futureDist = movingDist + speed * v;
         return line.GetPointByDistance(futureDist);
     }
-
-    List<string> dieText = new List<string>()
-    {
-        "!",
-        "?",
-        "A",
-        "No Way",
-        "Avenge me!",
-        "Good Bye",
-    };
 }

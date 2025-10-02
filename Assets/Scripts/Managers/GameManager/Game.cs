@@ -13,6 +13,7 @@ public class Game
     public static event Action OnCardLocked;
 
     public static event Action<int, Damage> Lightnings;
+    public static event Action<float> FreezeAllEnemies;
     #endregion Game Events
 
     public SelectionCards SelectionCards { get; }
@@ -158,6 +159,10 @@ public class Game
     public void CastLightnings(int times, Damage damage)
     {
         Lightnings?.Invoke(times, damage);
+    }
+    public void DoFrozenAllEnemies(float duration)
+    {
+        FreezeAllEnemies?.Invoke(duration);
     }
     #endregion
 }

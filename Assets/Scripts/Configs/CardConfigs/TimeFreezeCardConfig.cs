@@ -10,6 +10,7 @@ public class TimeFreezeCardConfig : CardConfig
     public override void ApplySellectedEffect(Game game)
     {
         // all enemy freeze for freezeTime seconds
+        game.DoFrozenAllEnemies(freezeTime);
     }
     public override bool CanBeRoll(Game game)
     {

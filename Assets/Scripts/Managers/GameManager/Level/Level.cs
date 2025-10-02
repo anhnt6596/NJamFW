@@ -24,14 +24,18 @@ public class Level : MonoBehaviour
     private void OnEnable()
     {
         game = App.Get<GameManager>().RunningGame;
-        Game.Lightnings += OnGameLightnings;
         Game.StartNewWave += OnNewWaveStarted;
+
+        Game.Lightnings += OnGameLightnings;
+        Game.FreezeAllEnemies += OnAllEnemiesFroze;
     }
 
     private void OnDisable()
     {
-        Game.Lightnings -= OnGameLightnings;
         Game.StartNewWave -= OnNewWaveStarted;
+
+        Game.Lightnings -= OnGameLightnings;
+        Game.FreezeAllEnemies -= OnAllEnemiesFroze;
     }
 
     void SpawnEnemy(EnemyEnum enemyType, int gateIdx)
@@ -57,9 +61,9 @@ public class Level : MonoBehaviour
         LeanPool.Despawn(healthBars.First(h => h.Target == enemy));
     }
 
-    private void OnEnemyDeath(EnemyVisual emeny)
+    private void OnEnemyDeath(Unit enemy)
     {
-        DespawnEnemy(emeny);
+        DespawnEnemy((EnemyVisual)enemy);
     }
 
     private void OnEnemyReachDestination(EnemyVisual emeny)
@@ -116,5 +120,15 @@ public class Level : MonoBehaviour
             if (emenyTake.isDead) return;
             emenyTake.TakeDamage(dmg);
         });
+    }
+
+    private void OnAllEnemiesFroze(float duration)
+    {
+        foreach (var enemy in enemies)
+        {
+            var status = enemy.statusList.Find(s => s.type == UnitStatusEnum.TimeFrozen);
+            if (status != null) status.@params[0] = Mathf.Max(status.@params[0], duration);
+            else enemy.statusList.Add(new UnitStatus(UnitStatusEnum.TimeFrozen, duration));
+        }
     }
 }
