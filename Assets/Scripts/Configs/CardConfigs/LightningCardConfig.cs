@@ -22,7 +22,7 @@ public class LightningCardConfig : CardConfig
             dmg = modifier.ModifyLightningDamageEnergy(dmg);
         }
 
-        game.CastLightnings(times, new Damage(dmg, DamageEnum.Magic));
+        game.CastLightnings(times, new Damage(dmg, damageType));
     }
 
     public override string GetDetailInfo(Game game)
