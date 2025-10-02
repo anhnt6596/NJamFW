@@ -5,5 +5,6 @@ using UnityEngine;
 public class EffectSet : ResourceSet
 {
     public ParticleSystem lazerBlue;
+    public ParticleSystem lazerPurple;
     public ParticleSystem bombExplosion;
 }
