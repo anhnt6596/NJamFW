@@ -20,11 +20,17 @@ public class EffectManager : MonoBehaviour, IManager
 
     }
 
-    public void SpawnLightning(Vector3 wPos)
+    public void SpawnLightning(Vector3 wPos, bool upgraded)
     {
         var pos = wPos + Vector3.up * 2.2f;
         pos = GamePlayUtils.Y2Z(pos, -0.2f);
-        var lightning = LeanPool.Spawn(ResourceProvider.Effect.lazerBlue, pos, Quaternion.identity, transform);
+
+        ParticleSystem effectLazer = ResourceProvider.Effect.lazerBlue;
+        if (upgraded)
+        {
+            effectLazer = ResourceProvider.Effect.lazerPurple;
+        }
+        var lightning = LeanPool.Spawn(effectLazer, pos, Quaternion.identity, transform);
         lightning.Play();
         lightning.transform.localScale = Vector3.one * 0.5f;
         this.DelayCall(5, () => LeanPool.Despawn(lightning));
