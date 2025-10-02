@@ -39,8 +39,7 @@ public class EnemyVisual : Unit
         if (statusList.Exists(s => s.type == UnitStatusEnum.TimeFrozen)) return;
         // moving
         movingDist += Time.deltaTime * speed;
-        float totalLen = line.GetTotalLength();
-        if (movingDist >= totalLen) ReachDestination();
+        if (remainingDist <= 0.1f) ReachDestination();
         else transform.position = line.GetPointByDistance(movingDist);
     }
 
@@ -75,6 +74,8 @@ public class EnemyVisual : Unit
             }
         }
     }
+
+    public float remainingDist => line.GetTotalLength() - movingDist;
 
     private void ReachDestination()
     {

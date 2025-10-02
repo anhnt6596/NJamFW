@@ -1,3 +1,6 @@
+using System;
+
+[Serializable]
 public struct Damage
 {
     public Damage(float amount, DamageEnum type)
