@@ -47,4 +47,13 @@ public static class GamePlayUtils
         float t = (v - fullRatio) * inv;
         return Mathf.Clamp01(1f - t);
     }
+
+    public static TowerEnum MapFromCardEnum(CardEnum cardEnum)
+    {
+        if (cardEnum == CardEnum.None) return TowerEnum.None;
+        if (cardEnum == CardEnum.ArcherTower) return TowerEnum.ArcherTower;
+        if (cardEnum == CardEnum.ArtilleryTower) return TowerEnum.ArtilleryTower;
+        if (cardEnum == CardEnum.MageTower) return TowerEnum.MageTower;
+        return TowerEnum.None;
+    }
 }

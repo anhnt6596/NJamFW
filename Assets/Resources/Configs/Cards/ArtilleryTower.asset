@@ -15,5 +15,6 @@ MonoBehaviour:
   card: 3
   cost: 5
   escalatingCost: 1
+  maxSellectedTime: -1
   isUse: 1
-  tower: 2
+  tower: 3

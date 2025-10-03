@@ -305,6 +305,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyParent: {fileID: 7661566516718406318}
   healthBarParent: {fileID: 2917893303549450345}
+  towerPlacementPrefab: {fileID: 631670128363989086, guid: 2544f51ec85efa341b74a8e9bc2a709e, type: 3}
+  towerPlacementPositionConfigs:
+  - {x: -1.46, y: -0.59, z: 0}
+  - {x: 1.43, y: 7.11, z: 0}
+  - {x: -1.49, y: 3.75, z: 0}
+  towerPrefabs:
+  - {fileID: 7533627983757297182, guid: bef454838d1315c4d8560b15daf430c2, type: 3}
+  - {fileID: 8399745527776022515, guid: 59d3d2666bd2b494d9fd7f87773990d7, type: 3}
   lightningRod: {fileID: 6512563376572249473}
 --- !u!1 &1025456276235759205
 GameObject:

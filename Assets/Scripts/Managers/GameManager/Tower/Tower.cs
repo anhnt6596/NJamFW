@@ -9,7 +9,7 @@ public class Tower : MonoBehaviour
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] Transform firePoint;
     public Damage damage => config.GetAttackByLevel(1);
-
+    public TowerEnum TowerType => towerType;
     private float fireCooldown;
 
     private void Start()
