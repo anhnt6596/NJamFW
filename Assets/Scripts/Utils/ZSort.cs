@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class ZSort : MonoBehaviour
 {
-    public float zOffsetFactor = 0.01f;
     public float extraOffset = 0f;
     public bool onlyAtStart = false;
 

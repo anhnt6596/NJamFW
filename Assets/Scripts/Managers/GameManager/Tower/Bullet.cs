@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
@@ -13,6 +14,12 @@ public class Bullet : MonoBehaviour
     public void SetTarget(EnemyVisual enemy)
     {
         target = enemy;
+    }
+
+    public void Display()
+    {
+        var particleSystem = GetComponentInChildren<ParticleSystem>();
+        if (particleSystem != null) particleSystem.Play();
     }
 
     void Update()

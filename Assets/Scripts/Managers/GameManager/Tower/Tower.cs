@@ -3,16 +3,19 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
-    [Header("Tower Stats")]
-    public float attackRange = 3f;       // dùng khi hình tròn
-    public float rangeX = 3f;            // ellipse bán trục X
-    public float rangeY = 1.5f;          // ellipse bán trục Y
-    public float fireRate = 1f;          // số phát/giây
-    public GameObject bulletPrefab;      // prefab đạn
-    public Transform firePoint;          // chỗ bắn đạn
-    public Damage damage;              // sát thương đạn
+    [SerializeField] TowerEnum towerType;
+    int level = 1;
+    TowerConfig config;
+    [SerializeField] GameObject bulletPrefab;
+    [SerializeField] Transform firePoint;
+    public Damage damage => config.GetAttackByLevel(1);
 
     private float fireCooldown;
+
+    private void Start()
+    {
+        config = Configs.GetTowerConfig(towerType);
+    }
 
     void Update()
     {
@@ -22,7 +25,7 @@ public class Tower : MonoBehaviour
         if (target != null && fireCooldown <= 0f)
         {
             Shoot(target);
-            fireCooldown = 1f / fireRate;
+            fireCooldown = 1f / config.FireRate;
         }
     }
 
@@ -36,7 +39,7 @@ public class Tower : MonoBehaviour
         {
             Vector2 diff = e.transform.position - transform.position;
             var remainDest = e.remainingDist;
-            var inRange = GamePlayUtils.IsInRange(e.transform.position, transform.position, rangeX, rangeY);
+            var inRange = GamePlayUtils.IsInRange(e.transform.position, transform.position, config.Range.x, config.Range.y);
 
             if (inRange && remainDest < nearestDest)
             {
@@ -54,6 +57,7 @@ public class Tower : MonoBehaviour
 
         GameObject bulletObj = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
         Bullet bullet = bulletObj.GetComponent<Bullet>();
+        bullet.Display();
         bullet.SetDamage(damage);
         if (bullet != null)
         {
@@ -63,9 +67,10 @@ public class Tower : MonoBehaviour
 
     void OnDrawGizmosSelected()
     {
+        if (config == null) return;
         Gizmos.color = Color.yellow;
 
-        Matrix4x4 matrix = Matrix4x4.TRS(transform.position, Quaternion.identity, new Vector3(rangeX * 2, rangeY * 2, 1));
+        Matrix4x4 matrix = Matrix4x4.TRS(transform.position, Quaternion.identity, new Vector3(config.Range.x * 2, config.Range.y * 2, 1));
         Gizmos.matrix = matrix;
         Gizmos.DrawWireSphere(Vector3.zero, 0.5f);
         Gizmos.matrix = Matrix4x4.identity;

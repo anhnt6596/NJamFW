@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "LevelConfig", menuName = "Level Config", order = 0)]
+[CreateAssetMenu(fileName = "ALevel", menuName = "Config/Level", order = 0)]
 public class LevelConfig : ScriptableObject
 {
     [SerializeField] private int levelIdx;
