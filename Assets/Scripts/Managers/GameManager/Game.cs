@@ -198,6 +198,7 @@ public class Game
     public void TryPlaceTower(Vector3 position)
     {
         Debug.Log("Try Place Tower");
+        RollCards(true);
     }
     #endregion
 }
