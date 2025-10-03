@@ -16,6 +16,7 @@ public class Game
     public static event Action<int, Damage> Lightnings;
     public static event Action<float> FreezeAllEnemies;
     public static event Action<Vector3, Damage, Vector2> BombDrop;
+    public static event Func<Vector3, bool> PlaceTower;
     #endregion Game Events
 
     public SelectionCards SelectionCards { get; }
@@ -198,7 +199,12 @@ public class Game
     public void TryPlaceTower(Vector3 position)
     {
         Debug.Log("Try Place Tower");
-        RollCards(true);
+        var canPlaceTower = PlaceTower?.Invoke(position);
+        if (canPlaceTower != null && canPlaceTower.Value)
+        {
+            RollCards(true);
+        }
+        
     }
     #endregion
 }

@@ -33,7 +33,9 @@ public class Level : MonoBehaviour
         Game.Lightnings += OnGameLightnings;
         Game.FreezeAllEnemies += OnAllEnemiesFroze;
         Game.BombDrop += OnBombDropped;
+        Game.PlaceTower += TryPlaceTower;
     }
+
 
     private void OnDisable()
     {
@@ -95,7 +97,7 @@ public class Level : MonoBehaviour
         }
     }
 
-    public void TryPlaceTower(Vector3 position)
+    public bool TryPlaceTower(Vector3 position)
     {
         // Check if all is placed
         
@@ -117,12 +119,19 @@ public class Level : MonoBehaviour
 
         if (allPlaced)
         {
-            return;
+            return false;
+        }
+
+        if (towerPlacementInRange == null)
+        {
+            return false;
         }
         
         // If selected card is tower
         
         // place tower
+
+        return true;
     }
 
     private void Update()
