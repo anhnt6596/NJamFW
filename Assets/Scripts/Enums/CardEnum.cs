@@ -10,7 +10,7 @@ public enum CardEnum
     DarkHole = 7,
     RollToEnergy = 8,
     LightningPower = 9,
-
+    TimeReverse = 10,
     TimeFreeze = 11,
     FreeBomb = 12,
     Add1Energy = 13,

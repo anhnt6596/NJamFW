@@ -37,8 +37,15 @@ public class EffectManager : MonoBehaviour, IManager
     {
         var pos = GamePlayUtils.Y2Z(wPos, -0.2f);
         var explosion = LeanPool.Spawn(ResourceProvider.Effect.bombExplosion, pos, Quaternion.identity, transform);
-        explosion.Play();
         explosion.transform.localScale = Vector3.one * 0.4f;
         this.DelayCall(5, () => LeanPool.Despawn(explosion));
+    }
+
+    public void SpawnSmokeEffect(Vector3 wPos)
+    {
+        var pos = GamePlayUtils.Y2Z(wPos, -0.2f);
+        var smoke = LeanPool.Spawn(ResourceProvider.Effect.smoke, pos, Quaternion.identity, transform);
+        smoke.transform.localScale = Vector3.one * 0.15f;
+        this.DelayCall(5, () => LeanPool.Despawn(smoke));
     }
 }

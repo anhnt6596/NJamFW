@@ -29,7 +29,7 @@ public static class GamePlayUtils
         var diff = p1 - p2;
         return (diff.x * diff.x) / (rangeX * rangeX) + (diff.y * diff.y) / (rangeY * rangeY);
     }
-
+    public static float CheckElipse(Vector2 p1, Vector2 p2, Vector2 range) => CheckElipse(p1, p2, range.x, range.y);
     public static bool IsInRange(Vector2 p1, Vector2 p2, float rangeX, float rangeY)
     {
         return CheckElipse(p1, p2, rangeX, rangeY) <= 1f;

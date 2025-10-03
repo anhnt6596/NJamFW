@@ -29,6 +29,7 @@ public class Level : MonoBehaviour
 
         Game.Lightnings += OnGameLightnings;
         Game.FreezeAllEnemies += OnAllEnemiesFroze;
+        Game.ReverseAllEnemies += OnAllEnemiesReversed;
         Game.BombDrop += OnBombDropped;
     }
 
@@ -38,6 +39,7 @@ public class Level : MonoBehaviour
 
         Game.Lightnings -= OnGameLightnings;
         Game.FreezeAllEnemies -= OnAllEnemiesFroze;
+        Game.ReverseAllEnemies -= OnAllEnemiesReversed;
         Game.BombDrop -= OnBombDropped;
     }
 
@@ -143,6 +145,14 @@ public class Level : MonoBehaviour
         }
     }
 
+    private void OnAllEnemiesReversed(float duration)
+    {
+        foreach (var enemy in enemies)
+        {
+            if (!enemy.isDead) enemy.Reverse(duration);
+        }
+    }
+
     private void OnBombDropped(Vector3 position, Damage damage, Vector2 radius)
     {
         this.DelayCall(0, () =>
@@ -151,7 +161,7 @@ public class Level : MonoBehaviour
             for (int i = enemies.Count; i > 0; i--)
             {
                 var enemy = enemies[i - 1];
-                var v = GamePlayUtils.CheckElipse(enemy.transform.position, position, radius.x, radius.y);
+                var v = GamePlayUtils.CheckElipse(enemy.transform.position, position, radius);
                 if (v < 1) enemy.TakeDamage(damage * GamePlayUtils.GetAoEDamageMultiplier(v, 0.45f));
             }
         });

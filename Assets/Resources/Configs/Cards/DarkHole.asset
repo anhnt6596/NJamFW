@@ -16,7 +16,7 @@ MonoBehaviour:
   cost: 8
   escalatingCost: 0
   maxSellectedTime: -1
-  isUse: 1
+  isUse: 0
   damage: 500
   damageType: 2
   appearAtTotalRoll: 15

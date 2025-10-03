@@ -57,7 +57,6 @@ public class Tower : MonoBehaviour
 
         GameObject bulletObj = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
         Bullet bullet = bulletObj.GetComponent<Bullet>();
-        bullet.Display();
         bullet.SetDamage(damage);
         if (bullet != null)
         {

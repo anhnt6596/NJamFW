@@ -1,49 +1,41 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Numerics;
 using UnityEngine;
 using UnityEngine.U2D;
 
-public class EnemyVisual : Unit
+public abstract class Unit : MonoBehaviour
 {
-    private EnemyConfig config;
-    public override float speed => config.Speed;
-    public override float maxHP => config.Hp;
-    public float movingDist = 0;
-    public IMovingPath line;
-    public System.Action<EnemyVisual> OnReachDestination;
+    public float HP;
+    public abstract float speed { get; }
+    public abstract float maxHP { get; }
+    public abstract Vector2 attackRange { get; }
+    public abstract float attackSpeed { get; }
+    public DeffenseStats def;
+    public bool isDead => HP <= 0;
+    public Transform healthNode;
+    public List<UnitStatus> statusList;
 
-    public void Setup(IMovingPath line, EnemyConfig config)
+    public System.Action<Unit> OnDeath;
+    public void TakeDamage(Damage dmgInput)
     {
-        this.line = line;
-        this.config = config;
-        HP = config.Hp;
-        def = config.Def;
-        movingDist = 0;
-        transform.position = line.GetPointByDistance(0);
-        statusList = new();
+        if (HP <= 0) return;
+        var damageTake = GamePlayUtils.CalculateDamage(dmgInput, def);
+        HP -= damageTake.amount;
+        if (HP <= 0) Die();
     }
 
-    private void Update()
+    protected void Die()
     {
-        if (line == null) return;
-        if (isDead) return;
-
-        ProcessMoving();
-        ApplyUpdateStatus();
+        if (UnityEngine.Random.Range(0f, 1f) < 0.5f)
+        {
+            var text = dieText[UnityEngine.Random.Range(0, dieText.Count)];
+            App.Get<GUIEffectManager>().ShowScreenTextWP(text, healthNode.position, Color.white);
+        }
+        OnDeath?.Invoke(this);
     }
 
-    private void ProcessMoving()
-    {
-        if (statusList.Exists(s => s.type == UnitStatusEnum.TimeFrozen)) return;
-        // moving
-        movingDist += Time.deltaTime * speed;
-        if (remainingDist <= 0.1f) ReachDestination();
-        else transform.position = line.GetPointByDistance(movingDist);
-    }
-
-    private void ApplyUpdateStatus()
+    protected virtual void ApplyUpdateStatus()
     {
         for (int i = statusList.Count; i > 0; i--)
         {
@@ -75,17 +67,13 @@ public class EnemyVisual : Unit
         }
     }
 
-    public float remainingDist => line.GetTotalLength() - movingDist;
-
-    private void ReachDestination()
+    protected List<string> dieText = new List<string>()
     {
-        OnReachDestination?.Invoke(this);
-        Destroy(gameObject);
-    }
-
-    public UnityEngine.Vector3 GetFuturePosition(float v)
-    {
-        float futureDist = movingDist + speed * v;
-        return line.GetPointByDistance(futureDist);
-    }
+        "!",
+        "?",
+        "A",
+        "No Way",
+        "Avenge me!",
+        "Good Bye",
+    };
 }

@@ -41,7 +41,7 @@ public static class Configs
         foreach (var configObj in allConfigs)
         {
             var config = (EnemyConfig) configObj;
-            if (!EnemyConfigs.ContainsKey(config.Type)) EnemyConfigs.Add(config.Type, config);
+            if (!EnemyConfigs.ContainsKey(config.EnemyType)) EnemyConfigs.Add(config.EnemyType, config);
         }
     }
 

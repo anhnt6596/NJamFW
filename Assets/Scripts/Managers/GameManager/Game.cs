@@ -15,6 +15,7 @@ public class Game
 
     public static event Action<int, Damage> Lightnings;
     public static event Action<float> FreezeAllEnemies;
+    public static event Action<float> ReverseAllEnemies;
     public static event Action<Vector3, Damage, Vector2> BombDrop;
     #endregion Game Events
 
@@ -184,6 +185,11 @@ public class Game
     public void DoFrozenAllEnemies(float duration)
     {
         FreezeAllEnemies?.Invoke(duration);
+    }
+    
+    public void DoReverseAllEnemies(float duration)
+    {
+        ReverseAllEnemies?.Invoke(duration);
     }
 
     public void DropBomb(Vector3 position)

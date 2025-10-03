@@ -46,4 +46,9 @@ public static class ResourceProvider
     {
         return Resources.Load<EnemyVisual>($"Prefabs/Enemies/{enemy}");
     }
+
+    public static EnemyVisual GetAllyVisual(AllyEnum ally)
+    {
+        return Resources.Load<EnemyVisual>($"Prefabs/Allies/{ally}");
+    }
 }
