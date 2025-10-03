@@ -10,6 +10,7 @@ public class Level : MonoBehaviour
 {
     [SerializeField] Transform enemyParent;
     [SerializeField] Transform healthBarParent;
+    [SerializeField] Transform lightningRod;
     
     public List<LineGroup> LineGroups { get; private set; } = new();
     List<EnemyVisual> enemies = new List<EnemyVisual>();
@@ -114,10 +115,15 @@ public class Level : MonoBehaviour
     private void Lightning(Damage dmg)
     {
         if (!game.IsRunning) return;
-        if (enemies.Count == 0) return;
-        var emenyTake = enemies[Random.Range(0, enemies.Count)];
 
         bool upgradedLightning = game.State.selectedCards.Contains(CardEnum.LightningPower);
+        if (enemies.Count == 0)
+        {
+            App.Get<EffectManager>().SpawnLightning(lightningRod.position, upgradedLightning);
+            return;
+        }
+        var emenyTake = enemies[Random.Range(0, enemies.Count)];
+
         App.Get<EffectManager>().SpawnLightning(emenyTake.GetFuturePosition(lightningTime),upgradedLightning);
 
         this.DelayCall(lightningTime, () =>
