@@ -11,6 +11,7 @@ public class Level : MonoBehaviour
     [SerializeField] Transform enemyParent;
     [SerializeField] Transform healthBarParent;
     [SerializeField] private TowerPlacement towerPlacementPrefab;
+    [SerializeField] private List<Vector3> towerPlacementPositionConfigs;
     [SerializeField] Transform lightningRod;
     
     public List<LineGroup> LineGroups { get; private set; } = new();
@@ -85,12 +86,39 @@ public class Level : MonoBehaviour
     private void SpawnTowerPlacement()
     {
         // spawn tower placement prefab and add to list
+        foreach (var positionConfig in towerPlacementPositionConfigs)
+        {
+            TowerPlacement placement = Instantiate(towerPlacementPrefab, this.transform);
+            placement.transform.position = positionConfig;
+            
+            towerPlacements.Add(placement);
+        }
     }
 
     public void TryPlaceTower(Vector3 position)
     {
         // Check if all is placed
+        
         // Check in range and is not placed
+        
+        bool allPlaced = true;
+        TowerPlacement towerPlacementInRange = null;
+        foreach (var towerPlacement in towerPlacements)
+        {
+            if (!towerPlacement.Placed)
+            {
+                allPlaced = false;
+                if (towerPlacement.InTouchCollision(position))
+                {
+                    towerPlacementInRange = towerPlacement;
+                }
+            }
+        }
+
+        if (allPlaced)
+        {
+            return;
+        }
         
         // If selected card is tower
         
