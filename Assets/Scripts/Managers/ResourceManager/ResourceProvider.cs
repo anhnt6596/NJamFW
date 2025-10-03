@@ -46,4 +46,8 @@ public static class ResourceProvider
     {
         return Resources.Load<EnemyVisual>($"Prefabs/Enemies/{enemy}");
     }
+    public static Bullet GetBullet(string name)
+    {
+        return Resources.Load<Bullet>($"Prefabs/Bullets/Bullet_{name}");
+    }
 }
