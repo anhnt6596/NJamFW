@@ -6,15 +6,16 @@ public class Tower : MonoBehaviour
     [SerializeField] TowerEnum towerType;
     int level = 1;
     TowerConfig config;
-    [SerializeField] GameObject bulletPrefab;
     [SerializeField] Transform firePoint;
     public Damage damage => config.GetAttackByLevel(1);
     public TowerEnum TowerType => towerType;
     private float fireCooldown;
+    private Bullet bulletPrefab;
 
     private void Start()
     {
         config = Configs.GetTowerConfig(towerType);
+        bulletPrefab = ResourceProvider.GetBullet(towerType.ToString()); 
     }
 
     void Update()
@@ -53,10 +54,11 @@ public class Tower : MonoBehaviour
 
     void Shoot(EnemyVisual target)
     {
+       
         if (bulletPrefab == null || firePoint == null) return;
 
-        GameObject bulletObj = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
-        Bullet bullet = bulletObj.GetComponent<Bullet>();
+        Bullet bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity); ;
+        bullet.Display();
         bullet.SetDamage(damage);
         if (bullet != null)
         {

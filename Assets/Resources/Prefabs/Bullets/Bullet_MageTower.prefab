@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3827394121777446009}
   - component: {fileID: 7366217246117497252}
   m_Layer: 0
-  m_Name: Bullet_Mage
+  m_Name: Bullet_MageTower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
