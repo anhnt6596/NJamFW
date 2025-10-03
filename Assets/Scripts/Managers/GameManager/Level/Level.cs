@@ -10,11 +10,13 @@ public class Level : MonoBehaviour
 {
     [SerializeField] Transform enemyParent;
     [SerializeField] Transform healthBarParent;
+    [SerializeField] private TowerPlacement towerPlacementPrefab;
     [SerializeField] Transform lightningRod;
     
     public List<LineGroup> LineGroups { get; private set; } = new();
     List<EnemyVisual> enemies = new List<EnemyVisual>();
     List<HealthBar> healthBars = new List<HealthBar>();
+    List<TowerPlacement> towerPlacements = new List<TowerPlacement>();
     Game game;
     private void Awake()
     {
@@ -78,6 +80,21 @@ public class Level : MonoBehaviour
     {
         var lineGroup = LineGroups[group];
         return lineGroup.GetRandomLine();
+    }
+
+    private void SpawnTowerPlacement()
+    {
+        // spawn tower placement prefab and add to list
+    }
+
+    public void TryPlaceTower(Vector3 position)
+    {
+        // Check if all is placed
+        // Check in range and is not placed
+        
+        // If selected card is tower
+        
+        // place tower
     }
 
     private void Update()
