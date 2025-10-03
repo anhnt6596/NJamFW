@@ -6,7 +6,7 @@ public class GameUIBar : MonoBehaviour
 {
     [SerializeField] CardBar cardBar;
     [SerializeField] BombBar bombBar;
-    [SerializeField] GameObject towerBar;
+    [SerializeField] TowerBar towerBar;
     Game game;
 
     private void OnEnable()
@@ -25,6 +25,6 @@ public class GameUIBar : MonoBehaviour
     {
         cardBar?.gameObject.SetActive(state == InputStateEnum.SelectingCard);
         bombBar?.gameObject.SetActive(state == InputStateEnum.PlacingBomb);
-        //towerBar?.gameObject.SetActive(state == InputStateEnum.BuildingTower);
+        towerBar?.gameObject.SetActive(state == InputStateEnum.BuildingTower);
     }
 }

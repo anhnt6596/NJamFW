@@ -194,5 +194,10 @@ public class Game
         BombDrop?.Invoke(position, config.Damage, config.Radius);
         RollCards(true);
     }
+
+    public void TryPlaceTower(Vector3 position)
+    {
+        Debug.Log("Try Place Tower");
+    }
     #endregion
 }
