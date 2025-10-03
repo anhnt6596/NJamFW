@@ -1,5 +1,6 @@
 using Core;
 using DG.Tweening;
+using DG.Tweening.Core;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class ChangeSceneUI : MonoBehaviour, IManager
+public class ChangeSceneUI : MonoBehaviour
 {
     [SerializeField] GameObject display;
     [SerializeField] Sprite[] pantsSprites;
@@ -24,7 +25,7 @@ public class ChangeSceneUI : MonoBehaviour, IManager
 
     public void DoLoadScene(string sceneName)
     {
-        Cover(() => App.Get<SceneService>().LoadScene(sceneName));
+        //Cover(() => App.Get<SceneService>().LoadScene(sceneName));
     }
 
     private void Hide()
@@ -34,22 +35,22 @@ public class ChangeSceneUI : MonoBehaviour, IManager
 
     Sequence seq;
 
-    public void Cover(Action cb)
+    public Tween Cover()
     {
         Hide();
         display.SetActive(true);
         seq?.Kill();
         seq = DOTween.Sequence();
-        foreach(Transform child in display.transform)
+        foreach (Transform child in display.transform)
         {
             child.localScale = Vector3.zero;
             seq.Join(child.DOScale(1f, 0.6f).SetEase(Ease.OutSine));
         }
-        seq.AppendCallback(() => cb());
         seq.SetUpdate(true);
+        return seq;
     }
 
-    public void Expose()
+    public Tween Expose()
     {
         seq?.Kill();
         seq = DOTween.Sequence();
@@ -60,25 +61,21 @@ public class ChangeSceneUI : MonoBehaviour, IManager
         }
         seq.AppendCallback(() => display.SetActive(false));
         seq.SetUpdate(true);
+        return seq;
+    }
+
+    public IEnumerator CoverScene()
+    {
+        yield return Cover().WaitForCompletion();
+    }
+
+    public IEnumerator ExposeScene()
+    {
+        yield return Expose().WaitForCompletion();
     }
 
     public void Init()
     {
 
-    }
-
-    public void StartUp()
-    {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-
-    public void Cleanup()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        Expose();
     }
 }

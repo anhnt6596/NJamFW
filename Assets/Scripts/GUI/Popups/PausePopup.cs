@@ -16,6 +16,7 @@ public class PausePopup : BasePopup
     public void OnClickQuit()
     {
         Time.timeScale = 1;
-        App.Get<ChangeSceneUI>().DoLoadScene(SceneName.MenuScene);
+        //App.Get<ChangeSceneUI>().DoLoadScene(SceneName.MenuScene);
+        App.Get<SceneService>().LoadScene(SceneName.MenuScene);
     }
 }

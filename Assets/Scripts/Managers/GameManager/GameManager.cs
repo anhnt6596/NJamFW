@@ -2,6 +2,7 @@ using Core;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour, IManager
 {
@@ -29,7 +30,8 @@ public class GameManager : MonoBehaviour, IManager
     {
         gameState.Reset();
         RunningGame = new Game(level, gameState);
-        App.Get<ChangeSceneUI>().DoLoadScene(SceneName.GameScene);
+        App.Get<SceneService>().LoadScene(SceneName.GameScene);
+        //App.Get<ChangeSceneUI>().DoLoadScene(SceneName.GameScene);
     }
 
     public void PauseGame()
@@ -46,7 +48,8 @@ public class GameManager : MonoBehaviour, IManager
     public void QuitGame()
     {
         Time.timeScale = 1;
-        App.Get<ChangeSceneUI>().DoLoadScene(SceneName.MenuScene);
+        App.Get<SceneService>().LoadScene(SceneName.MenuScene);
+        //App.Get<ChangeSceneUI>().DoLoadScene(SceneName.MenuScene);
         RunningGame = null;
     }
 

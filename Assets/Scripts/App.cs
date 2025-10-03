@@ -15,10 +15,9 @@ public class App : BaseApp
     {
         Configs.Load();
         ResourceProvider.LoadAllResourceSets();
-        AddManager<SceneService>();
+        AddManager(gameObject.GetComponentInChildren<SceneService>());
         AddManager(gameObject.AddComponent<TouchService>());
         AddManager(gameObject.GetComponentInChildren<GUIManager>());
-        AddManager(gameObject.GetComponentInChildren<ChangeSceneUI>());
         AddManager(gameObject.GetComponentInChildren<GUIEffectManager>());
         AddManager(gameObject.GetComponentInChildren<EffectManager>());
         AddManager(gameObject.GetComponentInChildren<GameManager>());
@@ -26,7 +25,7 @@ public class App : BaseApp
 
     protected override void StartApp()
     {
-        Get<SceneService>().LoadScene(SceneName.MenuScene);
+        SceneManager.LoadSceneAsync(SceneName.MenuScene);
     }
 
     private void OnApplicationQuit()

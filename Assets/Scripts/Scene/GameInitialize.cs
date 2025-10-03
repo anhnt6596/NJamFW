@@ -3,13 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameScene : MonoBehaviour
+public class GameInitialize : MonoBehaviour
 {
-    private void OnEnable()
+    private void Start()
     {
         var game = App.Get<GameManager>().RunningGame;
         var level = ResourceProvider.GetLevel(game.Level);
         Instantiate(level, transform);
-        this.DelayCall(1, () => game.StartGame());
+        game.StartGame();
     }
 }

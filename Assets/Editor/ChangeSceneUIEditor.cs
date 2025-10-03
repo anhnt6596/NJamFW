@@ -13,7 +13,7 @@ public class ChangeSceneUIEditor : Editor
         EditorGUILayout.LabelField("ACTION!!");
         if (GUILayout.Button("COVER"))
         {
-            ui.Cover(() => { });
+            ui.Cover();
         }
         if (GUILayout.Button("EXPOSE"))
         {

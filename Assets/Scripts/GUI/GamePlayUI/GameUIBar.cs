@@ -12,15 +12,16 @@ public class GameUIBar : MonoBehaviour
     private void OnEnable()
     {
         game = App.Get<GameManager>().RunningGame;
-        Game.OnInputStateChanged += OnInputStateChanged;
+        Game.OnInputStateChanged += DisplayGameBars;
+        DisplayGameBars(game.InputStateEnum);
     }
 
     private void OnDisable()
     {
-        Game.OnInputStateChanged -= OnInputStateChanged;
+        Game.OnInputStateChanged -= DisplayGameBars;
     }
 
-    private void OnInputStateChanged(InputStateEnum state)
+    private void DisplayGameBars(InputStateEnum state)
     {
         cardBar?.gameObject.SetActive(state == InputStateEnum.SelectingCard);
         bombBar?.gameObject.SetActive(state == InputStateEnum.PlacingBomb);
