@@ -12,12 +12,14 @@ public class Level : MonoBehaviour
     [SerializeField] Transform healthBarParent;
     [SerializeField] private TowerPlacement towerPlacementPrefab;
     [SerializeField] private List<Vector3> towerPlacementPositionConfigs;
+    [SerializeField] private List<Tower> towerPrefabs;
     [SerializeField] Transform lightningRod;
     
     public List<LineGroup> LineGroups { get; private set; } = new();
     List<EnemyVisual> enemies = new List<EnemyVisual>();
     List<HealthBar> healthBars = new List<HealthBar>();
     List<TowerPlacement> towerPlacements = new List<TowerPlacement>();
+    List<Tower> spawnedTowers = new List<Tower>();
     Game game;
     private void Awake()
     {
@@ -28,6 +30,7 @@ public class Level : MonoBehaviour
     private void OnEnable()
     {
         game = App.Get<GameManager>().RunningGame;
+        SpawnTowerPlacement();
         Game.StartNewWave += OnNewWaveStarted;
 
         Game.Lightnings += OnGameLightnings;
@@ -44,6 +47,7 @@ public class Level : MonoBehaviour
         Game.Lightnings -= OnGameLightnings;
         Game.FreezeAllEnemies -= OnAllEnemiesFroze;
         Game.BombDrop -= OnBombDropped;
+        Game.PlaceTower -= TryPlaceTower;
     }
 
     void SpawnEnemy(EnemyEnum enemyType, int gateIdx)
@@ -97,7 +101,7 @@ public class Level : MonoBehaviour
         }
     }
 
-    public bool TryPlaceTower(Vector3 position)
+    public bool TryPlaceTower(Vector3 position, CardEnum cardEnum)
     {
         // Check if all is placed
         
@@ -113,6 +117,7 @@ public class Level : MonoBehaviour
                 if (towerPlacement.InTouchCollision(position))
                 {
                     towerPlacementInRange = towerPlacement;
+                    break;
                 }
             }
         }
@@ -127,11 +132,20 @@ public class Level : MonoBehaviour
             return false;
         }
         
-        // If selected card is tower
-        
         // place tower
-
-        return true;
+        bool findTower = false;
+        foreach (var towerPrefab in towerPrefabs)
+        {
+            if (towerPrefab.TowerType == GamePlayUtils.MapFromCardEnum(cardEnum))
+            {
+                findTower = true;
+                var tower = Instantiate(towerPrefab, towerPlacementInRange.GetTowerAdjustPosition(), Quaternion.identity, this.transform);
+                spawnedTowers.Add(tower);
+                towerPlacementInRange.SetPlaced(true);
+                break;
+            }
+        }
+        return findTower;
     }
 
     private void Update()
