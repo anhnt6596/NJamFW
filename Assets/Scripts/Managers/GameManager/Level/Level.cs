@@ -158,11 +158,13 @@ public class Level : MonoBehaviour, IGamePlay
         }
     }
 
-    public void OnAllEnemiesReversed(float duration)
+    public void OnAllEnemiesReversed(Vector3 wPos, Vector3 radius, float duration)
     {
         foreach (var enemy in Enemies)
         {
-            if (!enemy.isDead) enemy.Reverse(duration);
+            if (!enemy.isDead
+                && GamePlayUtils.IsInRange(wPos, enemy.transform.position, radius)
+                ) enemy.Reverse(duration);
         }
     }
 

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 
 public class Game
@@ -186,9 +187,11 @@ public class Game
         GamePlay?.OnAllEnemiesFroze(duration);
     }
     
-    public void DoReverseAllEnemies(float duration)
+    public void DoReverseAllEnemies(Vector3 wPos)
     {
-        GamePlay.OnAllEnemiesReversed(duration);
+        var config = (TimeReverseCardConfig)Configs.GetCardConfig(CardEnum.TimeReverse);
+        GamePlay.OnAllEnemiesReversed(wPos, config.Radius, config.ReverseTime);
+        RollCards(true);
     }
 
     public void DropBomb(Vector3 position)

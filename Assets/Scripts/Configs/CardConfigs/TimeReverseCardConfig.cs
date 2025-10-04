@@ -7,11 +7,13 @@ public class TimeReverseCardConfig : CardConfig
 {
     [SerializeField] float reverseTime = 4;
     [SerializeField] int appearAtTotalRoll = 6;
+    [SerializeField] Vector2 radius = new Vector2(5, 3.5f);
+
+    public Vector2 Radius => radius;
+    public float ReverseTime => reverseTime;
     public override InputStateEnum ApplySellectedEffect(Game game)
     {
-        // all enemy freeze for freezeTime seconds
-        game.DoReverseAllEnemies(reverseTime);
-        return InputStateEnum.None;
+        return InputStateEnum.PlayCard;
     }
     public override bool CanBeRoll(Game game)
     {
@@ -20,6 +22,8 @@ public class TimeReverseCardConfig : CardConfig
     }
     public override string GetDetailInfo(Game game)
     {
-        return $"{4}s";
+        return $"{reverseTime}s";
     }
+
+    public override string GetPlayDescription(Game game) => $"Tap to reverse time all enemy in an area {reverseTime}s";
 }

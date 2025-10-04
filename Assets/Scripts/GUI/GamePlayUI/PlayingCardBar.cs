@@ -44,6 +44,11 @@ public class PlayingCardBar : MonoBehaviour
                     CheckCanPlaceTower(worldPos);
                     break;
                 }
+            case CardEnum.TimeReverse:
+                {
+                    game.DoReverseAllEnemies(worldPos);
+                    break;
+                }
         }
     }
 
