@@ -11,7 +11,7 @@ public class ArtilleryBullet : BaseBullet
 
     public override void SetTarget(EnemyVisual enemy)
     {
-        targetPos = enemy.transform.position;
+        targetPos = enemy.GetFuturePosition(1/speed);
         transform.DOJump(targetPos, 1.5f, 1, 1/speed)
             .SetEase(Ease.OutSine)
             .OnComplete(() =>

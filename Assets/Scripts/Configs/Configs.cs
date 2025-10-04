@@ -30,7 +30,7 @@ public static class Configs
         foreach (var configObj in allConfigs)
         {
             var config = (CardConfig) configObj;
-            if (!CardConfigs.ContainsKey(config.Card)) CardConfigs.Add(config.Card, config);
+            if (config.IsUse && !CardConfigs.ContainsKey(config.Card)) CardConfigs.Add(config.Card, config);
         }
     }
 

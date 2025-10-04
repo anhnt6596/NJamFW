@@ -16,5 +16,5 @@ MonoBehaviour:
   cost: 3
   escalatingCost: 0
   maxSellectedTime: 1
-  isUse: 1
+  isUse: 0
   value: 5

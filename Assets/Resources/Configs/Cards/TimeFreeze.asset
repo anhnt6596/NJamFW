@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TimeFreeze
   m_EditorClassIdentifier: 
   card: 11
-  cost: 4
+  cost: 3
   escalatingCost: 0
   maxSellectedTime: -1
   isUse: 1

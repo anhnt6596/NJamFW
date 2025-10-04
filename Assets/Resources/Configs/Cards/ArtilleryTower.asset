@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ArtilleryTower
   m_EditorClassIdentifier: 
   card: 3
-  cost: 5
+  cost: 4
   escalatingCost: 1
   maxSellectedTime: -1
   isUse: 1

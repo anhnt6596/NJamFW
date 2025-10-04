@@ -17,5 +17,6 @@ MonoBehaviour:
   escalatingCost: 0
   maxSellectedTime: -1
   isUse: 1
-  reverseTime: 4
-  appearAtTotalRoll: 6
+  reverseTime: 10
+  appearAtTotalRoll: 5
+  radius: {x: 3, y: 2.1}
