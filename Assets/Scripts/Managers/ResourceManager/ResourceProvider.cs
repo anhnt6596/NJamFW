@@ -51,9 +51,9 @@ public static class ResourceProvider
     {
         return Resources.Load<EnemyVisual>($"Prefabs/Allies/{ally}");
     }
-    public static Bullet GetBullet(TowerEnum tower)
+    public static BaseBullet GetBullet(TowerEnum tower)
     {
-        return Resources.Load<Bullet>($"Prefabs/Bullets/Bullet_{tower}");
+        return Resources.Load<BaseBullet>($"Prefabs/Bullets/Bullet_{tower}");
     }
     public static Tower GetTower(TowerEnum tower)
     {

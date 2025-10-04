@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7533627983757297182}
   - component: {fileID: 369323774205406785}
   m_Layer: 0
-  m_Name: ArcherTower
+  m_Name: ArtilleryTower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eb6905c8b2192349be759418c62fe3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerType: 1
+  towerType: 3
   firePoint: {fileID: 4455027426473935034}
 --- !u!114 &369323774205406785
 MonoBehaviour:
@@ -137,7 +137,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.7917569, g: 1, b: 0.60754716, a: 1}
+  m_Color: {r: 1, g: 0.44716978, b: 0.44716978, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

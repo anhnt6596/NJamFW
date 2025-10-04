@@ -14,7 +14,7 @@ public class Level : MonoBehaviour, IGamePlay
     [SerializeField] Transform lightningRod;
     
     public List<LineGroup> LineGroups { get; private set; } = new();
-    List<EnemyVisual> enemies = new List<EnemyVisual>();
+    public List<EnemyVisual> Enemies { get; private set; } = new List<EnemyVisual>();
     List<HealthBar> healthBars = new List<HealthBar>();
     List<Tower> spawnedTowers = new List<Tower>();
     public Game Game { get; set; }
@@ -39,7 +39,7 @@ public class Level : MonoBehaviour, IGamePlay
     {
         var enemy = LeanPool.Spawn(ResourceProvider.GetEnemyVisual(enemyType), enemyParent);
         enemy.Setup(GetRandomMovingPath(gateIdx), Configs.GetEnemyConfig(enemyType));
-        enemies.Add(enemy);
+        Enemies.Add(enemy);
 
         var healthBar = LeanPool.Spawn(ResourceProvider.Component.HealthBar, healthBarParent);
         healthBar.Setup(enemy);
@@ -51,7 +51,7 @@ public class Level : MonoBehaviour, IGamePlay
 
     private void DespawnEnemy(EnemyVisual enemy)
     {
-        enemies.Remove(enemy);
+        Enemies.Remove(enemy);
         enemy.OnDeath -= OnEnemyDeath;
         enemy.OnReachDestination -= OnEnemyDeath;
         LeanPool.Despawn(enemy);
@@ -132,12 +132,12 @@ public class Level : MonoBehaviour, IGamePlay
         if (!Game.IsRunning) return;
 
         bool upgradedLightning = Game.State.selectedCards.Contains(CardEnum.LightningPower);
-        if (enemies.Count == 0)
+        if (Enemies.Count == 0)
         {
             App.Get<EffectManager>().SpawnLightning(lightningRod.position, upgradedLightning);
             return;
         }
-        var emenyTake = enemies[Random.Range(0, enemies.Count)];
+        var emenyTake = Enemies[Random.Range(0, Enemies.Count)];
 
         App.Get<EffectManager>().SpawnLightning(emenyTake.GetFuturePosition(lightningTime),upgradedLightning);
 
@@ -150,7 +150,7 @@ public class Level : MonoBehaviour, IGamePlay
 
     public void OnAllEnemiesFroze(float duration)
     {
-        foreach (var enemy in enemies)
+        foreach (var enemy in Enemies)
         {
             var status = enemy.statusList.Find(s => s.type == UnitStatusEnum.TimeFrozen);
             if (status != null) status.@params[0] = Mathf.Max(status.@params[0], duration);
@@ -160,7 +160,7 @@ public class Level : MonoBehaviour, IGamePlay
 
     public void OnAllEnemiesReversed(float duration)
     {
-        foreach (var enemy in enemies)
+        foreach (var enemy in Enemies)
         {
             if (!enemy.isDead) enemy.Reverse(duration);
         }
@@ -171,9 +171,9 @@ public class Level : MonoBehaviour, IGamePlay
         this.DelayCall(0, () =>
         {
             App.Get<EffectManager>().SpawnBombEffect(position);
-            for (int i = enemies.Count; i > 0; i--)
+            for (int i = Enemies.Count; i > 0; i--)
             {
-                var enemy = enemies[i - 1];
+                var enemy = Enemies[i - 1];
                 var v = GamePlayUtils.CheckElipse(enemy.transform.position, position, radius);
                 if (v < 1) enemy.TakeDamage(damage * GamePlayUtils.GetAoEDamageMultiplier(v, 0.45f));
             }

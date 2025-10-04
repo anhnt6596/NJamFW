@@ -11,7 +11,7 @@ public class Tower : MonoBehaviour
     public Damage damage => config.GetAttackByLevel(Level);
     public TowerEnum TowerType => towerType;
     private float fireCooldown;
-    private Bullet bulletPrefab;
+    private BaseBullet bulletPrefab;
 
     private void Start()
     {
@@ -62,7 +62,7 @@ public class Tower : MonoBehaviour
     {
         if (bulletPrefab == null || firePoint == null) return;
 
-        Bullet bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
+        BaseBullet bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
         bullet.SetDamage(damage);
         bullet.Display();
         if (bullet != null)

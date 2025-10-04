@@ -1,27 +1,17 @@
+using Lean.Pool;
 using System;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class Bullet : BaseBullet
 {
-    public float speed = 6f;
-    public Damage damage;
+    protected EnemyVisual target;
 
-    private EnemyVisual target;
-    public float rotationOffset = 0f;
-
-    public void SetDamage(Damage dmg) => damage = dmg;
-
-    public void SetTarget(EnemyVisual enemy)
+    public override void SetTarget(EnemyVisual enemy)
     {
         target = enemy;
     }
 
-    public void Display()
-    {
-        var ps = GetComponentInChildren<ParticleSystem>();
-        if (ps) ps.Play();
-    }
-
+    public float rotationOffset = 0f;
     void Update()
     {
         if (target == null)
@@ -39,7 +29,7 @@ public class Bullet : MonoBehaviour
         if (Vector2.Distance(transform.position, target.transform.position) < 0.1f)
         {
             target.TakeDamage(damage);
-            Destroy(gameObject);
+            LeanPool.Despawn(this);
         }
     }
 }

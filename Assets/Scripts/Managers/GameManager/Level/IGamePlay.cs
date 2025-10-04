@@ -1,7 +1,9 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public interface IGamePlay
 {
+    List<EnemyVisual> Enemies { get; }
     void OnNewWaveStarted(WaveConfig waveConfig);
 
     void CastGameLightnings(int times, Damage damage);
