@@ -25,6 +25,7 @@ public abstract class CardConfig : ScriptableObject
         return InputStateEnum.None;
     }
     public virtual string GetDetailInfo(Game game) => "";
+    public virtual string GetPlayDescription(Game game) => "";
     public virtual bool CanBeRoll(Game game)
     {
         if (ReachLimitedRoll(game)) return false;

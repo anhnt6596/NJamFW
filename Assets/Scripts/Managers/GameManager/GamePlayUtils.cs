@@ -24,15 +24,15 @@ public static class GamePlayUtils
 
     public static float Y2Z(float y, float offset) => y * 0.01f + offset;
     public static Vector3 Y2Z(Vector3 v3, float offset) => new Vector3(v3.x, v3.y, Y2Z(v3.y, offset));
-    public static float CheckElipse(Vector2 p1, Vector2 p2, float rangeX, float rangeY)
+    public static float CheckElipse(Vector2 p1, Vector2 p2, Vector2 range)
     {
         var diff = p1 - p2;
-        return (diff.x * diff.x) / (rangeX * rangeX) + (diff.y * diff.y) / (rangeY * rangeY);
+        return (diff.x * diff.x) / (range.x * range.x) + (diff.y * diff.y) / (range.y * range.y);
     }
-    public static float CheckElipse(Vector2 p1, Vector2 p2, Vector2 range) => CheckElipse(p1, p2, range.x, range.y);
-    public static bool IsInRange(Vector2 p1, Vector2 p2, float rangeX, float rangeY)
+
+    public static bool IsInRange(Vector2 p1, Vector2 p2, Vector2 range)
     {
-        return CheckElipse(p1, p2, rangeX, rangeY) <= 1f;
+        return CheckElipse(p1, p2, range) <= 1f;
     }
     public static float GetAoEDamageMultiplier(float v, float fullRatio)
     {
@@ -46,14 +46,5 @@ public static class GamePlayUtils
         float inv = 1f / (1f - fullRatio);
         float t = (v - fullRatio) * inv;
         return Mathf.Clamp01(1f - t);
-    }
-
-    public static TowerEnum MapFromCardEnum(CardEnum cardEnum)
-    {
-        if (cardEnum == CardEnum.None) return TowerEnum.None;
-        if (cardEnum == CardEnum.ArcherTower) return TowerEnum.ArcherTower;
-        if (cardEnum == CardEnum.ArtilleryTower) return TowerEnum.ArtilleryTower;
-        if (cardEnum == CardEnum.MageTower) return TowerEnum.MageTower;
-        return TowerEnum.None;
     }
 }

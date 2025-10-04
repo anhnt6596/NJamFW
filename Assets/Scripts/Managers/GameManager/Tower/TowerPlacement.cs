@@ -1,12 +1,12 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class TowerPlacement : MonoBehaviour
 {
+    [SerializeField] Vector2 placeRadius = new Vector2(1, 0.7f);
+    public Tower Tower { get; private set; }
     private bool isHighlighed = false;
-    private bool placed = false;
-    
     public bool IsHighlighted => isHighlighed;
-    public bool Placed => placed;
 
     public void SetHighlight(bool status)
     {
@@ -14,19 +14,23 @@ public class TowerPlacement : MonoBehaviour
         // enable or disable highlight effect
     }
 
-    public void SetPlaced(bool status)
+    public bool CheckPostion(Vector3 wPos, TowerEnum tower)
     {
-        placed = status;
+        if (Tower != null && Tower.TowerType != tower) return false;
+        return GamePlayUtils.IsInRange(wPos, transform.position, placeRadius);
     }
 
-    public Vector2 GetTowerAdjustPosition()
+    public void BuildTower(TowerEnum tower)
     {
-        // adjust later
-        return transform.position;
-    }
-
-    public bool InTouchCollision(Vector3 position)
-    {
-        return true;
+        if (!Tower)
+        {
+            var towerPrefab = ResourceProvider.GetTower(tower);
+            Tower = Instantiate(towerPrefab, transform);
+            Tower.transform.localPosition = Vector3.back * 0.001f;
+        }
+        else
+        {
+            Tower.LevelUp();
+        }
     }
 }

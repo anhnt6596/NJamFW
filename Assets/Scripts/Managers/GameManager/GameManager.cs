@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour, IManager
 {
+    public int LevelToPrepare { get; set; } // in the future, level become string, play in any branch, any mode
     // use for store current game state
     [SerializeField] GameState gameState;
 
@@ -26,12 +27,17 @@ public class GameManager : MonoBehaviour, IManager
 
     }
 
-    public void CreateNewGame(int level = 0)
+    public void RunSceneGame(int level = 0)
+    {
+        LevelToPrepare = level;
+        App.Get<SceneService>().LoadScene(SceneName.GameScene);
+    }
+
+    public Game CreateGame()
     {
         gameState.Reset();
-        RunningGame = new Game(level, gameState);
-        App.Get<SceneService>().LoadScene(SceneName.GameScene);
-        //App.Get<ChangeSceneUI>().DoLoadScene(SceneName.GameScene);
+        RunningGame = new Game(LevelToPrepare, gameState);
+        return RunningGame;
     }
 
     public void PauseGame()

@@ -18,6 +18,8 @@ public class BombCardConfig : CardConfig
 
     public override InputStateEnum ApplySellectedEffect(Game game)
     {
-        return InputStateEnum.PlacingBomb;
+        return InputStateEnum.PlayCard;
     }
+
+    public override string GetPlayDescription(Game game) =>  "Tap to drop Bomb";
 }

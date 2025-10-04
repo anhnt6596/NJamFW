@@ -17,4 +17,4 @@ MonoBehaviour:
     amount: 25
     type: 1
   fireRate: 0.5
-  range: {x: 2, y: 1.4}
+  range: {x: 3, y: 2.1}

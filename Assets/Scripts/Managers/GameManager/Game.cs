@@ -7,27 +7,21 @@ using UnityEngine;
 public class Game
 {
     #region Game Events
-    public static event Action<WaveConfig> StartNewWave;
 
     public static event Action<InputStateEnum> OnInputStateChanged;
     public static event Action OnCardsRolled;
     public static event Action OnCardLocked;
 
-    public static event Action<int, Damage> Lightnings;
-    public static event Action<float> FreezeAllEnemies;
-    public static event Action<float> ReverseAllEnemies;
-    public static event Action<Vector3, Damage, Vector2> BombDrop;
-    public static event Func<Vector3, CardEnum, bool> PlaceTower;
     #endregion Game Events
 
-    public SelectionCards SelectionCards { get; }
+    private CardRoller CardRoller { get; }
     public Game(int level, GameState state)
     {
         Level = level;
         State = state;
         GameConfig = Configs.GamePlay;
         LevelConfig = Configs.GetLevelConfig(level);
-        SelectionCards = new SelectionCards(this);
+        CardRoller = new CardRoller(this);
         CurrentWave = -1;
     }
     public GameState State { get; private set; }
@@ -35,6 +29,7 @@ public class Game
     private LevelConfig LevelConfig { get; set; }
     public int Level { get; }
     public int CurrentWave { get; private set; }
+    public IGamePlay GamePlay { get; set; }
     private InputStateEnum _inputStateEnum;
     public InputStateEnum InputStateEnum
     {
@@ -48,6 +43,8 @@ public class Game
             }
         }
     }
+    public CardEnum PlayingCard { get; private set; } = CardEnum.None;
+
     public bool IsRunning { get; private set; } = false;
 
     public void StartGame()
@@ -111,13 +108,14 @@ public class Game
         }
         else
         {
+            PlayingCard = cardEnum;
             InputStateEnum = inputState;
         }
     }
 
     private void RollCards(bool isAutoRoll = false)
     {
-        SelectionCards.Roll();
+        CardRoller.Roll();
 
         if (isAutoRoll) State.autoRolled++;
         else
@@ -150,7 +148,7 @@ public class Game
         else
         {
             var waveConfig = LevelConfig.GetWaveConfig(CurrentWave);
-            StartNewWave?.Invoke(waveConfig);
+            GamePlay?.OnNewWaveStarted(waveConfig);
         }
     }
 
@@ -181,40 +179,32 @@ public class Game
     #region Game Actions
     public void CastLightnings(int times, Damage damage)
     {
-        Lightnings?.Invoke(times, damage);
+        GamePlay?.CastGameLightnings(times, damage);
     }
     public void DoFrozenAllEnemies(float duration)
     {
-        FreezeAllEnemies?.Invoke(duration);
+        GamePlay?.OnAllEnemiesFroze(duration);
     }
     
     public void DoReverseAllEnemies(float duration)
     {
-        ReverseAllEnemies?.Invoke(duration);
+        GamePlay.OnAllEnemiesReversed(duration);
     }
 
     public void DropBomb(Vector3 position)
     {
-        if (InputStateEnum != InputStateEnum.PlacingBomb) return;
+        if (InputStateEnum != InputStateEnum.PlayCard) return;
         // hardcode goi config, sau nay lay dmg va radius tu modifier
         var config = ((BombCardConfig)Configs.GetCardConfig(CardEnum.Bomb));
-        BombDrop?.Invoke(position, config.Damage, config.Radius);
+        GamePlay.OnBombDropped(position, config.Damage, config.Radius);
         RollCards(true);
     }
 
-    public void TryPlaceTower(Vector3 position)
+    public void PlaceTower(int placeIndex, TowerEnum tower)
     {
-        Debug.Log($"Try Place Tower {State.selectCard}");
-        var canPlaceTower = PlaceTower?.Invoke(position, State.selectCard);
-        if (canPlaceTower != null && canPlaceTower.Value)
-        {
-            RollCards(true);
-        }
-        else
-        {
-            InputStateEnum = InputStateEnum.SelectingCard;
-        }
-        
+        Debug.Log($"Place Tower {tower}");
+        GamePlay?.PlaceTower(placeIndex, tower);
+        RollCards(true);
     }
     #endregion
 }

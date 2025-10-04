@@ -50,8 +50,13 @@ public static class ResourceProvider
     public static EnemyVisual GetAllyVisual(AllyEnum ally)
     {
         return Resources.Load<EnemyVisual>($"Prefabs/Allies/{ally}");
-    public static Bullet GetBullet(string name)
+    }
+    public static Bullet GetBullet(TowerEnum tower)
     {
-        return Resources.Load<Bullet>($"Prefabs/Bullets/Bullet_{name}");
+        return Resources.Load<Bullet>($"Prefabs/Bullets/Bullet_{tower}");
+    }
+    public static Tower GetTower(TowerEnum tower)
+    {
+        return Resources.Load<Tower>($"Prefabs/Towers/{tower}");
     }
 }

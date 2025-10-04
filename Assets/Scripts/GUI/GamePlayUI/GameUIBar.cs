@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class GameUIBar : MonoBehaviour
 {
-    [SerializeField] CardBar cardBar;
-    [SerializeField] BombBar bombBar;
-    [SerializeField] TowerBar towerBar;
+    [SerializeField] SelectingCardBar selectingCardBar;
+    [SerializeField] PlayingCardBar playingCardBar;
     Game game;
 
     private void OnEnable()
@@ -23,8 +22,11 @@ public class GameUIBar : MonoBehaviour
 
     private void DisplayGameBars(InputStateEnum state)
     {
-        cardBar?.gameObject.SetActive(state == InputStateEnum.SelectingCard);
-        bombBar?.gameObject.SetActive(state == InputStateEnum.PlacingBomb);
-        towerBar?.gameObject.SetActive(state == InputStateEnum.BuildingTower);
+        selectingCardBar.gameObject.SetActive(state == InputStateEnum.SelectingCard);
+        playingCardBar.gameObject.SetActive(state == InputStateEnum.PlayCard);
+        if (state == InputStateEnum.PlayCard)
+        {
+            playingCardBar.Display(game);
+        }
     }
 }

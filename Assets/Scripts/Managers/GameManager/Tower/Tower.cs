@@ -1,13 +1,14 @@
-﻿using Unity.Burst.Intrinsics;
+﻿using System;
+using Unity.Burst.Intrinsics;
 using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
     [SerializeField] TowerEnum towerType;
-    int level = 1;
+    public int Level { get; private set; } = 1;
     TowerConfig config;
     [SerializeField] Transform firePoint;
-    public Damage damage => config.GetAttackByLevel(1);
+    public Damage damage => config.GetAttackByLevel(Level);
     public TowerEnum TowerType => towerType;
     private float fireCooldown;
     private Bullet bulletPrefab;
@@ -15,7 +16,7 @@ public class Tower : MonoBehaviour
     private void Start()
     {
         config = Configs.GetTowerConfig(towerType);
-        bulletPrefab = ResourceProvider.GetBullet(towerType.ToString()); 
+        bulletPrefab = ResourceProvider.GetBullet(towerType); 
     }
 
     void Update()
@@ -30,6 +31,11 @@ public class Tower : MonoBehaviour
         }
     }
 
+    public void LevelUp()
+    {
+        Level++;
+    }
+
     EnemyVisual FindTarget()
     {
         EnemyVisual[] enemies = FindObjectsOfType<EnemyVisual>();
@@ -40,7 +46,7 @@ public class Tower : MonoBehaviour
         {
             Vector2 diff = e.transform.position - transform.position;
             var remainDest = e.remainingDist;
-            var inRange = GamePlayUtils.IsInRange(e.transform.position, transform.position, config.Range.x, config.Range.y);
+            var inRange = GamePlayUtils.IsInRange(e.transform.position, transform.position, config.Range);
 
             if (inRange && remainDest < nearestDest)
             {
@@ -54,12 +60,11 @@ public class Tower : MonoBehaviour
 
     void Shoot(EnemyVisual target)
     {
-       
         if (bulletPrefab == null || firePoint == null) return;
 
-        Bullet bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity); ;
-        bullet.Display();
+        Bullet bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
         bullet.SetDamage(damage);
+        bullet.Display();
         if (bullet != null)
         {
             bullet.SetTarget(target);
@@ -76,4 +81,5 @@ public class Tower : MonoBehaviour
         Gizmos.DrawWireSphere(Vector3.zero, 0.5f);
         Gizmos.matrix = Matrix4x4.identity;
     }
+
 }

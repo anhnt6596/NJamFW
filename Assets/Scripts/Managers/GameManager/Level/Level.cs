@@ -6,21 +6,18 @@ using System.Linq;
 using UnityEngine;
 using static CW.Common.CwInputManager;
 
-public class Level : MonoBehaviour
+public class Level : MonoBehaviour, IGamePlay
 {
     [SerializeField] Transform enemyParent;
     [SerializeField] Transform healthBarParent;
-    [SerializeField] private TowerPlacement towerPlacementPrefab;
-    [SerializeField] private List<Vector3> towerPlacementPositionConfigs;
-    [SerializeField] private List<Tower> towerPrefabs;
+    [SerializeField] private List<TowerPlacement> towerPlacements;
     [SerializeField] Transform lightningRod;
     
     public List<LineGroup> LineGroups { get; private set; } = new();
     List<EnemyVisual> enemies = new List<EnemyVisual>();
     List<HealthBar> healthBars = new List<HealthBar>();
-    List<TowerPlacement> towerPlacements = new List<TowerPlacement>();
     List<Tower> spawnedTowers = new List<Tower>();
-    Game game;
+    public Game Game { get; set; }
     private void Awake()
     {
         // nen co nut de khoi tao, khong phai chay lai moi khi awake
@@ -29,27 +26,13 @@ public class Level : MonoBehaviour
 
     private void OnEnable()
     {
-        game = App.Get<GameManager>().RunningGame;
-        SpawnTowerPlacement();
-        Game.StartNewWave += OnNewWaveStarted;
 
-        Game.Lightnings += OnGameLightnings;
-        Game.FreezeAllEnemies += OnAllEnemiesFroze;
-        Game.ReverseAllEnemies += OnAllEnemiesReversed;
-        Game.BombDrop += OnBombDropped;
-        Game.PlaceTower += TryPlaceTower;
     }
 
 
     private void OnDisable()
     {
-        Game.StartNewWave -= OnNewWaveStarted;
 
-        Game.Lightnings -= OnGameLightnings;
-        Game.FreezeAllEnemies -= OnAllEnemiesFroze;
-        Game.ReverseAllEnemies -= OnAllEnemiesReversed;
-        Game.BombDrop -= OnBombDropped;
-        Game.PlaceTower -= TryPlaceTower;
     }
 
     void SpawnEnemy(EnemyEnum enemyType, int gateIdx)
@@ -91,63 +74,25 @@ public class Level : MonoBehaviour
         return lineGroup.GetRandomLine();
     }
 
-    private void SpawnTowerPlacement()
+    public bool CheckPlaceTowerPosition(Vector3 wPos, TowerEnum towerEnum, out int placeIndex)
     {
-        // spawn tower placement prefab and add to list
-        foreach (var positionConfig in towerPlacementPositionConfigs)
+        placeIndex = -1;
+        for (int i = 0; i < towerPlacements.Count; i++)
         {
-            TowerPlacement placement = Instantiate(towerPlacementPrefab, this.transform);
-            placement.transform.position = positionConfig;
-            
-            towerPlacements.Add(placement);
+            var placement = towerPlacements[i];
+            if (placement.CheckPostion(wPos, towerEnum))
+            {
+                placeIndex = i;
+                return true;
+            }
         }
+        return false;
     }
 
-    public bool TryPlaceTower(Vector3 position, CardEnum cardEnum)
+    public void PlaceTower(int placeIndex, TowerEnum tower)
     {
-        // Check if all is placed
-        
-        // Check in range and is not placed
-        
-        bool allPlaced = true;
-        TowerPlacement towerPlacementInRange = null;
-        foreach (var towerPlacement in towerPlacements)
-        {
-            if (!towerPlacement.Placed)
-            {
-                allPlaced = false;
-                if (towerPlacement.InTouchCollision(position))
-                {
-                    towerPlacementInRange = towerPlacement;
-                    break;
-                }
-            }
-        }
-
-        if (allPlaced)
-        {
-            return false;
-        }
-
-        if (towerPlacementInRange == null)
-        {
-            return false;
-        }
-        
-        // place tower
-        bool findTower = false;
-        foreach (var towerPrefab in towerPrefabs)
-        {
-            if (towerPrefab.TowerType == GamePlayUtils.MapFromCardEnum(cardEnum))
-            {
-                findTower = true;
-                var tower = Instantiate(towerPrefab, towerPlacementInRange.GetTowerAdjustPosition(), Quaternion.identity, this.transform);
-                spawnedTowers.Add(tower);
-                towerPlacementInRange.SetPlaced(true);
-                break;
-            }
-        }
-        return findTower;
+        var placement = towerPlacements[placeIndex];
+        placement.BuildTower(tower);
     }
 
     private void Update()
@@ -155,7 +100,7 @@ public class Level : MonoBehaviour
 
     }
 
-    private void OnNewWaveStarted(WaveConfig waveConfig)
+    public void OnNewWaveStarted(WaveConfig waveConfig)
     {
         foreach (var enemyGroup in waveConfig.EnemySpawnGroups)
         {
@@ -172,7 +117,7 @@ public class Level : MonoBehaviour
         }
     }
 
-    private void OnGameLightnings(int times, Damage damage)
+    public void CastGameLightnings(int times, Damage damage)
     {
         for (int i = 0; i < times; i++)
         {
@@ -182,11 +127,11 @@ public class Level : MonoBehaviour
 
     float delayEachLightning = 0.5f;
     float lightningTime = 0.25f;
-    private void Lightning(Damage dmg)
+    public void Lightning(Damage dmg)
     {
-        if (!game.IsRunning) return;
+        if (!Game.IsRunning) return;
 
-        bool upgradedLightning = game.State.selectedCards.Contains(CardEnum.LightningPower);
+        bool upgradedLightning = Game.State.selectedCards.Contains(CardEnum.LightningPower);
         if (enemies.Count == 0)
         {
             App.Get<EffectManager>().SpawnLightning(lightningRod.position, upgradedLightning);
@@ -203,7 +148,7 @@ public class Level : MonoBehaviour
         });
     }
 
-    private void OnAllEnemiesFroze(float duration)
+    public void OnAllEnemiesFroze(float duration)
     {
         foreach (var enemy in enemies)
         {
@@ -213,7 +158,7 @@ public class Level : MonoBehaviour
         }
     }
 
-    private void OnAllEnemiesReversed(float duration)
+    public void OnAllEnemiesReversed(float duration)
     {
         foreach (var enemy in enemies)
         {
@@ -221,7 +166,7 @@ public class Level : MonoBehaviour
         }
     }
 
-    private void OnBombDropped(Vector3 position, Damage damage, Vector2 radius)
+    public void OnBombDropped(Vector3 position, Damage damage, Vector2 radius)
     {
         this.DelayCall(0, () =>
         {

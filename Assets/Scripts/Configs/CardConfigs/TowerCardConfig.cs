@@ -9,6 +9,7 @@ public class TowerCardConfig : CardConfig
     
     public override InputStateEnum ApplySellectedEffect(Game game)
     {
-        return InputStateEnum.BuildingTower;
+        return InputStateEnum.PlayCard;
     }
+    public override string GetPlayDescription(Game game) => $"Tab to build {Tower}";
 }

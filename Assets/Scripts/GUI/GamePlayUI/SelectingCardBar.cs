@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CardBar : MonoBehaviour
+public class SelectingCardBar : MonoBehaviour
 {
     [SerializeField] List<CardUI> cardUIs;
 

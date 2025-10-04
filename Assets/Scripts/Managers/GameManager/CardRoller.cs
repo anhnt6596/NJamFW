@@ -2,13 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-public class SelectionCards
+public class CardRoller
 {
     Game Game { get; }
     List<CardEnum> RollableCards { get; }
     public List<CardEnum> Cards => Game.State.cards;
     public List<int> LockedIdxs => Game.State.lockedCardIdxs;
-    public SelectionCards(Game game)
+    public CardRoller(Game game)
     {
         Game = game;
         RollableCards = GetRollableCard();

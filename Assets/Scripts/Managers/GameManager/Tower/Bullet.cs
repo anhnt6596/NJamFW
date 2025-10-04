@@ -16,6 +16,12 @@ public class Bullet : MonoBehaviour
         target = enemy;
     }
 
+    public void Display()
+    {
+        var ps = GetComponentInChildren<ParticleSystem>();
+        if (ps) ps.Play();
+    }
+
     void Update()
     {
         if (target == null)
