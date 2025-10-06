@@ -8,8 +8,8 @@ public class HealthBar : MonoBehaviour
     [SerializeField] CanvasGroup background;
     [SerializeField] Image health;
 
-    public EnemyVisual Target { get; private set; }
-    public void Setup(EnemyVisual target)
+    public Unit Target { get; private set; }
+    public void Setup(Unit target)
     {
         Target = target;
         Update();

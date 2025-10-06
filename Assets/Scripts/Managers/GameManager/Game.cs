@@ -178,6 +178,8 @@ public class Game
     }
 
     #region Game Actions
+
+    public void CardActionDone() => RollCards(true);
     public void CastLightnings(int times, Damage damage)
     {
         GamePlay?.CastGameLightnings(times, damage);
@@ -187,11 +189,10 @@ public class Game
         GamePlay?.OnAllEnemiesFroze(duration);
     }
     
-    public void DoReverseAllEnemies(Vector3 wPos)
+    public void ReverseEnemies(Vector3 wPos)
     {
         var config = (TimeReverseCardConfig)Configs.GetCardConfig(CardEnum.TimeReverse);
         GamePlay.OnAllEnemiesReversed(wPos, config.Radius, config.ReverseTime);
-        RollCards(true);
     }
 
     public void DropBomb(Vector3 position)
@@ -200,14 +201,13 @@ public class Game
         // hardcode goi config, sau nay lay dmg va radius tu modifier
         var config = ((BombCardConfig)Configs.GetCardConfig(CardEnum.Bomb));
         GamePlay.OnBombDropped(position, config.Damage, config.Radius);
-        RollCards(true);
     }
 
     public void PlaceTower(int placeIndex, TowerEnum tower)
     {
         Debug.Log($"Place Tower {tower}");
         GamePlay?.PlaceTower(placeIndex, tower);
-        RollCards(true);
     }
+
     #endregion
 }

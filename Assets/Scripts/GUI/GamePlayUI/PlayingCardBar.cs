@@ -30,29 +30,46 @@ public class PlayingCardBar : MonoBehaviour
         Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, Camera.main.nearClipPlane));
 
         worldPos.z = 0;
+        if (TryPlayCard(worldPos))
+        {
+            game.CardActionDone();
+        }
+        else
+        {
+            var guiEffectMgr = App.Get<GUIEffectManager>();
+            guiEffectMgr.ShowInvalidEffect(worldPos, GUILayer.GUI);
+        }
+    }
+
+    private bool TryPlayCard(Vector3 worldPos)
+    {
         switch (game.PlayingCard)
         {
             case CardEnum.Bomb:
                 {
                     game.DropBomb(worldPos);
-                    break;
+                    return true;
                 }
             case CardEnum.ArcherTower:
             case CardEnum.MageTower:
             case CardEnum.ArtilleryTower:
                 {
-                    CheckCanPlaceTower(worldPos);
-                    break;
+                    return TryPlaceTower(worldPos);
                 }
             case CardEnum.TimeReverse:
                 {
-                    game.DoReverseAllEnemies(worldPos);
-                    break;
+                    game.ReverseEnemies(worldPos);
+                    return true;
+                }
+            case CardEnum.Troop:
+                {
+                    return TryPlaceTroop(worldPos);
                 }
         }
+        return true;
     }
 
-    private void CheckCanPlaceTower(Vector3 wPos)
+    private bool TryPlaceTower(Vector3 wPos)
     {
         Debug.Log($"Check Can Place Tower {game.PlayingCard}");
         var towerConfig = (TowerCardConfig)Configs.GetCardConfig(game.PlayingCard);
@@ -62,6 +79,19 @@ public class PlayingCardBar : MonoBehaviour
         if (canPlaceTower != null && canPlaceTower.Value)
         {
             game.PlaceTower(placeIndex, towerConfig.Tower);
+            return true;
         }
+        return false;
+    }
+
+    private bool TryPlaceTroop(Vector3 wPos)
+    {
+        if (game.GamePlay.IsWPosInPolygon(wPos))
+        {
+            var allyConfig = (AllyCardConfig)Configs.GetCardConfig(game.PlayingCard);
+            game.GamePlay.SpawnAlly(allyConfig.Ally, wPos);
+            return true;
+        }
+        return false;
     }
 }

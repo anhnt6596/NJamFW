@@ -16,7 +16,25 @@ public class CardRoller
 
     public void Roll()
     {
-        var newCards = RollCards(Cards, LockedIdxs);
+        // hard code 1st and 2nd roll
+        List<CardEnum> newCards;
+        if (false) newCards = new List<CardEnum>() {
+            CardEnum.Troop,
+            CardEnum.Troop,
+            CardEnum.Troop,
+        };
+        else if (Game.State.totalRolled == 0) newCards = new List<CardEnum>() {
+            CardEnum.ArcherTower,
+            CardEnum.MageTower,
+            CardEnum.ArtilleryTower,
+        };
+        else if (Game.State.totalRolled == 1) newCards = new List<CardEnum>()
+        {
+            CardEnum.Lightning,
+            CardEnum.Troop,
+            CardEnum.Bomb,
+        };
+        else newCards = RollCards(Cards, LockedIdxs);
         Cards.Clear();
         Cards.AddRange(newCards);
     }

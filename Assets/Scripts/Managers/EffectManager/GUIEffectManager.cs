@@ -1,6 +1,8 @@
 using Core;
+using DG.Tweening;
 using Lean.Pool;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GUIEffectManager : MonoBehaviour, IManager
 {
@@ -33,5 +35,26 @@ public class GUIEffectManager : MonoBehaviour, IManager
 
         text.Show(content, color, () => LeanPool.Despawn(text));
         return text;
+    }
+
+    public Image ShowInvalidEffect(Vector3 wPos, GUILayer layer = GUILayer.GUI)
+    {
+        var screenPos = Camera.main.WorldToScreenPoint(wPos);
+        var invalid = LeanPool.Spawn(ResourceProvider.Effect.invalid);
+        var guiLayer = _guiMgr.GetLayer(layer);
+        invalid.transform.parent = guiLayer;
+
+        Vector2 uiPos;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(guiLayer, screenPos, Camera.main, out uiPos);
+        invalid.transform.position = screenPos;
+
+        invalid.SetAlpha(0);
+        invalid.transform.localScale = Vector3.one * 0.5f;
+        var seq = DOTween.Sequence();
+        seq.Append(invalid.DOFade(1, 0.2f));
+        seq.Join(invalid.transform.DOScale(1, 0.2f).SetEase(Ease.OutBack));
+        seq.Append(invalid.DOFade(0, 0.6f));
+        seq.AppendCallback(() => LeanPool.Despawn(invalid));
+        return invalid;
     }
 }

@@ -8,13 +8,15 @@ using static CW.Common.CwInputManager;
 
 public class Level : MonoBehaviour, IGamePlay
 {
-    [SerializeField] Transform enemyParent;
+    [SerializeField] Transform unitParent;
     [SerializeField] Transform healthBarParent;
     [SerializeField] private List<TowerPlacement> towerPlacements;
     [SerializeField] Transform lightningRod;
+    [SerializeField] PolygonDrawer poly;
     
     public List<LineGroup> LineGroups { get; private set; } = new();
     public List<EnemyVisual> Enemies { get; private set; } = new List<EnemyVisual>();
+    public List<Ally> Allies { get; private set; } = new List<Ally>();
     List<HealthBar> healthBars = new List<HealthBar>();
     List<Tower> spawnedTowers = new List<Tower>();
     public Game Game { get; set; }
@@ -37,7 +39,7 @@ public class Level : MonoBehaviour, IGamePlay
 
     void SpawnEnemy(EnemyEnum enemyType, int gateIdx)
     {
-        var enemy = LeanPool.Spawn(ResourceProvider.GetEnemyVisual(enemyType), enemyParent);
+        var enemy = LeanPool.Spawn(ResourceProvider.GetEnemyVisual(enemyType), unitParent);
         enemy.Setup(GetRandomMovingPath(gateIdx), Configs.GetEnemyConfig(enemyType));
         Enemies.Add(enemy);
 
@@ -51,11 +53,11 @@ public class Level : MonoBehaviour, IGamePlay
 
     private void DespawnEnemy(EnemyVisual enemy)
     {
+        LeanPool.Despawn(healthBars.First(h => h.Target == enemy));
         Enemies.Remove(enemy);
         enemy.OnDeath -= OnEnemyDeath;
-        enemy.OnReachDestination -= OnEnemyDeath;
+        enemy.OnReachDestination -= OnEnemyReachDestination;
         LeanPool.Despawn(enemy);
-        LeanPool.Despawn(healthBars.First(h => h.Target == enemy));
     }
 
     private void OnEnemyDeath(Unit enemy)
@@ -93,6 +95,39 @@ public class Level : MonoBehaviour, IGamePlay
     {
         var placement = towerPlacements[placeIndex];
         placement.BuildTower(tower);
+    }
+
+    public bool IsWPosInPolygon(Vector3 wPos)
+    {
+        var pts = poly.GetPolygon2D();
+        return GeometryUtils.IsPointInPolygon(wPos, pts);
+    }
+
+    public void SpawnAlly(AllyEnum allyType, Vector3 wPos)
+    {
+        var ally = LeanPool.Spawn(ResourceProvider.GetAlly(allyType), unitParent);
+        ally.transform.position = wPos;
+        ally.Setup(this, Configs.GetAllyConfig(allyType));
+        Allies.Add(ally);
+
+        var healthBar = LeanPool.Spawn(ResourceProvider.Component.HealthBar, healthBarParent);
+        healthBar.Setup(ally);
+        healthBars.Add(healthBar);
+
+        ally.OnDeath += OnAllyDeath;
+    }
+
+    private void OnAllyDeath(Unit unit)
+    {
+        DespawnAlly((Ally)unit);
+    }
+
+    private void DespawnAlly(Ally ally)
+    {
+        LeanPool.Despawn(healthBars.First(h => h.Target == ally));
+        Allies.Remove(ally);
+        ally.OnDeath -= OnAllyDeath;
+        LeanPool.Despawn(ally);
     }
 
     private void Update()

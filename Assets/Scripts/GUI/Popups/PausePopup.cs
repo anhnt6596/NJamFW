@@ -19,4 +19,11 @@ public class PausePopup : BasePopup
         //App.Get<ChangeSceneUI>().DoLoadScene(SceneName.MenuScene);
         App.Get<SceneService>().LoadScene(SceneName.MenuScene);
     }
+
+    public void OnClickRestart()
+    {
+        Time.timeScale = 1;
+        var gameMgr = App.Get<GameManager>();
+        gameMgr.RunSceneGame(gameMgr.RunningGame.Level);
+    }
 }

@@ -5,18 +5,19 @@ public class TowerPlacement : MonoBehaviour
 {
     [SerializeField] Vector2 placeRadius = new Vector2(1, 0.7f);
     public Tower Tower { get; private set; }
-    private bool isHighlighed = false;
-    public bool IsHighlighted => isHighlighed;
+    private bool isHighlighted = false;
+    public bool IsHighlighted => isHighlighted;
 
     public void SetHighlight(bool status)
     {
-        isHighlighed = status;
+        isHighlighted = status;
         // enable or disable highlight effect
     }
 
     public bool CheckPostion(Vector3 wPos, TowerEnum tower)
     {
         if (Tower != null && Tower.TowerType != tower) return false;
+        // add them ca neu bam trung tower cu da xay sau
         return GamePlayUtils.IsInRange(wPos, transform.position, placeRadius);
     }
 

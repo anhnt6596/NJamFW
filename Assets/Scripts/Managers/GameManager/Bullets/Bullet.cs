@@ -14,9 +14,9 @@ public class Bullet : BaseBullet
     public float rotationOffset = 0f;
     void Update()
     {
-        if (target == null)
+        if (target == null || target.isDead)
         {
-            Destroy(gameObject);
+            LeanPool.Despawn(this);
             return;
         }
 
@@ -26,7 +26,7 @@ public class Bullet : BaseBullet
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle + rotationOffset, Vector3.forward);
 
-        if (Vector2.Distance(transform.position, target.transform.position) < 0.1f)
+        if (Vector2.Distance(transform.position, target.transform.position) < 0.2f)
         {
             target.TakeDamage(damage);
             LeanPool.Despawn(this);

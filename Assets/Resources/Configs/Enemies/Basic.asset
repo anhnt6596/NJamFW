@@ -12,10 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 589c6ea00bd54d8ab014f03ddba4899b, type: 3}
   m_Name: Basic
   m_EditorClassIdentifier: 
-  type: 1
   hp: 100
   speed: 1
-  damageToTower: 1
   def:
     armor: 0
     magicRes: 0
+  attackRange: {x: 0.3, y: 0.21}
+  attackSpeed: 0.6
+  attackDamage:
+    amount: 20
+    type: 0
+  type: 1
+  damageToTower: 1

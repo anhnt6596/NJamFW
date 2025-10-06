@@ -23,6 +23,7 @@ public class GameState : ScriptableObject
         selectingCardIdx = -1;
         selectedCards = new List<CardEnum>();
         freeRoll = Configs.GamePlay.InitFreeReroll;
+        energy = Configs.GamePlay.InitEnergy;
         autoRolled = 0;
         proactiveRolled = 0;
     }

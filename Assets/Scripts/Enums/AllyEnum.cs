@@ -5,5 +5,5 @@ using UnityEngine;
 public enum AllyEnum
 {
     None,
-    Basic,
+    Troop,
 }

@@ -47,9 +47,9 @@ public static class ResourceProvider
         return Resources.Load<EnemyVisual>($"Prefabs/Enemies/{enemy}");
     }
 
-    public static EnemyVisual GetAllyVisual(AllyEnum ally)
+    public static Ally GetAlly(AllyEnum ally)
     {
-        return Resources.Load<EnemyVisual>($"Prefabs/Allies/{ally}");
+        return Resources.Load<Ally>($"Prefabs/Allies/{ally}");
     }
     public static BaseBullet GetBullet(TowerEnum tower)
     {

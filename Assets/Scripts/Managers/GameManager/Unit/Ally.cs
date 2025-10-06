@@ -15,17 +15,18 @@ public class Ally : Unit
     public EnemyVisual CurrentTarget { get; set; }
     private float lastAttackTime;
 
-    private Level level;
+    private IGamePlay level;
     private enum State { Search, Combat }
     private State state = State.Search;
 
-    public void Setup(Level level, AllyConfig config)
+    public void Setup(IGamePlay level, AllyConfig config)
     {
         this.level = level;
         this.config = config;
         HP = config.Hp;
         def = config.Def;
         statusList = new();
+        CurrentTarget = null;
     }
 
     void Update()
@@ -45,17 +46,17 @@ public class Ally : Unit
 
     void SearchForTarget()
     {
-        EnemyVisual[] enemies = FindObjectsOfType<EnemyVisual>();
+        var enemies = level.Enemies;
 
         EnemyVisual nearestEnemy = null;
         float smallestV = Mathf.Infinity;
 
         foreach (var enemy in enemies)
         {
-            if (enemy != null && !enemy.isDead)
+            if (enemy != null && !enemy.isDead && enemy.CurrentTarget == null)
             {
                 var v = GamePlayUtils.CheckElipse(transform.position, enemy.transform.position, config.DetectionRadius);
-                if (v < smallestV)
+                if (v < 1 && v < smallestV)
                 {
                     smallestV = v;
                     nearestEnemy = enemy;
@@ -85,19 +86,19 @@ public class Ally : Unit
 
         if (dist <= 1)
         {
-            transform.position = Vector2.MoveTowards(
-                transform.position,
-                CurrentTarget.transform.position,
-                config.Speed * Time.deltaTime
-            );
-        }
-        else
-        {
             if (Time.time - lastAttackTime >= 1f / attackSpeed)
             {
                 lastAttackTime = Time.time;
                 CurrentTarget.TakeDamage(config.AttackDamage);
             }
+        }
+        else
+        {
+            transform.position = Vector2.MoveTowards(
+                transform.position,
+                CurrentTarget.transform.position,
+                config.Speed * Time.deltaTime
+            );
         }
     }
 

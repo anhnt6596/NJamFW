@@ -12,4 +12,6 @@ public interface IGamePlay
     void OnBombDropped(Vector3 position, Damage damage, Vector2 radius);
     bool CheckPlaceTowerPosition(Vector3 wPos, TowerEnum tower, out int placeIndex);
     void PlaceTower(int placeIndex, TowerEnum tower);
+    bool IsWPosInPolygon(Vector3 wPos);
+    void SpawnAlly(AllyEnum allyType, Vector3 wPos);
 }

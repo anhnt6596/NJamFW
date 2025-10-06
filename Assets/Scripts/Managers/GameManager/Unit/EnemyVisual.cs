@@ -16,7 +16,7 @@ public class EnemyVisual : Unit
     public System.Action<EnemyVisual> OnReachDestination;
 
 
-    private Ally currentTarget;
+    public Ally CurrentTarget { get; private set; }
 
     public void Setup(IMovingPath line, EnemyConfig config)
     {
@@ -27,6 +27,7 @@ public class EnemyVisual : Unit
         movingDist = 0;
         transform.position = line.GetPointByDistance(0);
         statusList = new();
+        CurrentTarget = null;
     }
 
     private void Update()
@@ -72,14 +73,15 @@ public class EnemyVisual : Unit
     private float lastAttackTime;
     private void CombatBehavior()
     {
-        if (currentTarget == null || currentTarget.isDead)
+        if (CurrentTarget == null || CurrentTarget.isDead)
         {
             state = State.Moving;
+            CurrentTarget = null;
             return;
         }
 
-        Vector2 totalAttackRange = attackRange + currentTarget.attackRange;
-        float dist = GamePlayUtils.CheckElipse(transform.position, currentTarget.transform.position, totalAttackRange);
+        Vector2 totalAttackRange = attackRange + CurrentTarget.attackRange;
+        float dist = GamePlayUtils.CheckElipse(transform.position, CurrentTarget.transform.position, totalAttackRange);
 
         if (dist > 1) return;
         else
@@ -87,14 +89,14 @@ public class EnemyVisual : Unit
             if (Time.time - lastAttackTime >= 1f / attackSpeed)
             {
                 lastAttackTime = Time.time;
-                currentTarget.TakeDamage(config.AttackDamage);
+                CurrentTarget.TakeDamage(config.AttackDamage);
             }
         }
     }
 
     public void SetTarget(Ally ally)
     {
-        currentTarget = ally;
+        CurrentTarget = ally;
         state = State.Combat;
     }
 
@@ -105,7 +107,7 @@ public class EnemyVisual : Unit
 
         transform.position = line.GetPointByDistance(movingDist);
 
-        if (currentTarget != null) currentTarget.CurrentTarget = null;
-        currentTarget = null;
+        if (CurrentTarget != null) CurrentTarget.CurrentTarget = null;
+        CurrentTarget = null;
     }
 }

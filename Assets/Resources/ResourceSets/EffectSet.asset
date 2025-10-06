@@ -16,3 +16,4 @@ MonoBehaviour:
   lazerPurple: {fileID: 2748146283442478975, guid: 1f26d3f51db44c24dac866a2ff5be7c7, type: 3}
   bombExplosion: {fileID: 2157581094552298789, guid: f84b59052d3295c4c816879a2fabebc3, type: 3}
   smoke: {fileID: 4088704416547227720, guid: bcf12f3eeda3dc64fba1cc756a5129bc, type: 3}
+  invalid: {fileID: 7601405751349952123, guid: 892e1372e94beed4ea214f1a20077875, type: 3}

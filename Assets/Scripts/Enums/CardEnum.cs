@@ -4,7 +4,7 @@ public enum CardEnum
     ArcherTower = 1,
     MageTower = 2,
     ArtilleryTower = 3,
-
+    Troop = 4,
     Bomb = 5,
     Lightning = 6,
     DarkHole = 7,
