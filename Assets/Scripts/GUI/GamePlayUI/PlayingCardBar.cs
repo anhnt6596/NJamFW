@@ -65,6 +65,11 @@ public class PlayingCardBar : MonoBehaviour
                 {
                     return TryPlaceTroop(worldPos);
                 }
+            case CardEnum.Napalm:
+                {
+                    game.DropNapalm(worldPos);
+                    return true;
+                }
         }
         return true;
     }

@@ -17,3 +17,4 @@ MonoBehaviour:
   bombExplosion: {fileID: 2157581094552298789, guid: f84b59052d3295c4c816879a2fabebc3, type: 3}
   smoke: {fileID: 4088704416547227720, guid: bcf12f3eeda3dc64fba1cc756a5129bc, type: 3}
   invalid: {fileID: 7601405751349952123, guid: 892e1372e94beed4ea214f1a20077875, type: 3}
+  burning: {fileID: 2157581094552298791, guid: 63f4e463f2b90bb4aae081f37be4d40e, type: 3}

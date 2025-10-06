@@ -10,4 +10,5 @@ public class EffectSet : ResourceSet
     public ParticleSystem bombExplosion;
     public GameObject smoke;
     public Image invalid;
+    public GameObject burning;
 }

@@ -149,7 +149,7 @@ public class Game
         else
         {
             var waveConfig = LevelConfig.GetWaveConfig(CurrentWave);
-            GamePlay?.OnNewWaveStarted(waveConfig);
+            GamePlay?.StartNewWave(waveConfig);
         }
     }
 
@@ -186,13 +186,13 @@ public class Game
     }
     public void DoFrozenAllEnemies(float duration)
     {
-        GamePlay?.OnAllEnemiesFroze(duration);
+        GamePlay?.FreezeEnemies(duration);
     }
     
     public void ReverseEnemies(Vector3 wPos)
     {
         var config = (TimeReverseCardConfig)Configs.GetCardConfig(CardEnum.TimeReverse);
-        GamePlay.OnAllEnemiesReversed(wPos, config.Radius, config.ReverseTime);
+        GamePlay.ReverseEnemies(wPos, config.Radius, config.ReverseTime);
     }
 
     public void DropBomb(Vector3 position)
@@ -200,13 +200,21 @@ public class Game
         if (InputStateEnum != InputStateEnum.PlayCard) return;
         // hardcode goi config, sau nay lay dmg va radius tu modifier
         var config = ((BombCardConfig)Configs.GetCardConfig(CardEnum.Bomb));
-        GamePlay.OnBombDropped(position, config.Damage, config.Radius);
+        GamePlay.DropBomb(position, config.Damage, config.Radius);
     }
 
     public void PlaceTower(int placeIndex, TowerEnum tower)
     {
         Debug.Log($"Place Tower {tower}");
         GamePlay?.PlaceTower(placeIndex, tower);
+    }
+
+    public void DropNapalm(Vector3 position)
+    {
+        if (InputStateEnum != InputStateEnum.PlayCard) return;
+        // hardcode goi config, sau nay config cua cac the chuc nang se o cho rieng, the chi co config co ban
+        var config = ((NapalmCardConfig)Configs.GetCardConfig(CardEnum.Napalm));
+        GamePlay.DropNapalm(position, config.FireNumber, config.Radius, config.InstantlyDamage, config.DamageInterval, config.DamagePerSec, config.EachRadius);
     }
 
     #endregion

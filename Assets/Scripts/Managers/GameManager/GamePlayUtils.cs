@@ -34,6 +34,19 @@ public static class GamePlayUtils
     {
         return CheckElipse(p1, p2, range) <= 1f;
     }
+
+    public static Vector2 GetRandomPointInEllipse(Vector2 center, Vector2 range)
+    {
+        float t = 2 * Mathf.PI * UnityEngine.Random.value;
+        float u = UnityEngine.Random.value + UnityEngine.Random.value;
+        float r = (u > 1) ? 2 - u : u;
+
+        float x = r * Mathf.Cos(t) * range.x;
+        float y = r * Mathf.Sin(t) * range.y;
+
+        return center + new Vector2(x, y);
+    }
+
     public static float GetAoEDamageMultiplier(float v, float fullRatio)
     {
         v = Mathf.Max(0f, v);

@@ -17,4 +17,5 @@ public enum CardEnum
     Add5Energy = 14,
     Add3Roll = 15,
     Add7Roll = 16,
+    Napalm = 17,
 }

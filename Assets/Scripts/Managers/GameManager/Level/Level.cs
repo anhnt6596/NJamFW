@@ -4,7 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using static CW.Common.CwInputManager;
 
 public class Level : MonoBehaviour, IGamePlay
 {
@@ -135,7 +134,7 @@ public class Level : MonoBehaviour, IGamePlay
 
     }
 
-    public void OnNewWaveStarted(WaveConfig waveConfig)
+    public void StartNewWave(WaveConfig waveConfig)
     {
         foreach (var enemyGroup in waveConfig.EnemySpawnGroups)
         {
@@ -183,7 +182,7 @@ public class Level : MonoBehaviour, IGamePlay
         });
     }
 
-    public void OnAllEnemiesFroze(float duration)
+    public void FreezeEnemies(float duration)
     {
         foreach (var enemy in Enemies)
         {
@@ -193,7 +192,7 @@ public class Level : MonoBehaviour, IGamePlay
         }
     }
 
-    public void OnAllEnemiesReversed(Vector3 wPos, Vector3 radius, float duration)
+    public void ReverseEnemies(Vector3 wPos, Vector3 radius, float duration)
     {
         foreach (var enemy in Enemies)
         {
@@ -203,7 +202,7 @@ public class Level : MonoBehaviour, IGamePlay
         }
     }
 
-    public void OnBombDropped(Vector3 position, Damage damage, Vector2 radius)
+    public void DropBomb(Vector3 position, Damage damage, Vector2 radius)
     {
         this.DelayCall(0, () =>
         {
@@ -212,8 +211,35 @@ public class Level : MonoBehaviour, IGamePlay
             {
                 var enemy = Enemies[i - 1];
                 var v = GamePlayUtils.CheckElipse(enemy.transform.position, position, radius);
-                if (v < 1) enemy.TakeDamage(damage * GamePlayUtils.GetAoEDamageMultiplier(v, 0.45f));
+                if (v < 1)
+                {
+                    enemy.TakeDamage(damage * GamePlayUtils.GetAoEDamageMultiplier(v, 0.45f));
+                }
             }
         });
+    }
+
+    public void DropNapalm(Vector3 position, int fireNumber, Vector2 radius, Damage instantlyDamage, float interval, float dps, Vector2 eachRadius)
+    {
+        for (int i = 0; i < fireNumber; i++)
+        {
+            this.DelayCall(i * 1f, () => {
+                var aFirePos = GamePlayUtils.GetRandomPointInEllipse(position, radius);
+                var dur = App.Get<EffectManager>().NapalmDrop(aFirePos);
+                this.DelayCall(dur, () =>
+                {
+                    for (int i = Enemies.Count; i > 0; i--)
+                    {
+                        var enemy = Enemies[i - 1];
+                        var v = GamePlayUtils.CheckElipse(enemy.transform.position, aFirePos, eachRadius);
+                        if (v < 1)
+                        {
+                            enemy.AddStatus(new UnitStatus(UnitStatusEnum.Burning, interval, dps));
+                            enemy.TakeDamage(instantlyDamage);
+                        }
+                    }
+                });
+            });
+        }
     }
 }

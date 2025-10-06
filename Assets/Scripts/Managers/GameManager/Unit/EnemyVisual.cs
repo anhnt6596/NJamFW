@@ -80,6 +80,8 @@ public class EnemyVisual : Unit
             return;
         }
 
+        if (statusList.Exists(s => s.type == UnitStatusEnum.TimeFrozen)) return;
+
         Vector2 totalAttackRange = attackRange + CurrentTarget.attackRange;
         float dist = GamePlayUtils.CheckElipse(transform.position, CurrentTarget.transform.position, totalAttackRange);
 
