@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Lean.Pool;
+using System;
 using Unity.Burst.Intrinsics;
 using UnityEngine;
 
@@ -62,7 +63,7 @@ public class Tower : MonoBehaviour
     {
         if (bulletPrefab == null || firePoint == null) return;
 
-        BaseBullet bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
+        BaseBullet bullet = LeanPool.Spawn(bulletPrefab, firePoint.position, Quaternion.identity);
         bullet.SetDamage(damage);
         bullet.Display();
         if (bullet != null)
