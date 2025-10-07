@@ -1,18 +1,12 @@
-﻿using System;
+﻿using Lean.Pool;
+using System;
 using UnityEngine;
 
 public class TowerPlacement : MonoBehaviour
 {
     [SerializeField] Vector2 placeRadius = new Vector2(1, 0.7f);
+    [SerializeField] Vector3 focusPos, focusPosHaveTower;
     public Tower Tower { get; private set; }
-    private bool isHighlighted = false;
-    public bool IsHighlighted => isHighlighted;
-
-    public void SetHighlight(bool status)
-    {
-        isHighlighted = status;
-        // enable or disable highlight effect
-    }
 
     public bool CheckPostion(Vector3 wPos, TowerEnum tower)
     {
@@ -27,12 +21,29 @@ public class TowerPlacement : MonoBehaviour
         {
             var towerPrefab = ResourceProvider.GetTower(tower);
             Tower = Instantiate(towerPrefab, transform);
-            Tower.Setup(gamePlay);
-            Tower.transform.localPosition = Vector3.back * 0.001f;
+            Tower.Setup(tower, gamePlay);
+            Tower.transform.localPosition = Vector3.back * 0.1f;
         }
         else
         {
             Tower.LevelUp();
+        }
+    }
+
+    GameObject focusObject;
+
+    public void Focus(bool isShow)
+    {
+        if (focusObject == isShow) return;
+        if (isShow)
+        {
+            focusObject = LeanPool.Spawn(ResourceProvider.Effect.arrowFocus, transform);
+            focusObject.transform.localPosition = Tower ? focusPosHaveTower : focusPos;
+        }
+        else
+        {
+            LeanPool.Despawn(focusObject);
+            focusObject = null;
         }
     }
 }

@@ -1,35 +1,47 @@
 ﻿using Lean.Pool;
 using System;
+using TMPro;
 using Unity.Burst.Intrinsics;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Tower : MonoBehaviour
 {
-    [SerializeField] TowerEnum towerType;
+    [SerializeField] Transform firePoint;
+    [SerializeField] TextMeshProUGUI levelText;
+    [SerializeField] Image fireIndicator;
     public int Level { get; private set; } = 1;
     TowerConfig config;
-    [SerializeField] Transform firePoint;
     public Damage damage => config.GetAttackByLevel(Level);
-    public TowerEnum TowerType => towerType;
+    public TowerEnum TowerType { get; private set; }
     private float fireCooldown;
     private BaseBullet bulletPrefab;
 
     private EnemyVisual currentTarget;
     IGamePlay gamePlay;
-    public void Setup(IGamePlay gamePlay)
+    public void Setup(TowerEnum type, IGamePlay gamePlay)
     {
+        TowerType = type;
         this.gamePlay = gamePlay;
+        config = Configs.GetTowerConfig(TowerType);
+        bulletPrefab = ResourceProvider.GetBullet(TowerType);
+        Level = 1;
+        DisplayLevel();
+        fireCooldown = 1f / config.FireRate;
     }
 
-    private void Start()
+    public void LevelUp()
     {
-        config = Configs.GetTowerConfig(towerType);
-        bulletPrefab = ResourceProvider.GetBullet(towerType); 
+        Level++;
+        DisplayLevel();
     }
+
+    private void DisplayLevel() => levelText.text = $"Level {Level}";
 
     void Update()
     {
         fireCooldown -= Time.deltaTime;
+        fireIndicator.fillAmount = 1 - fireCooldown * config.FireRate;
 
         FindTarget();
         if (currentTarget != null && fireCooldown <= 0f)
@@ -37,11 +49,6 @@ public class Tower : MonoBehaviour
             Shoot(currentTarget);
             fireCooldown = 1f / config.FireRate;
         }
-    }
-
-    public void LevelUp()
-    {
-        Level++;
     }
 
     private void FindTarget()

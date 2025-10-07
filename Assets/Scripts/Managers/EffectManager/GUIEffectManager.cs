@@ -8,6 +8,7 @@ public class GUIEffectManager : MonoBehaviour, IManager
 {
     [SerializeField] ScreenText screenTextPrefab;
     [SerializeField] Image flashImage;
+    [SerializeField] BannerAnnounce bannerAnnounce;
     GUIManager _guiMgr;
     public void Init() { }
 
@@ -15,6 +16,7 @@ public class GUIEffectManager : MonoBehaviour, IManager
     {
         _guiMgr = App.Get<GUIManager>();
         flashImage.gameObject.SetActive(false);
+        bannerAnnounce.gameObject.SetActive(false);
     }
 
     public void Cleanup() { }
@@ -76,5 +78,10 @@ public class GUIEffectManager : MonoBehaviour, IManager
                 flashImage.DOFade(0f, duration * 3 / 4)
                     .OnComplete(() => flashImage.gameObject.SetActive(false));
             });
+    }
+
+    public void BannerAnounce(string content)
+    {
+        bannerAnnounce.Show(content);
     }
 }

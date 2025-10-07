@@ -99,6 +99,7 @@ public class Ally : Unit
                 CurrentTarget.transform.position,
                 config.Speed * Time.deltaTime
             );
+            lastAttackTime = Time.time;
         }
     }
 

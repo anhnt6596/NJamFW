@@ -100,6 +100,7 @@ public class EnemyVisual : Unit
     {
         CurrentTarget = ally;
         state = State.Combat;
+        lastAttackTime = Time.time;
     }
 
     public void Reverse(float duration)

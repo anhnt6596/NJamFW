@@ -24,6 +24,7 @@ public class Game
         LevelConfig = Configs.GetLevelConfig(level);
         CardRoller = new CardRoller(this);
         CurrentWave = -1;
+        InputStateEnum = InputStateEnum.None;
     }
     public GameState State { get; private set; }
     private GamePlayConfig GameConfig { get; set; }
@@ -51,6 +52,7 @@ public class Game
     public void StartGame()
     {
         IsRunning = true;
+        State.InitialState();
         RollCards(true);
         CheckRunNextWave();
     }
@@ -90,7 +92,6 @@ public class Game
     public float GetCardCost(CardEnum card)
     {
         // them so luot da su dung card trong game vao day
-        var usedTime = State.selectedCards.Count(c => c == card);
         return Configs.GetCardConfig(card).GetCost(this);
     }
 

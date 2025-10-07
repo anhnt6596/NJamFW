@@ -16,6 +16,12 @@ public class GameState : ScriptableObject
     public int autoRolled;
     public int proactiveRolled;
 
+    public void InitialState()
+    {
+        freeRoll = Configs.GamePlay.InitFreeReroll;
+        energy = Configs.GamePlay.InitEnergy;
+    }
+
     public void Reset()
     {
         baseHealth = Configs.GamePlay.BaseHealth;
@@ -24,8 +30,8 @@ public class GameState : ScriptableObject
         lockedCardIdxs = new List<int>();
         selectingCardIdx = -1;
         selectedCards = new List<CardEnum>();
-        freeRoll = Configs.GamePlay.InitFreeReroll;
-        energy = Configs.GamePlay.InitEnergy;
+        freeRoll = 0;
+        energy = 0;
         autoRolled = 0;
         proactiveRolled = 0;
     }

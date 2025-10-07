@@ -30,6 +30,7 @@ public class RerollButton : MonoBehaviour
             freeRollText.gameObject.SetActive(true);
             freeRollText.text = $"Free:{game.State.freeRoll}";
             costSlot.SetActive(false);
+            rerollButton.interactable = true;
             rerollButtonEnergyLoad.fillAmount = 0;
         }
         else

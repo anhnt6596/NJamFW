@@ -20,6 +20,10 @@ public class GameInitialize : MonoBehaviour
         // Instantiate UI
         Instantiate(sceneGameUI, sceneGameCanvas);
 
-        game.StartGame();
+        this.DelayCall(1, () => App.Get<GUIEffectManager>().BannerAnounce("3"));
+        this.DelayCall(2, () => App.Get<GUIEffectManager>().BannerAnounce("2"));
+        this.DelayCall(3, () => App.Get<GUIEffectManager>().BannerAnounce("1"));
+        this.DelayCall(4, () => App.Get<GUIEffectManager>().BannerAnounce("Ready!"));
+        this.DelayCall(5, () => game.StartGame());
     }
 }

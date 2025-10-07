@@ -17,8 +17,9 @@ public class Level : MonoBehaviour, IGamePlay
     public List<EnemyVisual> Enemies { get; private set; } = new List<EnemyVisual>();
     public List<Ally> Allies { get; private set; } = new List<Ally>();
     List<HealthBar> healthBars = new List<HealthBar>();
-    List<Tower> spawnedTowers = new List<Tower>();
     public Game Game { get; set; }
+    public List<Tower> Towers => towerPlacements.Where(tp => tp.Tower != null).Select(tp => tp.Tower).ToList();
+    public int TowerPlacementCount => towerPlacements.Count;
     private void Awake()
     {
         // nen co nut de khoi tao, khong phai chay lai moi khi awake
@@ -27,13 +28,13 @@ public class Level : MonoBehaviour, IGamePlay
 
     private void OnEnable()
     {
-
+        Game.OnInputStateChanged += OnInputStateChanged;
     }
 
 
     private void OnDisable()
     {
-
+        Game.OnInputStateChanged -= OnInputStateChanged;
     }
 
     void SpawnEnemy(EnemyEnum enemyType, int gateIdx)
@@ -246,5 +247,19 @@ public class Level : MonoBehaviour, IGamePlay
                 });
             });
         }
+    }
+
+    private void OnInputStateChanged(InputStateEnum state)
+    {
+        if (
+            state == InputStateEnum.PlayCard
+            && Configs.GetCardConfig(Game.PlayingCard) is TowerCardConfig towerConfig
+            )
+            towerPlacements.ForEach(tp =>
+            {
+                if (!tp.Tower || tp.Tower.TowerType == towerConfig.Tower) tp.Focus(true);
+            });
+        else
+            towerPlacements.ForEach(tp => tp.Focus(false));
     }
 }
