@@ -9,4 +9,5 @@ public enum EnemyEnum
     MidTank,
     HeavyTank,
     Speed,
+    Assassin,
 }

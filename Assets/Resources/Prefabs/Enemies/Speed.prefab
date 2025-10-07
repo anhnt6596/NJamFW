@@ -105,9 +105,9 @@ MonoBehaviour:
   def:
     armor: 0
     magicRes: 0
+  statusList: []
   healthNode: {fileID: 1981915015894059643}
   burningNode: {fileID: 7560082948621723815}
-  statusList: []
   movingDist: 0
 --- !u!114 &-1095567104099757602
 MonoBehaviour:
@@ -148,7 +148,7 @@ Transform:
   m_GameObject: {fileID: 1995906805110851241}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.555, z: 0}
+  m_LocalPosition: {x: 0, y: 0.69, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -259,7 +259,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0, g: 1, b: 0, a: 1}
+  m_Color: {r: 1, g: 0.66086817, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

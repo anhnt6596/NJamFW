@@ -8,7 +8,7 @@ public abstract class CardConfig : ScriptableObject
 {
     [SerializeField] CardEnum card;
     [SerializeField] int cost = 1;
-    [SerializeField] int escalatingCost = 0;
+    [SerializeField] float escalatingCost = 0;
     [SerializeField] int maxSellectedTime = -1;
     [SerializeField] bool isUse = true;
 
@@ -16,7 +16,8 @@ public abstract class CardConfig : ScriptableObject
     public virtual int GetCost(Game game)
     {
         var useTime = game.State.selectedCards.Count(c => c == card);
-        return Mathf.Clamp(cost + useTime * escalatingCost, 0, (int)Configs.GamePlay.MaxEnergy);
+        var nextCost = Mathf.FloorToInt(cost + useTime * escalatingCost);
+        return Mathf.Clamp(nextCost, 0, (int)Configs.GamePlay.MaxEnergy);
     }
     public bool IsUse => isUse;  // bien tam thoi, neu false thi la config khong duoc su dung
 

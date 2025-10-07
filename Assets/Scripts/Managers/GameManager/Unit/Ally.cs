@@ -69,6 +69,7 @@ public class Ally : Unit
             CurrentTarget = nearestEnemy;
             nearestEnemy.SetTarget(this);
             state = State.Combat;
+            lastAttackTime = Time.time;
         }
     }
 

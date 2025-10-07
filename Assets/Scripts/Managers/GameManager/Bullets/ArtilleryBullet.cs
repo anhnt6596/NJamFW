@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 
 public class ArtilleryBullet : BaseBullet
 {
-    [SerializeField] Vector2 radius = new Vector2(1.5f, 1.05f);
+    [SerializeField] Vector2 radius = new Vector2(1f, 0.7f);
     Vector3 targetPos;
 
     public override void SetTarget(EnemyVisual enemy)
@@ -17,7 +17,7 @@ public class ArtilleryBullet : BaseBullet
             .OnComplete(() =>
             {
                 LeanPool.Despawn(this);
-                App.Get<EffectManager>().SpawnBombEffect(transform.position);
+                App.Get<EffectManager>().SpawnBombEffect(transform.position, 0.25f);
                 var enemies = App.Get<GameManager>().RunningGame.GamePlay.Enemies;
                 for (int i = enemies.Count; i > 0; i--)
                 {

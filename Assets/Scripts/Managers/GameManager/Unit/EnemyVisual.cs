@@ -66,6 +66,9 @@ public class EnemyVisual : Unit
 
     public UnityEngine.Vector3 GetFuturePosition(float v)
     {
+        // neu co hieu ung khong che di chuyen cung anh huong dau ra cua ham nay, se bo sung sau
+        if (CurrentTarget) return transform.position;
+
         float futureDist = movingDist + speed * v;
         return line.GetPointByDistance(futureDist);
     }

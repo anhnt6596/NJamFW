@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class ArrowFocus : MonoBehaviour
 {
@@ -16,12 +17,14 @@ public class ArrowFocus : MonoBehaviour
 
     private void OnEnable()
     {
-        BounceDownPointer();
+        PlayEff();
     }
 
-    public void BounceDownPointer(float moveDistance = 0.3f, float moveDuration = 0.6f, float scaleAmount = 1.1f)
+    public void PlayEff(float moveDistance = 0.3f, float moveDuration = 0.6f, float scaleAmount = 1.1f)
     {
-        target.DOKill(true);;
+        target.DOKill();
+        target.localPosition = startPos;
+        target.localScale = startScale;
 
         target.DOLocalMoveY(startPos.y + moveDistance, moveDuration)
               .SetEase(Ease.InOutSine)

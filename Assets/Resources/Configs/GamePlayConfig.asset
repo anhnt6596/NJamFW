@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GamePlayConfig
   m_EditorClassIdentifier: 
   baseHealth: 10
-  baseEnergyPerSec: 0.35
+  baseEnergyPerSec: 0.25
   maxEnergy: 10
   rerollCardCost: 1
   initEnergy: 2

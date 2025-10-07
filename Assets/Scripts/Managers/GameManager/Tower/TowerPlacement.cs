@@ -30,7 +30,7 @@ public class TowerPlacement : MonoBehaviour
         }
     }
 
-    GameObject focusObject;
+    ArrowFocus focusObject;
 
     public void Focus(bool isShow)
     {

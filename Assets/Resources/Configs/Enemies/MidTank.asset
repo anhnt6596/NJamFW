@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 589c6ea00bd54d8ab014f03ddba4899b, type: 3}
   m_Name: MidTank
   m_EditorClassIdentifier: 
-  hp: 300
-  speed: 1
+  hp: 350
+  speed: 0.6
   def:
-    armor: 0
+    armor: 1
     magicRes: 0
   attackRange: {x: 0.3, y: 0.21}
   attackSpeed: 0.6
   attackDamage:
-    amount: 20
+    amount: 25
     type: 0
   type: 2
-  damageToTower: 1
+  damageToBase: 2

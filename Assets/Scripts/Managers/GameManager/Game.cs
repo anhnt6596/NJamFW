@@ -31,6 +31,7 @@ public class Game
     private LevelConfig LevelConfig { get; set; }
     public int Level { get; }
     public int CurrentWave { get; private set; }
+    public bool IsLastWave => CurrentWave >= LevelConfig.WaveCount - 1;
     public IGamePlay GamePlay { get; set; }
     private InputStateEnum _inputStateEnum;
     public InputStateEnum InputStateEnum
@@ -59,9 +60,12 @@ public class Game
 
     public void TakeDamage(int value)
     {
+        if (State.baseHealth <= 0) return;
         State.baseHealth -= value;
         if (State.baseHealth <= 0) App.Get<GameManager>().GameLose();
     }
+
+    public void Win() => App.Get<GameManager>().GameWin();
 
     public void DoPayReroll()
     {
@@ -146,17 +150,17 @@ public class Game
         return baseRollEnergy;
     }
 
-    private void CheckRunNextWave()
+    public void CheckRunNextWave()
     {
         CurrentWave++;
-        if (CurrentWave > LevelConfig.WaveCount)
+        if (CurrentWave >= LevelConfig.WaveCount)
         {
             // end game
         }
         else
         {
             var waveConfig = LevelConfig.GetWaveConfig(CurrentWave);
-            GamePlay?.StartNewWave(waveConfig);
+            GamePlay.StartNewWave(waveConfig);
         }
     }
 

@@ -59,10 +59,22 @@ public class GameManager : MonoBehaviour, IManager
         RunningGame = null;
     }
 
+    public void GameWin()
+    {
+        this.DelayCall(0.5f, () =>
+        {
+            Time.timeScale = 0;
+            App.Get<GUIManager>().ShowGui<WinPopup>();
+        });
+    }
+    
     public void GameLose()
     {
-        Time.timeScale = 0;
-        App.Get<GUIManager>().ShowGui<LosePopup>();
+        this.DelayCall(0.5f, () =>
+        {
+            Time.timeScale = 0;
+            App.Get<GUIManager>().ShowGui<LosePopup>();
+        });
     }
 
     private void Update()

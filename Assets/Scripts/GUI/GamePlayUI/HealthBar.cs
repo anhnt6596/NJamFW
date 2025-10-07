@@ -9,19 +9,23 @@ public class HealthBar : MonoBehaviour
     [SerializeField] Image health;
 
     public Unit Target { get; private set; }
-    public void Setup(Unit target)
+    public void Setup(Unit target, Color color)
     {
         Target = target;
-        Update();
+        health.color = color;
+        LateUpdate();
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         if (Target != null)
         {
-            health.fillAmount = Target.HP / Target.maxHP;
-            var screenPos = Camera.main.WorldToScreenPoint(Target.healthNode.position);
-            transform.position = screenPos;
+            float hpRatio = Target.HP / Target.maxHP;
+            health.fillAmount = Mathf.Lerp(health.fillAmount, hpRatio, 0.1f);
+            //var screenPos = Camera.main.WorldToScreenPoint(Target.healthNode.position);
+            transform.position = Target.healthNode.position;
+            if (hpRatio == 1) background.alpha = 0;
+            else background.alpha = Mathf.Lerp(background.alpha, 1, 0.1f);
         }
     }
 }

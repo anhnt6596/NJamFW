@@ -17,11 +17,11 @@ MonoBehaviour:
   escalatingCost: 0
   maxSellectedTime: -1
   isUse: 1
-  damagePerSec: 25
+  damagePerSec: 35
   damageInterval: 5
   fireNumber: 10
   radius: {x: 1, y: 0.7}
-  eachRadius: {x: 0.75, y: 0.525}
+  eachRadius: {x: 1, y: 0.7}
   instantlyDamage:
-    amount: 20
+    amount: 45
     type: 0

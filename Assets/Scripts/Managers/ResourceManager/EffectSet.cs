@@ -11,5 +11,5 @@ public class EffectSet : ResourceSet
     public GameObject smoke;
     public Image invalid;
     public GameObject burning;
-    public GameObject arrowFocus;
+    public ArrowFocus arrowFocus;
 }

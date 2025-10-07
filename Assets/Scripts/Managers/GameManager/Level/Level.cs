@@ -44,7 +44,7 @@ public class Level : MonoBehaviour, IGamePlay
         Enemies.Add(enemy);
 
         var healthBar = LeanPool.Spawn(ResourceProvider.Component.HealthBar, healthBarParent);
-        healthBar.Setup(enemy);
+        healthBar.Setup(enemy, Color.red);
         healthBars.Add(healthBar);
 
         enemy.OnDeath += OnEnemyDeath;
@@ -53,7 +53,10 @@ public class Level : MonoBehaviour, IGamePlay
 
     private void DespawnEnemy(EnemyVisual enemy)
     {
-        LeanPool.Despawn(healthBars.First(h => h.Target == enemy));
+        var healthBar = healthBars.First(h => h.Target == enemy);
+        healthBars.Remove(healthBar);
+        LeanPool.Despawn(healthBar);
+
         Enemies.Remove(enemy);
         enemy.OnDeath -= OnEnemyDeath;
         enemy.OnReachDestination -= OnEnemyReachDestination;
@@ -63,13 +66,18 @@ public class Level : MonoBehaviour, IGamePlay
     private void OnEnemyDeath(Unit enemy)
     {
         DespawnEnemy((EnemyVisual)enemy);
+
+        if (spawnCount == 0
+            && Enemies.Count == 0
+            && Game.IsLastWave
+            && Game.State.baseHealth > 0) Game.Win();
     }
 
     private void OnEnemyReachDestination(EnemyVisual enemy)
     {
         Game.TakeDamage(enemy.config.DamageToBase);
         App.Get<GUIEffectManager>().FlashScreen(new Color(1, 0, 0, 0.3f));
-        DespawnEnemy(enemy);
+        OnEnemyDeath(enemy);
     }
 
     private IMovingPath GetRandomMovingPath(int group)
@@ -113,7 +121,7 @@ public class Level : MonoBehaviour, IGamePlay
         Allies.Add(ally);
 
         var healthBar = LeanPool.Spawn(ResourceProvider.Component.HealthBar, healthBarParent);
-        healthBar.Setup(ally);
+        healthBar.Setup(ally, Color.green);
         healthBars.Add(healthBar);
 
         ally.OnDeath += OnAllyDeath;
@@ -126,7 +134,10 @@ public class Level : MonoBehaviour, IGamePlay
 
     private void DespawnAlly(Ally ally)
     {
-        LeanPool.Despawn(healthBars.First(h => h.Target == ally));
+        var healthBar = healthBars.First(h => h.Target == ally);
+        healthBars.Remove(healthBar);
+        LeanPool.Despawn(healthBar);
+
         Allies.Remove(ally);
         ally.OnDeath -= OnAllyDeath;
         LeanPool.Despawn(ally);
@@ -137,20 +148,35 @@ public class Level : MonoBehaviour, IGamePlay
 
     }
 
+    int spawnCount; // > 0 : spawning, = 0 : spawnCompleted
+
     public void StartNewWave(WaveConfig waveConfig)
     {
-        foreach (var enemyGroup in waveConfig.EnemySpawnGroups)
+        spawnCount = 0;
+        for (int i = 0; i < waveConfig.EnemySpawnGroups.Count; i++)
         {
-            this.DelayCall(enemyGroup.Delay, () => SpawnSimulated(enemyGroup));
+            var enemyGroup = waveConfig.EnemySpawnGroups[i];
+            spawnCount++;
+            this.DelayCall(enemyGroup.Delay, () =>
+            {
+                SpawnGroup(enemyGroup);
+                spawnCount--;
+            });
         }
+        this.DelayCall(waveConfig.WaveMaxTime, () => Game.CheckRunNextWave());
     }
 
-    private void SpawnSimulated(EnemySpawnGroup group)
+    private void SpawnGroup(EnemySpawnGroup group)
     {
         var space = group.Quantity == 0 ? 0 : group.SpawnTime / (group.Quantity);
         for (int i = 0; i < group.Quantity; i++)
         {
-            this.DelayCall(i * space, () => SpawnEnemy(group.Enemy, group.GateIdx));
+            spawnCount++;
+            this.DelayCall(i * space, () =>
+            {
+                SpawnEnemy(group.Enemy, group.GateIdx);
+                spawnCount--;
+            });
         }
     }
 
@@ -176,7 +202,7 @@ public class Level : MonoBehaviour, IGamePlay
         }
         var emenyTake = Enemies[Random.Range(0, Enemies.Count)];
 
-        App.Get<EffectManager>().SpawnLightning(emenyTake.GetFuturePosition(lightningTime),upgradedLightning);
+        App.Get<EffectManager>().SpawnLightning(emenyTake.GetFuturePosition(lightningTime), upgradedLightning);
 
         this.DelayCall(lightningTime, () =>
         {

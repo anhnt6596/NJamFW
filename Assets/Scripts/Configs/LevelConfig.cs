@@ -20,7 +20,7 @@ public class WaveConfig
 {
     [SerializeField] private List<EnemySpawnGroup> enemySpawnGroups;
     [SerializeField] private float waveMaxTime;
-    
+
     public List<EnemySpawnGroup> EnemySpawnGroups => enemySpawnGroups;
     public float WaveMaxTime => waveMaxTime;
 }

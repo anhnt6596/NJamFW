@@ -16,6 +16,11 @@ public struct Damage
         return new Damage(d.amount + value, d.type);
     }
 
+    public static Damage operator +(Damage d1, Damage d2)
+    {
+        return new Damage(d1.amount + d2.amount, d1.type);
+    }
+
     public static Damage operator -(Damage d, float value)
     {
         return new Damage(d.amount - value, d.type);
