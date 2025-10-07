@@ -4,7 +4,7 @@ using static UnityEditor.PlayerSettings;
 
 public class EnemyVisual : Unit
 {
-    private EnemyConfig config;
+    public EnemyConfig config { get; private set; }
     public override float speed => config.Speed;
     public override float maxHP => config.Hp;
     public override Vector2 attackRange => config.AttackRange;

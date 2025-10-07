@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "GamePlayConfig", menuName = "Config/GamePlay")]
 public class GamePlayConfig : ScriptableObject
 {
+    [SerializeField] int baseHealth = 10;
     [SerializeField] float baseEnergyPerSec = 0.1f;
     [SerializeField] float maxEnergy = 10f;
     [SerializeField] float rerollCardCost = 1f;
@@ -17,6 +18,7 @@ public class GamePlayConfig : ScriptableObject
         0, 0.25f, 0.5f, 0.75f, 1f
     };
 
+    public int BaseHealth => baseHealth;
     public float BaseEnergyPerSec => baseEnergyPerSec;
     public float MaxEnergy => maxEnergy;
     public float RerollCardCost => rerollCardCost;

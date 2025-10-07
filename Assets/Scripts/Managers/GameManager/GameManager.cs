@@ -59,6 +59,12 @@ public class GameManager : MonoBehaviour, IManager
         RunningGame = null;
     }
 
+    public void GameLose()
+    {
+        Time.timeScale = 0;
+        App.Get<GUIManager>().ShowGui<LosePopup>();
+    }
+
     private void Update()
     {
         if (RunningGame != null) RunningGame.Update();

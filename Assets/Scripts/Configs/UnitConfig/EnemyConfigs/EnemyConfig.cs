@@ -4,8 +4,8 @@
 public class EnemyConfig : UnitConfig
 {
     [SerializeField] private EnemyEnum type;
-    [SerializeField] private float damageToTower;
+    [SerializeField] private int damageToBase = 1;
 
     public EnemyEnum EnemyType => type;
-    public float DamageToTower => damageToTower;
+    public int DamageToBase => damageToBase;
 }

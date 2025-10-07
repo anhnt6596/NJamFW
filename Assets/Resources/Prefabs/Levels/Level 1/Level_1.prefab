@@ -128,7 +128,7 @@ MonoBehaviour:
   - {fileID: 3991075517932724271}
   - {fileID: 302959215574219132}
   segments: 50
-  scaleY: 2
+  scaleY: 1.428571
 --- !u!1 &647547499554606999
 GameObject:
   m_ObjectHideFlags: 0
@@ -304,7 +304,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f49f435f797816418653f6de4bcb41d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyParent: {fileID: 7661566516718406318}
+  unitParent: {fileID: 0}
   healthBarParent: {fileID: 2917893303549450345}
   towerPlacements:
   - {fileID: 9089635080675667976}
@@ -830,7 +830,7 @@ MonoBehaviour:
   - {fileID: 3491817206188672199}
   - {fileID: 5528157311920742308}
   segments: 50
-  scaleY: 2
+  scaleY: 1.428571
 --- !u!1 &2544683349933812076
 GameObject:
   m_ObjectHideFlags: 0
@@ -897,7 +897,7 @@ MonoBehaviour:
   - {fileID: 7955739554616006807}
   - {fileID: 7884089064879602145}
   segments: 50
-  scaleY: 2
+  scaleY: 1.428571
 --- !u!1 &2637993614022064546
 GameObject:
   m_ObjectHideFlags: 0
@@ -1091,7 +1091,7 @@ MonoBehaviour:
   - {fileID: 6076292987315750925}
   - {fileID: 1011418057731853659}
   segments: 50
-  scaleY: 2
+  scaleY: 1.428571
 --- !u!1 &3440942367094680873
 GameObject:
   m_ObjectHideFlags: 0
@@ -1464,7 +1464,7 @@ MonoBehaviour:
   - {fileID: 7009416908739732083}
   - {fileID: 2569108461687910261}
   segments: 50
-  scaleY: 2
+  scaleY: 1.428571
 --- !u!1 &6053224865199861261
 GameObject:
   m_ObjectHideFlags: 0
@@ -1651,7 +1651,7 @@ MonoBehaviour:
   - {fileID: 5839763812901810400}
   - {fileID: 8923152741215285710}
   segments: 50
-  scaleY: 2
+  scaleY: 1.428571
 --- !u!1 &6253135109701404329
 GameObject:
   m_ObjectHideFlags: 0

@@ -21,12 +21,13 @@ public class TowerPlacement : MonoBehaviour
         return GamePlayUtils.IsInRange(wPos, transform.position, placeRadius);
     }
 
-    public void BuildTower(TowerEnum tower)
+    public void BuildTower(TowerEnum tower, IGamePlay gamePlay)
     {
         if (!Tower)
         {
             var towerPrefab = ResourceProvider.GetTower(tower);
             Tower = Instantiate(towerPrefab, transform);
+            Tower.Setup(gamePlay);
             Tower.transform.localPosition = Vector3.back * 0.001f;
         }
         else

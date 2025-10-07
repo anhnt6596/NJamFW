@@ -1,4 +1,4 @@
-using Core;
+﻿using Core;
 using DG.Tweening;
 using Lean.Pool;
 using UnityEngine;
@@ -7,12 +7,14 @@ using UnityEngine.UI;
 public class GUIEffectManager : MonoBehaviour, IManager
 {
     [SerializeField] ScreenText screenTextPrefab;
+    [SerializeField] Image flashImage;
     GUIManager _guiMgr;
     public void Init() { }
 
     public void StartUp()
     {
         _guiMgr = App.Get<GUIManager>();
+        flashImage.gameObject.SetActive(false);
     }
 
     public void Cleanup() { }
@@ -56,5 +58,23 @@ public class GUIEffectManager : MonoBehaviour, IManager
         seq.Append(invalid.DOFade(0, 0.6f));
         seq.AppendCallback(() => LeanPool.Despawn(invalid));
         return invalid;
+    }
+
+    private Tween flashScreenTween;
+    public void FlashScreen(Color color, float duration = 0.4f)
+    {
+        if (flashImage == null) return;
+
+        flashScreenTween?.Kill();
+
+        flashImage.gameObject.SetActive(true);
+        flashImage.color = new Color(color.r, color.g, color.b, 0);
+
+        flashScreenTween = flashImage.DOFade(color.a, duration / 4)
+            .OnComplete(() =>
+            {
+                flashImage.DOFade(0f, duration * 3 / 4)
+                    .OnComplete(() => flashImage.gameObject.SetActive(false));
+            });
     }
 }

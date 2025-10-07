@@ -55,6 +55,12 @@ public class Game
         CheckRunNextWave();
     }
 
+    public void TakeDamage(int value)
+    {
+        State.baseHealth -= value;
+        if (State.baseHealth <= 0) App.Get<GameManager>().GameLose();
+    }
+
     public void DoPayReroll()
     {
         if (State.freeRoll > 0)

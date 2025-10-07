@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Lightning
   m_EditorClassIdentifier: 
   card: 6
-  cost: 0
+  cost: 2
   escalatingCost: 1
   maxSellectedTime: -1
   isUse: 1
   init: 1
-  increase: 1
+  increase: 2
   max: 7
   damageEach: 55
   maxEnergy: 3

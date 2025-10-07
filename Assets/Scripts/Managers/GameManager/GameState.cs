@@ -6,6 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "GameState", menuName = "Game/State")]
 public class GameState : ScriptableObject
 {
+    public int baseHealth;
     public float energy;
     public List<CardEnum> cards;
     public List<int> lockedCardIdxs;
@@ -17,6 +18,7 @@ public class GameState : ScriptableObject
 
     public void Reset()
     {
+        baseHealth = Configs.GamePlay.BaseHealth;
         energy = 0;
         cards = new List<CardEnum>();
         lockedCardIdxs = new List<int>();

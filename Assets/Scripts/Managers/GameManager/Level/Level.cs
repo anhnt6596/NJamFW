@@ -64,9 +64,11 @@ public class Level : MonoBehaviour, IGamePlay
         DespawnEnemy((EnemyVisual)enemy);
     }
 
-    private void OnEnemyReachDestination(EnemyVisual emeny)
+    private void OnEnemyReachDestination(EnemyVisual enemy)
     {
-        DespawnEnemy(emeny);
+        Game.TakeDamage(enemy.config.DamageToBase);
+        App.Get<GUIEffectManager>().FlashScreen(new Color(1, 0, 0, 0.3f));
+        DespawnEnemy(enemy);
     }
 
     private IMovingPath GetRandomMovingPath(int group)
@@ -93,7 +95,7 @@ public class Level : MonoBehaviour, IGamePlay
     public void PlaceTower(int placeIndex, TowerEnum tower)
     {
         var placement = towerPlacements[placeIndex];
-        placement.BuildTower(tower);
+        placement.BuildTower(tower, this);
     }
 
     public bool IsWPosInPolygon(Vector3 wPos)
@@ -160,7 +162,7 @@ public class Level : MonoBehaviour, IGamePlay
     }
 
     float delayEachLightning = 0.5f;
-    float lightningTime = 0.25f;
+    float lightningTime = 0.2f;
     public void Lightning(Damage dmg)
     {
         if (!Game.IsRunning) return;
@@ -177,6 +179,7 @@ public class Level : MonoBehaviour, IGamePlay
 
         this.DelayCall(lightningTime, () =>
         {
+            CameraShake.Shake(0.2f, 0.03f);
             if (emenyTake.isDead) return;
             emenyTake.TakeDamage(dmg);
         });
@@ -206,6 +209,7 @@ public class Level : MonoBehaviour, IGamePlay
     {
         this.DelayCall(0, () =>
         {
+            CameraShake.Shake(0.3f, 0.1f);
             App.Get<EffectManager>().SpawnBombEffect(position);
             for (int i = Enemies.Count; i > 0; i--)
             {
@@ -223,11 +227,12 @@ public class Level : MonoBehaviour, IGamePlay
     {
         for (int i = 0; i < fireNumber; i++)
         {
-            this.DelayCall(i * 1f, () => {
+            this.DelayCall(i * 0.1f, () => {
                 var aFirePos = GamePlayUtils.GetRandomPointInEllipse(position, radius);
                 var dur = App.Get<EffectManager>().NapalmDrop(aFirePos);
                 this.DelayCall(dur, () =>
                 {
+                    CameraShake.Shake(0.3f, 0.1f);
                     for (int i = Enemies.Count; i > 0; i--)
                     {
                         var enemy = Enemies[i - 1];

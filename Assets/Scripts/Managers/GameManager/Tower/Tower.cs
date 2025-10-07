@@ -14,6 +14,13 @@ public class Tower : MonoBehaviour
     private float fireCooldown;
     private BaseBullet bulletPrefab;
 
+    private EnemyVisual currentTarget;
+    IGamePlay gamePlay;
+    public void Setup(IGamePlay gamePlay)
+    {
+        this.gamePlay = gamePlay;
+    }
+
     private void Start()
     {
         config = Configs.GetTowerConfig(towerType);
@@ -24,10 +31,10 @@ public class Tower : MonoBehaviour
     {
         fireCooldown -= Time.deltaTime;
 
-        EnemyVisual target = FindTarget();
-        if (target != null && fireCooldown <= 0f)
+        FindTarget();
+        if (currentTarget != null && fireCooldown <= 0f)
         {
-            Shoot(target);
+            Shoot(currentTarget);
             fireCooldown = 1f / config.FireRate;
         }
     }
@@ -37,10 +44,16 @@ public class Tower : MonoBehaviour
         Level++;
     }
 
-    EnemyVisual FindTarget()
+    private void FindTarget()
     {
-        EnemyVisual[] enemies = FindObjectsOfType<EnemyVisual>();
-        EnemyVisual target = null;
+        if (currentTarget != null && !currentTarget.isDead)
+        {
+            // if last target in range, do not change
+            if (GamePlayUtils.IsInRange(currentTarget.transform.position, transform.position, config.Range)) return;
+        }
+
+        var enemies = gamePlay.Enemies;
+        currentTarget = null;
         float nearestDest = Mathf.Infinity;
 
         foreach (var e in enemies)
@@ -52,11 +65,9 @@ public class Tower : MonoBehaviour
             if (inRange && remainDest < nearestDest)
             {
                 nearestDest = remainDest;
-                target = e;
+                currentTarget = e;
             }
         }
-
-        return target;
     }
 
     void Shoot(EnemyVisual target)
