@@ -77,8 +77,8 @@ public class CardUI : MonoBehaviour
     {
         if (game.State.lockedCardIdxs.Contains(Index))
         {
-            DisplayCardInfo();
-            DisplayLock();
+            DisplayAll();
+            callback?.Invoke();
             return;
         }
 
