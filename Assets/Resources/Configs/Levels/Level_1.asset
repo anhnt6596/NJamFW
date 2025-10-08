@@ -16,13 +16,6 @@ MonoBehaviour:
   waveConfigs:
   - enemySpawnGroups:
     - enemy: 1
-      quantity: 1
-      gateIdx: 0
-      delay: 0
-      spawnTime: 0
-    waveMaxTime: 1000
-  - enemySpawnGroups:
-    - enemy: 1
       quantity: 3
       gateIdx: 0
       delay: 2

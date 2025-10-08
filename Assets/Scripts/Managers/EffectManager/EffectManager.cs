@@ -57,13 +57,13 @@ public class EffectManager : MonoBehaviour, IManager
         {
             var fire = LeanPool.Spawn(ResourceProvider.Effect.burning, pos, Quaternion.identity, transform);
             fire.transform.localScale = Vector3.one * 0.3f;
-            fire.transform.position = GamePlayUtils.Y2Z(pos + Vector3.up * 20, -0.2f);
-            fire.transform.DOMove(pos, 1f).SetEase(Ease.InQuad).OnComplete(() =>
+            fire.transform.position = GamePlayUtils.Y2Z(pos + Vector3.up * 12, -0.2f);
+            fire.transform.DOMove(pos, 0.5f).SetEase(Ease.InQuad).OnComplete(() =>
             {
                 App.Get<EffectManager>().SpawnBombEffect(position, 0.3f);
                 LeanPool.Despawn(fire);
             });
         }
-        return 1f;
+        return 0.5f;
     }
 }
