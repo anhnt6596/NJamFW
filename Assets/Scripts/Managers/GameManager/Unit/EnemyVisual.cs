@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EnemyVisual : Unit
 {
-    [SerializeField] private CharacterAnimator characterAnimator;
     public EnemyConfig config { get; private set; }
     public override float speed => GetSpeed();
 
@@ -25,9 +24,14 @@ public class EnemyVisual : Unit
     public IMovingPath line;
     public System.Action<EnemyVisual> OnReachDestination;
 
+    private CharacterAnimator unitAnimator;
+
+    private void Awake()
+    {
+        unitAnimator = GetComponentInChildren<CharacterAnimator>();
+    }
 
     public Ally CurrentTarget { get; private set; }
-    private int currentDir;
     public void Setup(IMovingPath line, EnemyConfig config)
     {
         this.line = line;
@@ -61,8 +65,7 @@ public class EnemyVisual : Unit
     {
         if (statusList.Exists(s => s.type == UnitStatusEnum.TimeFrozen))
         {
-            characterAnimator.UpdateState(0);
-            characterAnimator.UpdateDir(currentDir);
+            unitAnimator.UpdateState(0);;
             return;
         }
         // moving
@@ -73,9 +76,9 @@ public class EnemyVisual : Unit
         {
             var last = transform.position;
             transform.position = line.GetPointByDistance(movingDist);
-            currentDir = GamePlayUtils.GetDirection8Index(transform.position - last);
-            characterAnimator.UpdateState(1);
-            characterAnimator.UpdateDir(currentDir);
+            var dir = GamePlayUtils.GetDirection2Index(transform.position - last);
+            unitAnimator.UpdateState(1);
+            if (dir != -1) unitAnimator.UpdateDir(dir);
         }
     }
 
@@ -112,16 +115,17 @@ public class EnemyVisual : Unit
 
         Vector2 totalAttackRange = attackRange + CurrentTarget.attackRange;
         float dist = GamePlayUtils.CheckElipse(transform.position, CurrentTarget.transform.position, totalAttackRange);
-        if (dist > 1) return;
+        if (dist > 1)
+        {
+            unitAnimator.UpdateState(0);
+        }
         else
         {
             if (Time.time - lastAttackTime >= 1f / attackSpeed)
             {
                 lastAttackTime = Time.time;
                 CurrentTarget.TakeDamage(config.AttackDamage);
-                
-                characterAnimator.UpdateState(2);
-                characterAnimator.UpdateDir(currentDir);
+                unitAnimator.TriggerAttack();
             }
         }
     }

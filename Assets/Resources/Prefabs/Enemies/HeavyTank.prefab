@@ -109,7 +109,7 @@ MonoBehaviour:
   statusList: []
   healthNode: {fileID: 1981915015894059643}
   burningNode: {fileID: 1689641794027025176}
-  characterAnimator: {fileID: -5628965069238828701}
+  unitAnimator: {fileID: 0}
   movingDist: 0
 --- !u!114 &3848210070103758111
 MonoBehaviour:
@@ -264,7 +264,7 @@ Animator:
   m_GameObject: {fileID: 8044134650306137484}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 558048932448ab644a9330d997307d46, type: 2}
+  m_Controller: {fileID: 9100000, guid: 4acc733327f6a91428bbf81f234c6180, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

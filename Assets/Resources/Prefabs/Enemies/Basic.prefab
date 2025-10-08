@@ -109,7 +109,7 @@ MonoBehaviour:
   statusList: []
   healthNode: {fileID: 1981915015894059643}
   burningNode: {fileID: 471695948951148304}
-  characterAnimator: {fileID: 3645724700756588135}
+  unitAnimator: {fileID: 0}
   movingDist: 0
 --- !u!114 &-1451005779214676023
 MonoBehaviour:
@@ -275,7 +275,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -295,7 +295,7 @@ Animator:
   m_GameObject: {fileID: 8044134650306137484}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 558048932448ab644a9330d997307d46, type: 2}
+  m_Controller: {fileID: 9100000, guid: 4acc733327f6a91428bbf81f234c6180, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
