@@ -9,7 +9,7 @@ public class RerollButton : MonoBehaviour
     [SerializeField] TextMeshProUGUI freeRollText;
     [SerializeField] TextMeshProUGUI costText;
     [SerializeField] GameObject costSlot;
-    [SerializeField] float coolDownTime = 1.2f;
+    [SerializeField] float coolDownTime = 1f;
     float remainCooldown = 0f;
 
     Game game;
