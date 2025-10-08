@@ -29,8 +29,12 @@ public class CardUI : MonoBehaviour
         Index = index;
         Card = card;
         CardConfig = Configs.GetCardConfig(card);
-        //DisplayCardInfo();
-        //DisplayLock();
+    }
+
+    public void DisplayAll()
+    {
+        DisplayCardInfo();
+        DisplayLock();
     }
 
     private void DisplayCardInfo()
@@ -102,8 +106,7 @@ public class CardUI : MonoBehaviour
             if (!cardDisplayed && p >= 0.5f)
             {
                 cardDisplayed = true;
-                DisplayCardInfo();
-                DisplayLock();
+                DisplayAll();
             }
 
             float y = p <= 0.5f

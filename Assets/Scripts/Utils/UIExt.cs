@@ -6,14 +6,17 @@ public static class UIExt
 {
     public static void SetAlpha(this TMP_Text text, float alpha)
     {
-        var oriColor = text.color;
-        oriColor.a = alpha;
-        oriColor.r = Mathf.Clamp01(alpha);
+        var color = text.color;
+        color.a = alpha;
+        color.a = Mathf.Clamp01(alpha);
+        text.color = color;
     }
-    public static void SetAlpha(this Image text, float alpha)
+
+    public static void SetAlpha(this Image img, float alpha)
     {
-        var oriColor = text.color;
-        oriColor.a = alpha;
-        oriColor.r = Mathf.Clamp01(alpha);
+        var color = img.color;
+        color.a = alpha;
+        color.a = Mathf.Clamp01(alpha);
+        img.color = color;
     }
 }

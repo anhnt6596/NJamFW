@@ -17,7 +17,7 @@ public class SelectingCardBar : MonoBehaviour
 
         Game.OnCardsRolled += OnCardRolled;
         Game.OnCardLocked += OnCardLocked;
-        DisplayCards();
+        DisplayCards(false);
     }
 
     private void OnDisable()
@@ -33,7 +33,7 @@ public class SelectingCardBar : MonoBehaviour
     }
 
 
-    private void DisplayCards()
+    private void DisplayCards(bool animation = true)
     {
         var cards = game.State.cards;
         foreach (var cardUI in cardUIs) cardUI.Interactable = false;
@@ -46,7 +46,12 @@ public class SelectingCardBar : MonoBehaviour
                 var card = cards[i];
                 cardUI.SetCard(i, cards[i]);
                 cardUI.gameObject.SetActive(true);
-                cardUI.Flip(() => cardUI.Interactable = true);
+                if (animation) cardUI.Flip(() => cardUI.Interactable = true);
+                else
+                {
+                    cardUI.DisplayAll();
+                    cardUI.Interactable = true;
+                }
             }
             else
             {

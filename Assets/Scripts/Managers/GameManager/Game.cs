@@ -191,6 +191,13 @@ public class Game
     #region Game Actions
 
     public void CardActionDone() => RollCards(true);
+    public void CancelPlayingCard()
+    {
+        // tam thoi, sau nay se lam lai han hoi, phai action card thi moi tru cost + add vao card da choi
+        PlayingCard = CardEnum.None;
+        State.selectedCards.RemoveAt(State.selectedCards.Count - 1);
+        InputStateEnum = InputStateEnum.SelectingCard;
+    }
     public void CastLightnings(int times, Damage damage)
     {
         GamePlay?.CastGameLightnings(times, damage);

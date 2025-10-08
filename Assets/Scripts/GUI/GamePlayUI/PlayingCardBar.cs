@@ -99,4 +99,9 @@ public class PlayingCardBar : MonoBehaviour
         }
         return false;
     }
+
+    public void OnClickCancel()
+    {
+        game.CancelPlayingCard();
+    }
 }

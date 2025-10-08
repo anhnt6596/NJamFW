@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -8,6 +9,7 @@ public class PlayerEnergyUI : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI energyText;
     [SerializeField] Slider sliderEnergy;
+    [SerializeField] List<Image> sliderItems;
     Game game;
 
     private void OnEnable()
@@ -19,5 +21,30 @@ public class PlayerEnergyUI : MonoBehaviour
     {
         energyText.text = $"{Mathf.Floor(game.State.energy)}";
         sliderEnergy.value = game.State.energy / Configs.GamePlay.MaxEnergy;
+        for (int i = 0; i < sliderItems.Count; i++)
+        {
+            var item = sliderItems[i];
+            var energyFloor = Mathf.FloorToInt(game.State.energy);
+            if (i < energyFloor)
+            {
+                if (item.color.a < 0.9f)
+                {
+                    var seq = DOTween.Sequence();
+                    seq.Append(item.transform.DOScale(1.1f, 0.2f).SetEase(Ease.OutQuart));
+                    seq.Append(item.transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack));
+                }
+                item.SetAlpha(1);
+                item.fillAmount = 1;
+            }
+            else
+            {
+                item.SetAlpha(0.3f);
+                if (i == energyFloor)
+                {
+                    item.fillAmount = game.State.energy - energyFloor;
+                }
+                else item.fillAmount = 0;
+            }
+        }
     }
 }

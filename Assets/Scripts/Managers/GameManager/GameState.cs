@@ -36,7 +36,6 @@ public class GameState : ScriptableObject
         proactiveRolled = 0;
     }
     public int energyFloor => Mathf.FloorToInt(energy);
-    public CardEnum selectCard => cards.GetOrDefault(selectingCardIdx);
     public int totalRolled => autoRolled + proactiveRolled;
 
 }
