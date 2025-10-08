@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyVisual : Unit
 {
+    [SerializeField] private CharacterAnimator characterAnimator;
     public EnemyConfig config { get; private set; }
     public override float speed => GetSpeed();
 
@@ -26,7 +27,7 @@ public class EnemyVisual : Unit
 
 
     public Ally CurrentTarget { get; private set; }
-
+    private int currentDir;
     public void Setup(IMovingPath line, EnemyConfig config)
     {
         this.line = line;
@@ -58,11 +59,24 @@ public class EnemyVisual : Unit
 
     private void ProcessMoving()
     {
-        if (statusList.Exists(s => s.type == UnitStatusEnum.TimeFrozen)) return;
+        if (statusList.Exists(s => s.type == UnitStatusEnum.TimeFrozen))
+        {
+            characterAnimator.UpdateState(0);
+            characterAnimator.UpdateDir(currentDir);
+            return;
+        }
         // moving
         movingDist += Time.deltaTime * speed;
+       
         if (remainingDist <= 0.1f) ReachDestination();
-        else transform.position = line.GetPointByDistance(movingDist);
+        else
+        {
+            var last = transform.position;
+            transform.position = line.GetPointByDistance(movingDist);
+            currentDir = GamePlayUtils.GetDirection8Index(transform.position - last);
+            characterAnimator.UpdateState(1);
+            characterAnimator.UpdateDir(currentDir);
+        }
     }
 
     public float remainingDist => line.GetTotalLength() - movingDist;
@@ -83,6 +97,8 @@ public class EnemyVisual : Unit
     }
 
     private float lastAttackTime;
+    
+
     private void CombatBehavior()
     {
         if (CurrentTarget == null || CurrentTarget.isDead)
@@ -96,7 +112,6 @@ public class EnemyVisual : Unit
 
         Vector2 totalAttackRange = attackRange + CurrentTarget.attackRange;
         float dist = GamePlayUtils.CheckElipse(transform.position, CurrentTarget.transform.position, totalAttackRange);
-
         if (dist > 1) return;
         else
         {
@@ -104,6 +119,9 @@ public class EnemyVisual : Unit
             {
                 lastAttackTime = Time.time;
                 CurrentTarget.TakeDamage(config.AttackDamage);
+                
+                characterAnimator.UpdateState(2);
+                characterAnimator.UpdateDir(currentDir);
             }
         }
     }

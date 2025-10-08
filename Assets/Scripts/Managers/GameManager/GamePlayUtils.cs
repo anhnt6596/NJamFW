@@ -60,4 +60,25 @@ public static class GamePlayUtils
         float t = (v - fullRatio) * inv;
         return Mathf.Clamp01(1f - t);
     }
+    /// <summary>
+    /// Trả về index hướng (0–7) tương ứng với vector đầu vào.
+    /// 0 = Right, 1 = Up-Right, 2 = Up, 3 = Up-Left, 4 = Left, 5 = Down-Left, 6 = Down, 7 = Down-Right
+    /// </summary>
+    public static int GetDirection8Index(Vector2 dir)
+    {
+        if (dir.sqrMagnitude < 0.0001f)
+            return -1; // vector quá nhỏ -> không xác định hướng
+
+        // Lấy góc theo radian -> degree
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+
+        // Đưa về khoảng [0, 360)
+        if (angle < 0)
+            angle += 360f;
+
+        // Mỗi hướng chiếm 45°, offset 22.5° để làm tròn chính giữa
+        int index = Mathf.FloorToInt((angle + 22.5f) / 45f) % 8;
+
+        return index;
+    }
 }

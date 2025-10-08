@@ -80,6 +80,7 @@ public class CatmullRomSpline2D : MonoBehaviour, IMovingPath
         return GetPoint(1f);
     }
 
+
     // =====================
     // PRIVATE
     // =====================
