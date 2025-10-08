@@ -20,6 +20,6 @@ MonoBehaviour:
   init: 1
   increase: 1
   max: 7
-  damageEach: 65
+  damageEach: 105
   maxEnergy: 2
   damageType: 1

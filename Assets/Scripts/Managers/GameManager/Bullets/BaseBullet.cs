@@ -5,7 +5,7 @@ using static UnityEngine.GraphicsBuffer;
 public abstract class BaseBullet : MonoBehaviour
 {
     public float speed = 6f;
-    public Damage damage;
+    protected Damage damage;
     public abstract void SetTarget(EnemyVisual enemy);
     public void SetDamage(Damage dmg) => damage = dmg;
 

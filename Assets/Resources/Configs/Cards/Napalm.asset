@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: Napalm
   m_EditorClassIdentifier: 
   card: 17
-  cost: 3
+  cost: 4
   escalatingCost: 0
   maxSellectedTime: -1
   isUse: 1
-  damagePerSec: 35
-  damageInterval: 5
+  damagePerSec: 25
+  damageInterval: 10
   fireNumber: 10
   radius: {x: 1, y: 0.7}
   eachRadius: {x: 1, y: 0.7}
   instantlyDamage:
-    amount: 45
+    amount: 30
     type: 0

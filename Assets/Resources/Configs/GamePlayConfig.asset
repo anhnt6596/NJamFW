@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6cd7bfa7e4b9094784d7d2230fcff5b, type: 3}
   m_Name: GamePlayConfig
   m_EditorClassIdentifier: 
-  baseHealth: 10
+  baseHealth: 5
   baseEnergyPerSec: 0.25
   maxEnergy: 10
   rerollCardCost: 1

@@ -23,7 +23,7 @@ public class ArtilleryBullet : BaseBullet
                 {
                     var enemy = enemies[i - 1];
                     var v = GamePlayUtils.CheckElipse(enemy.transform.position, transform.position, radius);
-                    if (v < 1) enemy.TakeDamage(damage * GamePlayUtils.GetAoEDamageMultiplier(v, 0.45f));
+                    if (v < 1) enemy.TakeDamage(damage * GamePlayUtils.GetAoEDamageMultiplier(v, 0.1f));
                 }
             });
     }

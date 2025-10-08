@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 589c6ea00bd54d8ab014f03ddba4899b, type: 3}
   m_Name: Basic
   m_EditorClassIdentifier: 
-  hp: 120
+  hp: 100
   speed: 0.6
   def:
     armor: 0

@@ -81,6 +81,12 @@ public abstract class Unit : MonoBehaviour
                         if (status.@params[0] <= 0) statusList.Remove(status);
                         break;
                     }
+                case UnitStatusEnum.Slow:
+                    {
+                        status.@params[0] -= Time.deltaTime;
+                        if (status.@params[0] <= 0) statusList.Remove(status);
+                        break;
+                    }
             }
         }
     }

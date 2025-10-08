@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3827394121777446009}
-  - component: {fileID: 7366217246117497252}
+  - component: {fileID: 8220979674009342425}
   m_Layer: 0
   m_Name: Bullet_MageTower
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   - {fileID: 3129501751023207472}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7366217246117497252
+--- !u!114 &8220979674009342425
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,13 +42,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 600123193385201067}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6f5e9ac67200044b9cdb9ee6ae4760a, type: 3}
+  m_Script: {fileID: 11500000, guid: 613716c33fc17e141941c290d140596f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
-  damage:
-    amount: 0
-    type: 0
   rotationOffset: 0
 --- !u!1001 &2738859699730766517
 PrefabInstance:

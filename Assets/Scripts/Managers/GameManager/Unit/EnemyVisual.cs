@@ -1,10 +1,20 @@
 using System;
+using System.Linq;
 using UnityEngine;
 
 public class EnemyVisual : Unit
 {
     public EnemyConfig config { get; private set; }
-    public override float speed => config.Speed;
+    public override float speed => GetSpeed();
+
+    private float GetSpeed()
+    {
+        var mult = 1f;
+        var slow = statusList.FirstOrDefault(s => s.type == UnitStatusEnum.Slow);
+        if (slow != null) mult = slow.@params[1];
+        return config.Speed * mult;
+    }
+
     public override float maxHP => config.Hp;
     public override Vector2 attackRange => config.AttackRange;
     public override float attackSpeed => config.AttackSpeed;
