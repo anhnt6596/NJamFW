@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card: 2
   cost: 3
-  escalatingCost: 0.5
+  escalatingCost: 1
   maxSellectedTime: -1
   isUse: 1
   tower: 2

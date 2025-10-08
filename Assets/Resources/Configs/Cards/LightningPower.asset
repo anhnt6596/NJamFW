@@ -17,4 +17,5 @@ MonoBehaviour:
   escalatingCost: 0
   maxSellectedTime: 1
   isUse: 1
-  damageIncrease: 2
+  damageMult: 2
+  lightningUsedToAppear: 3

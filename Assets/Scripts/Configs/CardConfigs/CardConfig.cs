@@ -23,7 +23,7 @@ public abstract class CardConfig : ScriptableObject
 
     public virtual InputStateEnum ApplySellectedEffect(Game game)
     {
-        return InputStateEnum.None;
+        return InputStateEnum.SelectingCard;
     }
     public virtual string GetDetailInfo(Game game) => "";
     public virtual string GetPlayDescription(Game game) => "";

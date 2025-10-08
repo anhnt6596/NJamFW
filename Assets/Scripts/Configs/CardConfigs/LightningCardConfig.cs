@@ -24,7 +24,7 @@ public class LightningCardConfig : CardConfig
 
         game.CastLightnings(times, new Damage(dmg, damageType));
 
-        return InputStateEnum.None;
+        return InputStateEnum.SelectingCard;
     }
 
     public override string GetDetailInfo(Game game)

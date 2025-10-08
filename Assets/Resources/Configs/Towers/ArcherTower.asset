@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   baseAttack:
-    amount: 15
+    amount: 18
     type: 0
   fireRate: 1.2
   range: {x: 3, y: 2.1}

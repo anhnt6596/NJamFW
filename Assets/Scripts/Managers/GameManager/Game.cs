@@ -114,7 +114,7 @@ public class Game
         // Do Card Action
         var inputState = Configs.GetCardConfig(cardEnum).ApplySellectedEffect(this);
         State.selectedCards.Add(cardEnum);
-        if (inputState == InputStateEnum.None || inputState == InputStateEnum.SelectingCard)
+        if (inputState == InputStateEnum.SelectingCard)
         {
             RollCards(true);
         }

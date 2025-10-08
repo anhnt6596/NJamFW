@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameUIBar : MonoBehaviour
 {
+    [SerializeField] GameObject waiting;
+    [SerializeField] GameObject playing;
+
     [SerializeField] SelectingCardBar selectingCardBar;
     [SerializeField] PlayingCardBar playingCardBar;
     Game game;
@@ -22,11 +26,17 @@ public class GameUIBar : MonoBehaviour
 
     private void DisplayGameBars(InputStateEnum state)
     {
-        selectingCardBar.gameObject.SetActive(state == InputStateEnum.SelectingCard);
-        playingCardBar.gameObject.SetActive(state == InputStateEnum.PlayCard);
-        if (state == InputStateEnum.PlayCard)
+        waiting.SetActive(state == InputStateEnum.None);
+        playing.SetActive(state != InputStateEnum.None);
+
+        if (state != InputStateEnum.None)
         {
-            playingCardBar.Display(game);
+            selectingCardBar.gameObject.SetActive(state == InputStateEnum.SelectingCard);
+            playingCardBar.gameObject.SetActive(state == InputStateEnum.PlayCard);
+            if (state == InputStateEnum.PlayCard)
+            {
+                playingCardBar.Display(game);
+            }
         }
     }
 }

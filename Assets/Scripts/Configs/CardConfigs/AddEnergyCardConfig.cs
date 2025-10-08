@@ -12,7 +12,7 @@ public class AddEnergyCardConfig : CardConfig
     public override InputStateEnum ApplySellectedEffect(Game game)
     {
         game.IncreaseEnergy(value);
-        return InputStateEnum.None;
+        return InputStateEnum.SelectingCard;
     }
 
     public override bool CanBeRoll(Game game)

@@ -11,7 +11,7 @@ public class TimeFreezeCardConfig : CardConfig
     {
         // all enemy freeze for freezeTime seconds
         game.DoFrozenAllEnemies(freezeTime);
-        return InputStateEnum.None;
+        return InputStateEnum.SelectingCard;
     }
     public override bool CanBeRoll(Game game)
     {

@@ -1,3 +1,4 @@
+using Core;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -35,16 +36,21 @@ public class SelectingCardBar : MonoBehaviour
     private void DisplayCards()
     {
         var cards = game.State.cards;
+        foreach (var cardUI in cardUIs) cardUI.Interactable = false;
+
         for (int i = 0; i < cardUIs.Count; i++)
         {
+            var cardUI = cardUIs[i];
             if (i < cards.Count)
             {
-                cardUIs[i].SetCard(i, cards[i]);
-                cardUIs[i].gameObject.SetActive(true);
+                var card = cards[i];
+                cardUI.SetCard(i, cards[i]);
+                cardUI.gameObject.SetActive(true);
+                cardUI.Flip(() => cardUI.Interactable = true);
             }
             else
             {
-                cardUIs[i].gameObject.SetActive(false);
+                cardUI.gameObject.SetActive(false);
             }
         }
     }
