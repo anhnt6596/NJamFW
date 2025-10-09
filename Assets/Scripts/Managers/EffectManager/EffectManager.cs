@@ -31,6 +31,7 @@ public class EffectManager : MonoBehaviour, IManager
         var lightning = LeanPool.Spawn(effectLazer, pos, Quaternion.identity, transform);
         lightning.Play();
         lightning.transform.localScale = Vector3.one * 0.5f;
+        SoundManager.Play(ResourceProvider.Sound.general.lightning);
         this.DelayCall(5, () => LeanPool.Despawn(lightning));
     }
 

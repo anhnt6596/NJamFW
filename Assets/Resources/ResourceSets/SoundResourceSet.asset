@@ -28,4 +28,4 @@ MonoBehaviour:
     bombExplosion: {fileID: 8300000, guid: 901c0be443bf875408384b9acdf21ce6, type: 3}
     moreRoll: {fileID: 8300000, guid: 9e471882e50fade43ac4a33c2f2770eb, type: 3}
     damageSound: {fileID: 8300000, guid: 2a836281911c10547b89acbb35349e99, type: 3}
-    napalBombSound: {fileID: 8300000, guid: 9f41a8f2be6ea4b4cb1a7c2be7b8f74e, type: 3}
+    napalBombSound: {fileID: 8300000, guid: a30480632afbdbc47a39e9ac077caef9, type: 3}

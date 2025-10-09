@@ -233,7 +233,7 @@ public class Game
         // hardcode goi config, sau nay config cua cac the chuc nang se o cho rieng, the chi co config co ban
         var config = ((NapalmCardConfig)Configs.GetCardConfig(CardEnum.Napalm));
         GamePlay.DropNapalm(position, config.FireNumber, config.Radius, config.InstantlyDamage, config.DamageInterval, config.DamagePerSec, config.EachRadius);
-        SoundManager.Play(ResourceProvider.Sound.general.napalBombSound);
+        
     }
 
     #endregion
