@@ -14,6 +14,6 @@ public class TowerConfig : ScriptableObject
     public Damage BaseAttack => baseAttack;
     public float FireRate => fireRate;
     public Vector2 Range => range;
-    public Damage GetAttackByLevel(int level) => baseAttack + baseAttack * (level - 1) * 1.2f;
+    public Damage GetAttackByLevel(int level) => baseAttack + baseAttack * (level - 1) * 1.05f;
 
 }

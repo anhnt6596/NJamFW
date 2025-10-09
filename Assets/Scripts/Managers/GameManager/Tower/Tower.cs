@@ -41,7 +41,7 @@ public class Tower : MonoBehaviour
 
     void Update()
     {
-        fireCooldown -= Time.deltaTime;
+        if (fireCooldown > 0) fireCooldown -= Time.deltaTime;
         fireIndicator.fillAmount = 1 - fireCooldown * config.FireRate;
 
         if (fireCooldown <= 0f)
