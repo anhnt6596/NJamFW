@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public static class GamePlayUtils
@@ -90,5 +91,20 @@ public static class GamePlayUtils
             return -1;
 
         return dir.x >= 0 ? 1 : 0;
+    }
+
+
+    public static List<EnemyCount> GetEnemyInfoFromConfig(TurnConfig turn)
+    {
+        List<EnemyCount> enemyCounts = new List<EnemyCount>();
+        foreach (var group in turn.EnemySpawnGroups)
+        {
+            enemyCounts.Add(new EnemyCount()
+            {
+                type = group.Enemy,
+                count = group.Quantity
+            });
+        }
+        return enemyCounts;
     }
 }
