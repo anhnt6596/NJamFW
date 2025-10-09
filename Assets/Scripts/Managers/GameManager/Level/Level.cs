@@ -1,9 +1,11 @@
 using Core;
+using DG.Tweening;
 using Lean.Pool;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 public class Level : MonoBehaviour, IGamePlay
 {
@@ -12,6 +14,7 @@ public class Level : MonoBehaviour, IGamePlay
     [SerializeField] private List<TowerPlacement> towerPlacements;
     [SerializeField] Transform lightningRod;
     [SerializeField] PolygonDrawer poly;
+    [SerializeField] Boss boss;
     
     public List<LineGroup> LineGroups { get; private set; } = new();
     public List<EnemyVisual> Enemies { get; private set; } = new List<EnemyVisual>();
@@ -103,8 +106,14 @@ public class Level : MonoBehaviour, IGamePlay
 
     public void PlaceTower(int placeIndex, TowerEnum tower)
     {
-        var placement = towerPlacements[placeIndex];
-        placement.BuildTower(tower, this);
+        boss.DoCastAnim((pos) =>
+        {
+            var placement = towerPlacements[placeIndex];
+            SpellCastEff(pos, placement.transform.position, 0.6f, true, () =>
+            {
+                placement.BuildTower(tower, this);
+            });
+        });
     }
 
     public bool IsWPosInPolygon(Vector3 wPos)
@@ -115,16 +124,22 @@ public class Level : MonoBehaviour, IGamePlay
 
     public void SpawnAlly(AllyEnum allyType, Vector3 wPos)
     {
-        var ally = LeanPool.Spawn(ResourceProvider.GetAlly(allyType), unitParent);
-        ally.transform.position = wPos;
-        ally.Setup(this, Configs.GetAllyConfig(allyType));
-        Allies.Add(ally);
+        boss.DoCastAnim((pos) =>
+        {
+            SpellCastEff(pos, wPos, 0.6f, true, () =>
+            {
+                var ally = LeanPool.Spawn(ResourceProvider.GetAlly(allyType), unitParent);
+                ally.transform.position = wPos;
+                ally.Setup(this, Configs.GetAllyConfig(allyType));
+                Allies.Add(ally);
 
-        var healthBar = LeanPool.Spawn(ResourceProvider.Component.HealthBar, healthBarParent);
-        healthBar.Setup(ally, Color.green);
-        healthBars.Add(healthBar);
+                var healthBar = LeanPool.Spawn(ResourceProvider.Component.HealthBar, healthBarParent);
+                healthBar.Setup(ally, Color.green);
+                healthBars.Add(healthBar);
 
-        ally.OnDeath += OnAllyDeath;
+                ally.OnDeath += OnAllyDeath;
+            });
+        });
     }
 
     private void OnAllyDeath(Unit unit)
@@ -165,6 +180,24 @@ public class Level : MonoBehaviour, IGamePlay
         }
     }
 
+    #region CastSpell
+
+    private void SpellCastEff(Vector3 startPos, Vector3 endPos, float dur, bool isJump = false, System.Action cb = null)
+    {
+        var spell = LeanPool.Spawn(ResourceProvider.Effect.spellCast);
+        spell.transform.position = startPos;
+        var seq = DOTween.Sequence();
+        if (!isJump) seq.Append(spell.transform.DOMove(endPos, dur).SetEase(Ease.OutSine));
+        else seq.Append(spell.transform.DOJump(endPos, 2, 1, dur).SetEase(Ease.OutSine));
+        seq.AppendCallback(() =>
+        {
+            cb?.Invoke();
+            spell.Stop(false, ParticleSystemStopBehavior.StopEmitting);
+        });
+        seq.AppendInterval(2);
+        seq.AppendCallback(() => LeanPool.Despawn(spell));
+    }
+
     private void SpawnGroup(EnemySpawnGroup group)
     {
         var space = group.Quantity == 0 ? 0 : group.SpawnTime / (group.Quantity);
@@ -181,10 +214,14 @@ public class Level : MonoBehaviour, IGamePlay
 
     public void CastGameLightnings(int times, Damage damage)
     {
-        for (int i = 0; i < times; i++)
+        boss.DoCastAnim((pos) =>
         {
-            this.DelayCall(i * delayEachLightning, () => Lightning(damage));
-        }
+            SpellCastEff(pos, pos + Vector3.up * 20, 2);
+            for (int i = 0; i < times; i++)
+            {
+                this.DelayCall(0.5f + i * delayEachLightning, () => Lightning(damage));
+            }
+        });
     }
 
     float delayEachLightning = 0.5f;
@@ -224,30 +261,39 @@ public class Level : MonoBehaviour, IGamePlay
 
     public void ReverseEnemies(Vector3 wPos, Vector3 radius, float duration)
     {
-        SoundManager.Play(ResourceProvider.Sound.general.teleport);
-        foreach (var enemy in Enemies)
+        boss.DoCastAnim(pos =>
         {
-            if (!enemy.isDead
-                && GamePlayUtils.IsInRange(wPos, enemy.transform.position, radius)
-                ) enemy.Reverse(duration);
-        }
+            SpellCastEff(pos, wPos, 1, true, () =>
+            {
+                SoundManager.Play(ResourceProvider.Sound.general.teleport);
+                foreach (var enemy in Enemies)
+                {
+                    if (!enemy.isDead
+                        && GamePlayUtils.IsInRange(wPos, enemy.transform.position, radius)
+                        ) enemy.Reverse(duration);
+                }
+            });
+        });
     }
 
-    public void DropBomb(Vector3 position, Damage damage, Vector2 radius)
+    public void DropBomb(Vector3 wPos, Damage damage, Vector2 radius)
     {
-        this.DelayCall(0, () =>
+        boss.DoCastAnim(pos =>
         {
-            CameraShake.Shake(0.3f, 0.1f);
-            App.Get<EffectManager>().SpawnBombEffect(position);
-            for (int i = Enemies.Count; i > 0; i--)
+            SpellCastEff(pos, wPos, 0.6f, true, () =>
             {
-                var enemy = Enemies[i - 1];
-                var v = GamePlayUtils.CheckElipse(enemy.transform.position, position, radius);
-                if (v < 1)
+                CameraShake.Shake(0.3f, 0.1f);
+                App.Get<EffectManager>().SpawnBombEffect(wPos);
+                for (int i = Enemies.Count; i > 0; i--)
                 {
-                    enemy.TakeDamage(damage * GamePlayUtils.GetAoEDamageMultiplier(v, 0.45f));
+                    var enemy = Enemies[i - 1];
+                    var v = GamePlayUtils.CheckElipse(enemy.transform.position, wPos, radius);
+                    if (v < 1)
+                    {
+                        enemy.TakeDamage(damage * GamePlayUtils.GetAoEDamageMultiplier(v, 0.45f));
+                    }
                 }
-            }
+            });
         });
     }
 
@@ -275,6 +321,9 @@ public class Level : MonoBehaviour, IGamePlay
             });
         }
     }
+
+
+    #endregion CastSpell
 
     private void OnInputStateChanged(InputStateEnum state)
     {

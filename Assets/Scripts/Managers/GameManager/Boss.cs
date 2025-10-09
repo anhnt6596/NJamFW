@@ -1,3 +1,5 @@
+using Core;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -9,6 +11,7 @@ public class Boss : MonoBehaviour
     [SerializeField] Animator animator;
     [SerializeField] Image healthSlider;
     [SerializeField] TextMeshProUGUI healthText;
+    [SerializeField] Transform castNode;
 
     Game game;
     private void OnEnable()
@@ -35,5 +38,12 @@ public class Boss : MonoBehaviour
         if (game == null) return;
         var current = healthSlider.fillAmount;
         healthSlider.fillAmount = Mathf.Lerp(game.State.baseHealth / (float)Configs.GamePlay.BaseHealth, current, 0.1f);
+    }
+
+    float castTime = 0.4f;
+    public void DoCastAnim(Action<Vector3> callback)
+    {
+        animator.SetTrigger("Cast");
+        this.DelayCall(castTime, () => callback?.Invoke(castNode.position));
     }
 }

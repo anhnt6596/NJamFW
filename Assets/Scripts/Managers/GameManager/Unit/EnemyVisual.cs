@@ -65,7 +65,7 @@ public class EnemyVisual : Unit
     {
         if (statusList.Exists(s => s.type == UnitStatusEnum.TimeFrozen))
         {
-            unitAnimator.UpdateState(0);;
+            unitAnimator.UpdateState(0);
             return;
         }
         // moving
@@ -117,7 +117,6 @@ public class EnemyVisual : Unit
         float dist = GamePlayUtils.CheckElipse(transform.position, CurrentTarget.transform.position, totalAttackRange);
         if (dist > 1)
         {
-            unitAnimator.UpdateState(0);
             unitAnimator.UpdateDir(GamePlayUtils.GetDirection2Index(CurrentTarget.transform.position - transform.position));
         }
         else
@@ -143,6 +142,7 @@ public class EnemyVisual : Unit
 
     public void SetTarget(Ally ally)
     {
+        unitAnimator.UpdateState(0);
         CurrentTarget = ally;
         state = State.Combat;
         lastAttackTime = Time.time;

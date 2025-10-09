@@ -708,6 +708,7 @@ MonoBehaviour:
   animator: {fileID: 1136547359836389071}
   healthSlider: {fileID: 4271148158249548292}
   healthText: {fileID: 7566038952320759310}
+  castNode: {fileID: 2935261696946475048}
 --- !u!1 &7931922103761591699
 GameObject:
   m_ObjectHideFlags: 0
@@ -810,6 +811,37 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!1 &8544923214019405006
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2935261696946475048}
+  m_Layer: 0
+  m_Name: nodeCast
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2935261696946475048
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8544923214019405006}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.69, y: 1.66, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3314153961708213872}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9051002347590189849
 GameObject:
   m_ObjectHideFlags: 0
@@ -839,7 +871,8 @@ Transform:
   m_LocalPosition: {x: 0.44, y: -0.22, z: 0.009999996}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
-  m_Children: []
+  m_Children:
+  - {fileID: 2935261696946475048}
   m_Father: {fileID: 6178480328694467761}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3701347987329861339
