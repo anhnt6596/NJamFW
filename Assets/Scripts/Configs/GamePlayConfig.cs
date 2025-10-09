@@ -6,9 +6,9 @@ using UnityEngine;
 public class GamePlayConfig : ScriptableObject
 {
     [SerializeField] int baseHealth = 10;
-    [SerializeField] float baseEnergyPerSec = 0.1f;
-    [SerializeField] float maxEnergy = 10f;
-    [SerializeField] float rerollCardCost = 1f;
+    [SerializeField] double baseEnergyPerSec = 0.25f;
+    [SerializeField] double maxEnergy = 10f;
+    [SerializeField] double rerollCardCost = 1f;
     [SerializeField] int selectionCardNumber = 3;
     [SerializeField] int maxLockedCard = 1;
     [SerializeField] float[] damageResistances =
@@ -17,9 +17,9 @@ public class GamePlayConfig : ScriptableObject
     };
 
     public int BaseHealth => baseHealth;
-    public float BaseEnergyPerSec => baseEnergyPerSec;
-    public float MaxEnergy => maxEnergy;
-    public float RerollCardCost => rerollCardCost;
+    public double BaseEnergyPerSec => baseEnergyPerSec;
+    public double MaxEnergy => maxEnergy;
+    public double RerollCardCost => rerollCardCost;
     public int SelectionCardNumber => selectionCardNumber;
     public int MaxLockedCard => maxLockedCard;
     public float GetDmgRes(short defPower) => damageResistances[(int)defPower];

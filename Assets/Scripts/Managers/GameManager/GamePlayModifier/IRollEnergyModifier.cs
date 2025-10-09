@@ -1,4 +1,4 @@
 public interface IRollEnergyModifier : IModifier
 {
-    float ModifyRollEnergy(float baseRollEnergy);
+    double ModifyRollEnergy(double baseRollEnergy);
 }

@@ -65,7 +65,7 @@ MonoBehaviour:
     amount: 250
     type: 1
   rangeCheck: {x: 0.5, y: 0.35}
-  range: {x: 2, y: 1.4}
+  range: {x: 3, y: 2.1}
 --- !u!1 &1439871004155193285
 GameObject:
   m_ObjectHideFlags: 0

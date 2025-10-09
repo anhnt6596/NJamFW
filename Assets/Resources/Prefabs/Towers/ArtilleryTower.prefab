@@ -50,6 +50,7 @@ MonoBehaviour:
   firePoint: {fileID: 4455027426473935034}
   levelText: {fileID: 5862903529402077231}
   fireIndicator: {fileID: 3664523449686841690}
+  sniper: {fileID: 0}
 --- !u!1 &4875725024429634471
 GameObject:
   m_ObjectHideFlags: 0
@@ -75,7 +76,7 @@ Transform:
   m_GameObject: {fileID: 4875725024429634471}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.017, y: 1.275, z: 0}
+  m_LocalPosition: {x: 0.017, y: 1.235, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -108,7 +109,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.466, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5479337398733477829}
@@ -239,11 +240,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6502864375142432364, guid: def4bdcd63c7d934c820059ef2f9429e, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.124
+      value: 0.037
       objectReference: {fileID: 0}
     - target: {fileID: 6502864375142432364, guid: def4bdcd63c7d934c820059ef2f9429e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1.573
+      value: 1.6
       objectReference: {fileID: 0}
     - target: {fileID: 6502864375142432364, guid: def4bdcd63c7d934c820059ef2f9429e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

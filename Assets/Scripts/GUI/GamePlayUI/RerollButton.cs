@@ -53,7 +53,7 @@ public class RerollButton : MonoBehaviour
             freeRollText.gameObject.SetActive(false);
             costSlot.SetActive(true);
             rerollButton.interactable = game.State.energy >= Configs.GamePlay.RerollCardCost && remainCooldown <= 0;
-            rerollButtonEnergyLoad.fillAmount = Mathf.Clamp01(1 - game.State.energy / Configs.GamePlay.RerollCardCost);
+            rerollButtonEnergyLoad.fillAmount = Mathf.Clamp01(1 - (float)(game.State.energy / Configs.GamePlay.RerollCardCost));
         }
     }
 

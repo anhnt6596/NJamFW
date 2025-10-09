@@ -16,6 +16,7 @@ MonoBehaviour:
   cost: 0
   escalatingCost: 0
   maxSellectedTime: 3
+  isAbilityCard: 0
   isUse: 1
   value: 1
-  appearAtTotalRoll: 5
+  appearAtTotalRoll: 2

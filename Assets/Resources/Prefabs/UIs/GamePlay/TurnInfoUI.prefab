@@ -411,8 +411,9 @@ GameObject:
   m_Component:
   - component: {fileID: 370643397550183708}
   - component: {fileID: 6640555534330488819}
+  - component: {fileID: 4809053861954916475}
   m_Layer: 5
-  m_Name: EnemyInfos
+  m_Name: EnemyInfosUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -463,6 +464,20 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &4809053861954916475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3323561703709612898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1099239b7664eb085ec614f645d4f6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyInfoUIItemPrefab: {fileID: -5770677328072979395, guid: 5af494b9be6b1834dabc77b8d03a263d, type: 3}
+  parent: {fileID: 370643397550183708}
 --- !u!1 &3409452764496443089
 GameObject:
   m_ObjectHideFlags: 0
@@ -549,10 +564,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 214506806603876395}
+  - component: {fileID: 907959991228079424}
   - component: {fileID: 7355910219263737958}
   - component: {fileID: 8561359461966184625}
-  - component: {fileID: 907959991228079424}
-  - component: {fileID: 8079873335816695000}
   m_Layer: 5
   m_Name: TurnInfoUI
   m_TagString: Untagged
@@ -580,6 +594,21 @@ RectTransform:
   m_AnchoredPosition: {x: -32.88031, y: -135}
   m_SizeDelta: {x: 990.6867, y: 208.2968}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &907959991228079424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6014937340502092427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb5c916d7e85a504b8b66a844514777b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  display: {fileID: 3409452764496443089}
+  turnText: {fileID: 6774733180867404894}
+  enemyInfoUI: {fileID: 4809053861954916475}
 --- !u!222 &7355910219263737958
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -618,35 +647,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &907959991228079424
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6014937340502092427}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb5c916d7e85a504b8b66a844514777b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  display: {fileID: 3409452764496443089}
-  turnText: {fileID: 6774733180867404894}
-  enemyInfoUI: {fileID: 8079873335816695000}
---- !u!114 &8079873335816695000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6014937340502092427}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1099239b7664eb085ec614f645d4f6f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyInfoUIItemPrefab: {fileID: -5770677328072979395, guid: 5af494b9be6b1834dabc77b8d03a263d, type: 3}
-  parent: {fileID: 370643397550183708}
 --- !u!1 &7564147870598952473
 GameObject:
   m_ObjectHideFlags: 0

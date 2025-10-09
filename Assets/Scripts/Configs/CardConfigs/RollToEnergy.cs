@@ -13,7 +13,7 @@ public class RollToEnergyCardConfig : CardConfig, IRollEnergyModifier
         return $"+{energyEachRoll}";
     }
 
-    public float ModifyRollEnergy(float baseRollEnergy)
+    public double ModifyRollEnergy(double baseRollEnergy)
     {
         return baseRollEnergy + energyEachRoll;
     }

@@ -49,6 +49,8 @@ public class CardUI : MonoBehaviour
 
     public void DisplayLock()
     {
+        lockButton.gameObject.SetActive(false);
+        return;
         bool isMaxLocked = game.IsMaxLockedCard;
         if (isMaxLocked)
         {
@@ -82,8 +84,7 @@ public class CardUI : MonoBehaviour
             return;
         }
 
-        if (isFlipping) return;
-        isFlipping = true;
+        progressTween?.Kill();
         cardDisplayed = false;
         float progress = 0;
 
@@ -93,10 +94,7 @@ public class CardUI : MonoBehaviour
             .OnComplete(() =>
             {
                 transform.localEulerAngles = Vector3.zero;
-
-                isFlipping = false;
                 progressTween = null;
-                callback?.Invoke();
             });
 
         void UpdateFlip()
@@ -107,6 +105,7 @@ public class CardUI : MonoBehaviour
             {
                 cardDisplayed = true;
                 DisplayAll();
+                callback?.Invoke();
             }
 
             float y = p <= 0.5f
@@ -132,7 +131,13 @@ public class CardUI : MonoBehaviour
     {
         if (game == null || !cardDisplayed) return;
         //if (game.) neu trang thai game la dang pick card thi oke
-        var fillValue = Mathf.Clamp01(1 - game.State.energy / game.GetCardCost(Card));
+        var cost = game.GetCardCost(Card);
+        if (cost <= 0)
+        {
+            energyLoadImg.fillAmount = 0;
+            return;
+        }
+        var fillValue = Mathf.Clamp01(1 - (float)(game.State.energy / game.GetCardCost(Card)));
         var last = energyLoadImg.fillAmount;
         if (fillValue < last && fillValue != 1)
             energyLoadImg.fillAmount = Mathf.Lerp(last, fillValue, 0.1f);

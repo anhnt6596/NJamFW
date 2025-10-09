@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public static class GamePlayUtils
@@ -99,11 +100,13 @@ public static class GamePlayUtils
         List<EnemyCount> enemyCounts = new List<EnemyCount>();
         foreach (var group in turn.EnemySpawnGroups)
         {
-            enemyCounts.Add(new EnemyCount()
+            var found = enemyCounts.FirstOrDefault(e => e.type == group.Enemy);
+            if (found == default) enemyCounts.Add(new EnemyCount()
             {
                 type = group.Enemy,
-                count = group.Quantity
+                count = group.Quantity,
             });
+            else found.count += group.Quantity;
         }
         return enemyCounts;
     }

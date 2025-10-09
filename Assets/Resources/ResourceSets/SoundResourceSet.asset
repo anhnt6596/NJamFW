@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: SoundResourceSet
   m_EditorClassIdentifier: 
   music:
-    menuMusic: {fileID: 8300000, guid: c144529fd87a76c4381c9c3bccbebd54, type: 3}
-    prepareTurnMusic: {fileID: 8300000, guid: b5402684fab09214e8b387856f619729, type: 3}
-    chillCombatMusic: {fileID: 8300000, guid: 238b3e2e548306b4aa9281c515ff77c4, type: 3}
-    climaxCombatMusic: {fileID: 8300000, guid: 7aaabbc5a237c5b47972d35d50e5bb3a, type: 3}
+    menuMusic: {fileID: 0}
+    prepareTurnMusic: {fileID: 0}
+    chillCombatMusic: {fileID: 0}
+    climaxCombatMusic: {fileID: 0}
   general:
     button: {fileID: 8300000, guid: 9e471882e50fade43ac4a33c2f2770eb, type: 3}
     arrowShot: {fileID: 8300000, guid: 5338338607f559b409f45b8c015c60cb, type: 3}
-    lightning: {fileID: 8300000, guid: cf19af61c343e924dbc8a0468e9505a4, type: 3}
+    lightning: {fileID: 0}
     manaBuff: {fileID: 8300000, guid: c8376f4e4fdb4e44eaf21307cfb8e2f8, type: 3}
     troopFight: {fileID: 8300000, guid: f2c61f7de74227142b54e72001238f08, type: 3}
     teleport: {fileID: 8300000, guid: 14a3e04f71f9aa34ca73376b5b8a91ef, type: 3}

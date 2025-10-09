@@ -19,12 +19,13 @@ public class PlayerEnergyUI : MonoBehaviour
 
     private void Update()
     {
-        energyText.text = $"{Mathf.Floor(game.State.energy)}";
-        sliderEnergy.value = game.State.energy / Configs.GamePlay.MaxEnergy;
+        var energy = (float)game.State.energy;
+        energyText.text = $"{Mathf.Floor(energy)}";
+        sliderEnergy.value = energy / (float)Configs.GamePlay.MaxEnergy;
         for (int i = 0; i < sliderItems.Count; i++)
         {
             var item = sliderItems[i];
-            var energyFloor = Mathf.FloorToInt(game.State.energy);
+            var energyFloor = Mathf.FloorToInt(energy);
             if (i < energyFloor)
             {
                 if (item.color.a < 0.9f)
@@ -41,7 +42,7 @@ public class PlayerEnergyUI : MonoBehaviour
                 item.SetAlpha(0.3f);
                 if (i == energyFloor)
                 {
-                    item.fillAmount = game.State.energy - energyFloor;
+                    item.fillAmount = (float)game.State.energy - energyFloor;
                 }
                 else item.fillAmount = 0;
             }

@@ -105,6 +105,14 @@ public class Game
         if (State.baseHealth <= 0) App.Get<GameManager>().GameLose();
     }
 
+    public void Heal(int value)
+    {
+        if (State.baseHealth >= Configs.GamePlay.BaseHealth) return;
+        var last = State.baseHealth;
+        State.baseHealth = Mathf.Min(Configs.GamePlay.BaseHealth, State.baseHealth + value);
+        HealthChanged?.Invoke(State.baseHealth, last);
+    }
+
     public void Win() => App.Get<GameManager>().GameWin();
 
     public void DoPayReroll()
@@ -133,7 +141,7 @@ public class Game
         OnCardLocked?.Invoke();
     }
 
-    public float GetCardCost(CardEnum card)
+    public double GetCardCost(CardEnum card)
     {
         // them so luot da su dung card trong game vao day
         return Configs.GetCardConfig(card).GetCost(this);
@@ -180,9 +188,9 @@ public class Game
         OnCardsRolled?.Invoke();
     }
 
-    private float GetRollEnergy()
+    private double GetRollEnergy()
     {
-        float baseRollEnergy = 0;
+        double baseRollEnergy = 0;
         foreach (var modifier in GetAllModifiers<IRollEnergyModifier>())
         {
             baseRollEnergy = modifier.ModifyRollEnergy(baseRollEnergy);
@@ -222,9 +230,10 @@ public class Game
         IncreaseEnergy(GameConfig.BaseEnergyPerSec * Time.deltaTime);
     }
 
-    public void IncreaseEnergy(float value)
+    public void IncreaseEnergy(double value)
     {
-        State.energy = Mathf.Clamp(State.energy + value, 0, GameConfig.MaxEnergy);
+        var newValue = NumberUtils.Round(State.energy + value, 2);
+        State.energy = System.Math.Clamp(State.energy + value, 0, GameConfig.MaxEnergy);
     }
 
     #region Game Actions

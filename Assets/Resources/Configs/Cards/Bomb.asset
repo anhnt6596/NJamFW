@@ -21,4 +21,4 @@ MonoBehaviour:
   damage:
     amount: 175
     type: 0
-  radius: {x: 1, y: 0.7}
+  radius: {x: 2, y: 1.4}

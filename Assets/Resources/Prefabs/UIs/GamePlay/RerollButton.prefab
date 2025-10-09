@@ -308,6 +308,7 @@ MonoBehaviour:
   freeRollText: {fileID: 6352265482007150990}
   costText: {fileID: 82407940912062879}
   costSlot: {fileID: 2024012864261469493}
+  coolDownTime: 0.1
 --- !u!114 &6370694608464395499
 MonoBehaviour:
   m_ObjectHideFlags: 0

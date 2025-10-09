@@ -26,8 +26,8 @@ Transform:
   m_GameObject: {fileID: 5849770935044943122}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.8594, y: 0.7, z: 1}
+  m_LocalPosition: {x: 0, y: -0.181, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5557114991974585823}
@@ -132,7 +132,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   placeRadius: {x: 1, y: 0.7}
   focusPos: {x: 0, y: 0, z: -0.1}
-  focusPosHaveTower: {x: 0, y: 0.8, z: -0.1}
+  focusPosHaveTower: {x: 0, y: 1.2, z: -0.1}
 --- !u!114 &2934593978523313206
 MonoBehaviour:
   m_ObjectHideFlags: 0

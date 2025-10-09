@@ -22,5 +22,5 @@ MonoBehaviour:
   increase: 1
   max: 7
   damageEach: 105
-  maxEnergy: 2
+  maxEnergy: 1
   damageType: 1

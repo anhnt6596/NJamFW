@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 589c6ea00bd54d8ab014f03ddba4899b, type: 3}
   m_Name: HeavyTank
   m_EditorClassIdentifier: 
-  hp: 1000
+  hp: 900
   speed: 1
   def:
     armor: 1
@@ -24,4 +24,4 @@ MonoBehaviour:
     type: 0
   type: 3
   damageToBase: 2
-  deathEnergy: 0.4
+  deathEnergy: 1

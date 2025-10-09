@@ -16,6 +16,7 @@ MonoBehaviour:
   cost: 2
   escalatingCost: 0
   maxSellectedTime: 1
+  isAbilityCard: 0
   isUse: 1
   damageMult: 2
-  lightningUsedToAppear: 3
+  lightningUsedToAppear: 2

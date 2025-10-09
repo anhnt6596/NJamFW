@@ -24,10 +24,10 @@ MonoBehaviour:
     freeRollGain: 1
   - enemySpawnGroups:
     - enemy: 1
-      quantity: 5
+      quantity: 7
       gateIdx: 0
       delay: 0
-      spawnTime: 8
+      spawnTime: 12
     turnEnergyGain: 2
     freeRollGain: 1
   - enemySpawnGroups:
@@ -37,7 +37,7 @@ MonoBehaviour:
       delay: 0
       spawnTime: 0
     - enemy: 2
-      quantity: 3
+      quantity: 2
       gateIdx: 0
       delay: 10
       spawnTime: 4
@@ -45,17 +45,82 @@ MonoBehaviour:
     freeRollGain: 1
   - enemySpawnGroups:
     - enemy: 2
-      quantity: 3
+      quantity: 2
       gateIdx: 0
       delay: 0
       spawnTime: 4
+    - enemy: 1
+      quantity: 5
+      gateIdx: 1
+      delay: 16
+      spawnTime: 8
+    turnEnergyGain: 2
+    freeRollGain: 1
+  - enemySpawnGroups:
+    - enemy: 3
+      quantity: 1
+      gateIdx: 0
+      delay: 0
+      spawnTime: 0
     turnEnergyGain: 2
     freeRollGain: 1
   - enemySpawnGroups:
     - enemy: 1
-      quantity: 5
+      quantity: 7
       gateIdx: 1
       delay: 0
+      spawnTime: 12
+    - enemy: 3
+      quantity: 1
+      gateIdx: 0
+      delay: 0
+      spawnTime: 0
+    turnEnergyGain: 2
+    freeRollGain: 1
+  - enemySpawnGroups:
+    - enemy: 4
+      quantity: 15
+      gateIdx: 0
+      delay: 0
+      spawnTime: 14
+    turnEnergyGain: 2
+    freeRollGain: 1
+  - enemySpawnGroups:
+    - enemy: 4
+      quantity: 15
+      gateIdx: 0
+      delay: 0
+      spawnTime: 14
+    - enemy: 1
+      quantity: 15
+      gateIdx: 1
+      delay: 5
+      spawnTime: 14
+    turnEnergyGain: 2
+    freeRollGain: 1
+  - enemySpawnGroups:
+    - enemy: 3
+      quantity: 3
+      gateIdx: 0
+      delay: 0
       spawnTime: 8
+    - enemy: 4
+      quantity: 7
+      gateIdx: 1
+      delay: 5
+      spawnTime: 6
+    turnEnergyGain: 2
+    freeRollGain: 1
+  - enemySpawnGroups:
+    - enemy: 3
+      quantity: 5
+      gateIdx: 0
+      delay: 0
+      spawnTime: 12
+    - enemy: 2
+      quantity: 7
+      gateIdx: 1
+      delay: 6
+      spawnTime: 12
     turnEnergyGain: 2
     freeRollGain: 1

@@ -7,7 +7,7 @@ using UnityEngine;
 public class GameState : ScriptableObject
 {
     public int baseHealth;
-    public float energy;
+    public double energy;
     public List<CardEnum> cards;
     public List<int> lockedCardIdxs;
     public int selectingCardIdx;
@@ -34,7 +34,7 @@ public class GameState : ScriptableObject
         autoRolled = 0;
         proactiveRolled = 0;
     }
-    public int energyFloor => Mathf.FloorToInt(energy);
+    public int energyFloor => Mathf.FloorToInt((float)energy);
     public int totalRolled => autoRolled + proactiveRolled;
 
 }
