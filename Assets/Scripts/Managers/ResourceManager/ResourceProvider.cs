@@ -59,4 +59,8 @@ public static class ResourceProvider
     {
         return Resources.Load<Tower>($"Prefabs/Towers/{tower}");
     }
+    public static Sprite GetEnemyIcon(EnemyEnum enemy)
+    {
+        return Resources.Load<Sprite>($"Images/EnemyIcons/{enemy}");
+    }
 }
