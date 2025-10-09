@@ -125,6 +125,7 @@ public class EnemyVisual : Unit
             {
                 lastAttackTime = Time.time;
                 CurrentTarget.TakeDamage(config.AttackDamage);
+                SoundManager.Play(ResourceProvider.Sound.general.troopFight);
                 unitAnimator.TriggerAttack();
             }
         }

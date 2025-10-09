@@ -7,6 +7,7 @@ public class MageBullet : BaseBullet
 
     public override void SetTarget(EnemyVisual enemy)
     {
+        SoundManager.Play(ResourceProvider.Sound.general.spellAttack);
         target = enemy;
     }
 

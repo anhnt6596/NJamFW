@@ -9,6 +9,7 @@ public class Bullet : BaseBullet
     public override void SetTarget(EnemyVisual enemy)
     {
         target = enemy;
+        SoundManager.Play(ResourceProvider.Sound.general.arrowShot);
     }
 
     public float rotationOffset = 0f;
