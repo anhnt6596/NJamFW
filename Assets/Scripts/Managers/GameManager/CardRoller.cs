@@ -5,13 +5,17 @@ using System.Linq;
 public class CardRoller
 {
     Game Game { get; }
-    List<CardEnum> RollableCards { get; }
+    //List<CardEnum> RollableCards { get; }
+    List<CardEnum> RollableAbilityCards { get; }
+    List<CardEnum> RollablePrepareCards { get; }
     public List<CardEnum> Cards => Game.State.cards;
     public List<int> LockedIdxs => Game.State.lockedCardIdxs;
     public CardRoller(Game game)
     {
         Game = game;
-        RollableCards = GetRollableCard();
+        //RollableCards = GetRollableCard();
+        RollableAbilityCards = GetRollableAbilityCards();
+        RollablePrepareCards = GetRollablePrepareCards();
     }
 
     public void Roll()
@@ -28,7 +32,7 @@ public class CardRoller
             CardEnum.MageTower,
             CardEnum.ArtilleryTower,
         };
-        else if (Game.State.totalRolled == 1) newCards = new List<CardEnum>()
+        else if (Game.State.totalRolled == 1 && false) newCards = new List<CardEnum>()
         {
             CardEnum.Lightning,
             CardEnum.Troop,
@@ -47,6 +51,28 @@ public class CardRoller
         return result;
     }
 
+    private List<CardEnum> GetRollablePrepareCards()
+    {
+        List<CardEnum> result = new();
+        var cardConfigs = Configs.CardConfigs;
+        foreach (var card in cardConfigs.Keys)
+        {
+            if (!cardConfigs[card].IsAbilityCard) result.Add(card);
+        }
+        return result;
+    }
+
+    private List<CardEnum> GetRollableAbilityCards()
+    {
+        List<CardEnum> result = new();
+        var cardConfigs = Configs.CardConfigs;
+        foreach (var card in cardConfigs.Keys)
+        {
+            if (cardConfigs[card].IsAbilityCard) result.Add(card);
+        }
+        return result;
+    }
+
     private List<CardEnum> RollCards(List<CardEnum> lastRoll, List<int> lockedCardIdxs)
     {
         List<CardEnum> result = new();
@@ -60,10 +86,10 @@ public class CardRoller
                 lockedCards.Add(lastRoll[i]);
             }
         }
-
-        var rollableCards = RollableCards
+        var pool = Game.TurnPhase == TurnPhaseEnum.Prepare ? RollablePrepareCards : RollableAbilityCards;
+        var rollableCards = pool
             .Where(c => !lockedCards.Contains(c))
-            //.Where(c => !lastRoll.Contains(c))
+            //.Where(c => !lastRoll.Contains(c)) // add to new roll do not contain last roll
             .Where(c => Configs.GetCardConfig(c).CanBeRoll(Game))
             .ToList();
         var newListCard = RandomHelper.RandomUniqueList(rollableCards, Configs.GamePlay.SelectionCardNumber);

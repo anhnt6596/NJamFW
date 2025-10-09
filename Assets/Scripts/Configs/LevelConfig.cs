@@ -6,23 +6,21 @@ using UnityEngine;
 public class LevelConfig : ScriptableObject
 {
     [SerializeField] private int levelIdx;
-    [SerializeField] private List<WaveConfig> waveConfigs;
+    [SerializeField] private List<TurnConfig> waveConfigs;
     
     public int LevelIdx => levelIdx;
-    public WaveConfig GetWaveConfig(int idx) => waveConfigs[idx];
-    public int WaveCount => waveConfigs.Count;
+    public TurnConfig GetTurnConfig(int idx) => waveConfigs[idx];
+    public int TurnCount => waveConfigs.Count;
 
     
 }
 
 [Serializable]
-public class WaveConfig
+public class TurnConfig
 {
     [SerializeField] private List<EnemySpawnGroup> enemySpawnGroups;
-    [SerializeField] private float waveMaxTime;
 
     public List<EnemySpawnGroup> EnemySpawnGroups => enemySpawnGroups;
-    public float WaveMaxTime => waveMaxTime;
 }
 
 [Serializable]

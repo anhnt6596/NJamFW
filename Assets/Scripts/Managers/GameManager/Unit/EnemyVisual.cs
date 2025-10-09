@@ -100,8 +100,8 @@ public class EnemyVisual : Unit
     }
 
     private float lastAttackTime;
-    
 
+    bool hasAttackThisCycle = false;
     private void CombatBehavior()
     {
         if (CurrentTarget == null || CurrentTarget.isDead)
@@ -118,14 +118,24 @@ public class EnemyVisual : Unit
         if (dist > 1)
         {
             unitAnimator.UpdateState(0);
+            unitAnimator.UpdateDir(GamePlayUtils.GetDirection2Index(CurrentTarget.transform.position - transform.position));
         }
         else
         {
-            if (Time.time - lastAttackTime >= 1f / attackSpeed)
+            var remainAttackTime = Time.time - lastAttackTime;
+            var shootCycle = 1f / attackSpeed;
+
+            if (remainAttackTime > shootCycle * 0.85f && !hasAttackThisCycle)
+            {
+                unitAnimator.TriggerAttack();
+                hasAttackThisCycle = true;
+            }
+
+            if (remainAttackTime >= shootCycle)
             {
                 lastAttackTime = Time.time;
                 CurrentTarget.TakeDamage(config.AttackDamage);
-                unitAnimator.TriggerAttack();
+                hasAttackThisCycle = false;
             }
         }
     }

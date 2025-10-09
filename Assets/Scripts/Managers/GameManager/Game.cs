@@ -12,6 +12,7 @@ public class Game
     public static event Action<InputStateEnum> OnInputStateChanged;
     public static event Action OnCardsRolled;
     public static event Action OnCardLocked;
+    public static event Action<int, TurnPhaseEnum> OnPhaseChanged;
 
     #endregion Game Events
 
@@ -23,15 +24,49 @@ public class Game
         GameConfig = Configs.GamePlay;
         LevelConfig = Configs.GetLevelConfig(level);
         CardRoller = new CardRoller(this);
-        CurrentWave = -1;
+        CurrentTurn = -1;
         InputStateEnum = InputStateEnum.None;
     }
     public GameState State { get; private set; }
     private GamePlayConfig GameConfig { get; set; }
     private LevelConfig LevelConfig { get; set; }
     public int Level { get; }
-    public int CurrentWave { get; private set; }
-    public bool IsLastWave => CurrentWave >= LevelConfig.WaveCount - 1;
+
+    #region Turn Info
+    private TurnPhaseEnum _turnPhase;
+    public TurnPhaseEnum TurnPhase
+    {
+        get => _turnPhase;
+        private set
+        {
+            _turnPhase = value;
+            OnPhaseChanged?.Invoke(CurrentTurn, _turnPhase);
+        }
+    }
+    public int CurrentTurn { get; private set; }
+    public bool IsLastTurn => CurrentTurn >= LevelConfig.TurnCount - 1;
+    private void StartNewTurn()
+    {
+        CurrentTurn++;
+        TurnPhase = TurnPhaseEnum.Prepare;
+        RollCards(true);
+    }
+
+    public void ReadyForTurn()
+    {
+        TurnPhase = TurnPhaseEnum.Combat;
+        CheckRunNextWave();
+        RollCards(true);
+    }
+
+    public void CompleteTurn()
+    {
+        if (!IsLastTurn) StartNewTurn();
+        else Win();
+    }
+
+    #endregion Turn Info
+
     public IGamePlay GamePlay { get; set; }
     private InputStateEnum _inputStateEnum;
     public InputStateEnum InputStateEnum
@@ -54,8 +89,7 @@ public class Game
     {
         IsRunning = true;
         State.InitialState();
-        RollCards(true);
-        CheckRunNextWave();
+        StartNewTurn();
     }
 
     public void TakeDamage(int value)
@@ -152,14 +186,13 @@ public class Game
 
     public void CheckRunNextWave()
     {
-        CurrentWave++;
-        if (CurrentWave >= LevelConfig.WaveCount)
+        if (CurrentTurn >= LevelConfig.TurnCount)
         {
             // end game
         }
         else
         {
-            var waveConfig = LevelConfig.GetWaveConfig(CurrentWave);
+            var waveConfig = LevelConfig.GetTurnConfig(CurrentTurn);
             GamePlay.StartNewWave(waveConfig);
         }
     }
@@ -175,7 +208,7 @@ public class Game
 
     public void Update()
     {
-        if (IsRunning) UpdateEnergy();
+        //if (IsRunning) UpdateEnergy();
     }
 
     private void UpdateEnergy()

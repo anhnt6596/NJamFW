@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ArcherTower
   m_EditorClassIdentifier: 
   card: 1
-  cost: 3
+  cost: 1
   escalatingCost: 1
   maxSellectedTime: -1
   isUse: 1

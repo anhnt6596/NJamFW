@@ -10,16 +10,18 @@ public abstract class CardConfig : ScriptableObject
     [SerializeField] int cost = 1;
     [SerializeField] float escalatingCost = 0;
     [SerializeField] int maxSellectedTime = -1;
+    [SerializeField] bool isAbilityCard = false;
     [SerializeField] bool isUse = true;
 
     public CardEnum Card => card;
+    public bool IsAbilityCard => isAbilityCard; // neu la true, se la card real tume, neu false la card turn setup
+    public bool IsUse => isUse;  // bien tam thoi, neu false thi la config khong duoc su dung
     public virtual int GetCost(Game game)
     {
         var useTime = game.State.selectedCards.Count(c => c == card);
         var nextCost = Mathf.FloorToInt(cost + useTime * escalatingCost);
         return Mathf.Clamp(nextCost, 0, (int)Configs.GamePlay.MaxEnergy);
     }
-    public bool IsUse => isUse;  // bien tam thoi, neu false thi la config khong duoc su dung
 
     public virtual InputStateEnum ApplySellectedEffect(Game game)
     {

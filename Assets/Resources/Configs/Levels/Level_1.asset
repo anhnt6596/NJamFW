@@ -16,84 +16,13 @@ MonoBehaviour:
   waveConfigs:
   - enemySpawnGroups:
     - enemy: 1
-      quantity: 3
-      gateIdx: 0
-      delay: 2
-      spawnTime: 4
-    - enemy: 1
-      quantity: 5
-      gateIdx: 0
-      delay: 12
-      spawnTime: 8
-    waveMaxTime: 24
-  - enemySpawnGroups:
-    - enemy: 2
-      quantity: 1
-      gateIdx: 0
-      delay: 0
-      spawnTime: 0
-    waveMaxTime: 10
-  - enemySpawnGroups:
-    - enemy: 1
-      quantity: 10
-      gateIdx: 0
-      delay: 0
-      spawnTime: 9
-    waveMaxTime: 16
-  - enemySpawnGroups:
-    - enemy: 2
-      quantity: 3
-      gateIdx: 0
-      delay: 0
-      spawnTime: 4
-    waveMaxTime: 16
-  - enemySpawnGroups:
-    - enemy: 4
-      quantity: 3
-      gateIdx: 1
-      delay: 0
-      spawnTime: 4
-    waveMaxTime: 10
-  - enemySpawnGroups:
-    - enemy: 4
-      quantity: 7
-      gateIdx: 1
-      delay: 0
-      spawnTime: 6
-    - enemy: 1
-      quantity: 7
-      gateIdx: 0
-      delay: 0
-      spawnTime: 6
-    waveMaxTime: 20
-  - enemySpawnGroups:
-    - enemy: 4
-      quantity: 20
-      gateIdx: 0
-      delay: 0
-      spawnTime: 19
-    - enemy: 2
-      quantity: 7
-      gateIdx: 1
-      delay: 0
-      spawnTime: 12
-    waveMaxTime: 24
-  - enemySpawnGroups:
-    - enemy: 3
-      quantity: 1
-      gateIdx: 0
-      delay: 0
-      spawnTime: 0
-    waveMaxTime: 10
-  - enemySpawnGroups:
-    - enemy: 3
       quantity: 2
       gateIdx: 0
       delay: 0
       spawnTime: 2
-    - enemy: 5
+  - enemySpawnGroups:
+    - enemy: 1
       quantity: 4
       gateIdx: 0
-      delay: 3
+      delay: 0
       spawnTime: 6
-    waveMaxTime: 10

@@ -5,6 +5,7 @@ using UnityEngine;
 public class Bullet : BaseBullet
 {
     protected EnemyVisual target;
+    [SerializeField] private float rotSpeed = 90f;
 
     public override void SetTarget(EnemyVisual enemy)
     {
@@ -24,7 +25,7 @@ public class Bullet : BaseBullet
         transform.position += dir * speed * Time.deltaTime;
 
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.AngleAxis(angle + rotationOffset, Vector3.forward);
+        transform.Rotate(0f, 0f, rotSpeed * Time.deltaTime);
 
         if (Vector2.Distance(transform.position, target.transform.position) < 0.2f)
         {

@@ -69,8 +69,7 @@ public class Level : MonoBehaviour, IGamePlay
 
         if (spawnCount == 0
             && Enemies.Count == 0
-            && Game.IsLastWave
-            && Game.State.baseHealth > 0) Game.Win();
+            && Game.State.baseHealth > 0) Game.CompleteTurn();
     }
 
     private void OnEnemyReachDestination(EnemyVisual enemy)
@@ -150,7 +149,7 @@ public class Level : MonoBehaviour, IGamePlay
 
     int spawnCount; // > 0 : spawning, = 0 : spawnCompleted
 
-    public void StartNewWave(WaveConfig waveConfig)
+    public void StartNewWave(TurnConfig waveConfig)
     {
         spawnCount = 0;
         for (int i = 0; i < waveConfig.EnemySpawnGroups.Count; i++)
@@ -163,7 +162,6 @@ public class Level : MonoBehaviour, IGamePlay
                 spawnCount--;
             });
         }
-        this.DelayCall(waveConfig.WaveMaxTime, () => Game.CheckRunNextWave());
     }
 
     private void SpawnGroup(EnemySpawnGroup group)

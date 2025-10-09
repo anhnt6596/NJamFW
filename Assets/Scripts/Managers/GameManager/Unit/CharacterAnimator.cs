@@ -7,12 +7,12 @@ public class CharacterAnimator : MonoBehaviour
     // 0: idle, 1: move, 2: other
     public void UpdateState(int state)
     {
-        animator.SetInteger("State", state);
+        if (animator.GetInteger("State") != state) animator.SetInteger("State", state);
     }
 
     public void UpdateDir(int dir)
     {
-        animator.SetInteger("Dir", dir);
+        if (animator.GetInteger("Dir") != dir) animator.SetInteger("Dir", dir);
     }
 
     public void TriggerAttack()
