@@ -82,11 +82,26 @@ public class Tower : MonoBehaviour
         if (bulletPrefab == null || firePoint == null) return;
 
         BaseBullet bullet = LeanPool.Spawn(bulletPrefab, firePoint.position, Quaternion.identity);
+        PlaySoundBullet(config.Type);
         bullet.SetDamage(damage);
         bullet.Display();
         if (bullet != null)
         {
             bullet.SetTarget(target);
+        }
+    }
+    public void PlaySoundBullet(TowerEnum tower)
+    {
+        if (tower == TowerEnum.None) return;
+        if (tower == TowerEnum.ArcherTower)
+        {
+            SoundManager.Play(ResourceProvider.Sound.general.arrowShot);
+        }else if (tower == TowerEnum.ArtilleryTower)
+        {
+            SoundManager.Play(ResourceProvider.Sound.general.cannonFire);
+        }else if (tower == TowerEnum.MageTower)
+        {
+            SoundManager.Play(ResourceProvider.Sound.general.spellAttack);
         }
     }
 

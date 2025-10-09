@@ -20,9 +20,13 @@ MonoBehaviour:
       gateIdx: 0
       delay: 0
       spawnTime: 2
+    turnEnergyGain: 2
+    freeRollGain: 1
   - enemySpawnGroups:
     - enemy: 1
       quantity: 4
       gateIdx: 0
       delay: 0
       spawnTime: 6
+    turnEnergyGain: 2
+    freeRollGain: 1

@@ -13,6 +13,7 @@ public class Game
     public static event Action OnCardsRolled;
     public static event Action OnCardLocked;
     public static event Action<int, TurnPhaseEnum> OnPhaseChanged;
+    public static event Action<int, int> HealthChanged;
 
     #endregion Game Events
 
@@ -48,6 +49,9 @@ public class Game
     private void StartNewTurn()
     {
         CurrentTurn++;
+        var turnConfig = LevelConfig.GetTurnConfig(CurrentTurn);
+        IncreaseEnergy(turnConfig.TurnEnergyGain);
+        State.freeRoll += turnConfig.TurnFreeRollGain;
         TurnPhase = TurnPhaseEnum.Prepare;
         RollCards(true);
     }
@@ -95,7 +99,9 @@ public class Game
     public void TakeDamage(int value)
     {
         if (State.baseHealth <= 0) return;
+        var last = State.baseHealth;
         State.baseHealth -= value;
+        HealthChanged?.Invoke(State.baseHealth, last);
         if (State.baseHealth <= 0) App.Get<GameManager>().GameLose();
     }
 
@@ -192,8 +198,8 @@ public class Game
         }
         else
         {
-            var waveConfig = LevelConfig.GetTurnConfig(CurrentTurn);
-            GamePlay.StartNewWave(waveConfig);
+            var turnConfig = LevelConfig.GetTurnConfig(CurrentTurn);
+            GamePlay.StartNewWave(turnConfig);
         }
     }
 
@@ -266,6 +272,7 @@ public class Game
         // hardcode goi config, sau nay config cua cac the chuc nang se o cho rieng, the chi co config co ban
         var config = ((NapalmCardConfig)Configs.GetCardConfig(CardEnum.Napalm));
         GamePlay.DropNapalm(position, config.FireNumber, config.Radius, config.InstantlyDamage, config.DamageInterval, config.DamagePerSec, config.EachRadius);
+        
     }
 
     #endregion

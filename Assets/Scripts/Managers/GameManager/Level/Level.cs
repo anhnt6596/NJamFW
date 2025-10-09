@@ -76,6 +76,7 @@ public class Level : MonoBehaviour, IGamePlay
     {
         Game.TakeDamage(enemy.config.DamageToBase);
         App.Get<GUIEffectManager>().FlashScreen(new Color(1, 0, 0, 0.3f));
+        SoundManager.Play(ResourceProvider.Sound.general.damageSound);
         OnEnemyDeath(enemy);
     }
 
@@ -198,6 +199,7 @@ public class Level : MonoBehaviour, IGamePlay
             App.Get<EffectManager>().SpawnLightning(lightningRod.position, upgradedLightning);
             return;
         }
+        
         var emenyTake = Enemies[Random.Range(0, Enemies.Count)];
 
         App.Get<EffectManager>().SpawnLightning(emenyTake.GetFuturePosition(lightningTime), upgradedLightning);
@@ -222,6 +224,7 @@ public class Level : MonoBehaviour, IGamePlay
 
     public void ReverseEnemies(Vector3 wPos, Vector3 radius, float duration)
     {
+        SoundManager.Play(ResourceProvider.Sound.general.teleport);
         foreach (var enemy in Enemies)
         {
             if (!enemy.isDead

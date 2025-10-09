@@ -83,7 +83,7 @@ public static class GamePlayUtils
     }
 
     // 0: right | 1: left
-    public static int GetDirection2Index(Vector2 dir, float deadZone = 0.1f)
+    public static int GetDirection2Index(Vector2 dir, float deadZone = 0.05f)
     {
         dir = dir.normalized;
         if (Mathf.Abs(dir.x) < deadZone)

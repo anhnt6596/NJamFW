@@ -18,8 +18,7 @@ public class GameState : ScriptableObject
 
     public void InitialState()
     {
-        freeRoll = Configs.GamePlay.InitFreeReroll;
-        energy = Configs.GamePlay.InitEnergy;
+
     }
 
     public void Reset()

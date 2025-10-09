@@ -9,8 +9,6 @@ public class GamePlayConfig : ScriptableObject
     [SerializeField] float baseEnergyPerSec = 0.1f;
     [SerializeField] float maxEnergy = 10f;
     [SerializeField] float rerollCardCost = 1f;
-    [SerializeField] int initEnergy = 2;
-    [SerializeField] int initFreeReroll = 1;
     [SerializeField] int selectionCardNumber = 3;
     [SerializeField] int maxLockedCard = 1;
     [SerializeField] float[] damageResistances =
@@ -22,8 +20,6 @@ public class GamePlayConfig : ScriptableObject
     public float BaseEnergyPerSec => baseEnergyPerSec;
     public float MaxEnergy => maxEnergy;
     public float RerollCardCost => rerollCardCost;
-    public int InitEnergy => initEnergy;
-    public int InitFreeReroll => initFreeReroll;
     public int SelectionCardNumber => selectionCardNumber;
     public int MaxLockedCard => maxLockedCard;
     public float GetDmgRes(short defPower) => damageResistances[(int)defPower];

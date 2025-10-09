@@ -127,6 +127,7 @@ public class EnemyVisual : Unit
 
             if (remainAttackTime > shootCycle * 0.85f && !hasAttackThisCycle)
             {
+                SoundManager.Play(ResourceProvider.Sound.general.troopFight);
                 unitAnimator.TriggerAttack();
                 hasAttackThisCycle = true;
             }

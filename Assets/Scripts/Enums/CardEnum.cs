@@ -18,4 +18,5 @@ public enum CardEnum
     Add3Roll = 15,
     Add7Roll = 16,
     Napalm = 17,
+    Mine = 18,
 }

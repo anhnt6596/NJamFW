@@ -19,8 +19,12 @@ public class LevelConfig : ScriptableObject
 public class TurnConfig
 {
     [SerializeField] private List<EnemySpawnGroup> enemySpawnGroups;
+    [SerializeField] private float turnEnergyGain;
+    [SerializeField] private int freeRollGain = 1;
 
     public List<EnemySpawnGroup> EnemySpawnGroups => enemySpawnGroups;
+    public float TurnEnergyGain => turnEnergyGain;
+    public int TurnFreeRollGain => freeRollGain;
 }
 
 [Serializable]
