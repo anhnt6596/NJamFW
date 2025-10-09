@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Speed
   m_EditorClassIdentifier: 
   hp: 55
-  speed: 1.2
+  speed: 1.5
   def:
     armor: 0
     magicRes: 0
@@ -24,3 +24,4 @@ MonoBehaviour:
     type: 0
   type: 4
   damageToBase: 1
+  deathEnergy: 0

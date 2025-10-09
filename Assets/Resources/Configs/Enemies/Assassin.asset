@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Assassin
   m_EditorClassIdentifier: 
   hp: 200
-  speed: 0.5
+  speed: 1
   def:
     armor: 0
     magicRes: 0
@@ -24,3 +24,4 @@ MonoBehaviour:
     type: 0
   type: 5
   damageToBase: 1
+  deathEnergy: 0

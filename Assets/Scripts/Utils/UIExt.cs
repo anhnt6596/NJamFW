@@ -19,4 +19,12 @@ public static class UIExt
         color.a = Mathf.Clamp01(alpha);
         img.color = color;
     }
+
+    public static void SetAlpha(this SpriteRenderer img, float alpha)
+    {
+        var color = img.color;
+        color.a = alpha;
+        color.a = Mathf.Clamp01(alpha);
+        img.color = color;
+    }
 }

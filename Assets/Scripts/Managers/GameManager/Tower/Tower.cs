@@ -10,6 +10,7 @@ public class Tower : MonoBehaviour
     [SerializeField] Transform firePoint;
     [SerializeField] TextMeshProUGUI levelText;
     [SerializeField] Image fireIndicator;
+    [SerializeField] Transform sniper;
     public int Level { get; private set; } = 1;
     TowerConfig config;
     public Damage damage => config.GetAttackByLevel(Level);
@@ -43,11 +44,14 @@ public class Tower : MonoBehaviour
         fireCooldown -= Time.deltaTime;
         fireIndicator.fillAmount = 1 - fireCooldown * config.FireRate;
 
-        FindTarget();
-        if (currentTarget != null && fireCooldown <= 0f)
+        if (fireCooldown <= 0f)
         {
-            Shoot(currentTarget);
-            fireCooldown = 1f / config.FireRate;
+            FindTarget();
+            if (currentTarget != null)
+            {
+                Shoot(currentTarget);
+                fireCooldown = 1f / config.FireRate;
+            }
         }
     }
 
@@ -79,6 +83,12 @@ public class Tower : MonoBehaviour
 
     void Shoot(EnemyVisual target)
     {
+        if (sniper != null)
+        {
+            var a = GamePlayUtils.GetDirection2Index(target.transform.position - sniper.transform.position);
+            sniper.localScale = new Vector3(a == 1 ? 1 : -1, 1, 1) * 1.2f;
+        }
+
         if (bulletPrefab == null || firePoint == null) return;
 
         BaseBullet bullet = LeanPool.Spawn(bulletPrefab, firePoint.position, Quaternion.identity);

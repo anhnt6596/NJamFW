@@ -132,6 +132,12 @@ public class CardUI : MonoBehaviour
     {
         if (game == null || !cardDisplayed) return;
         //if (game.) neu trang thai game la dang pick card thi oke
-        energyLoadImg.fillAmount = Mathf.Clamp01(1 - game.State.energy / game.GetCardCost(Card));
+        var fillValue = Mathf.Clamp01(1 - game.State.energy / game.GetCardCost(Card));
+        var last = energyLoadImg.fillAmount;
+        if (fillValue < last && fillValue != 1)
+            energyLoadImg.fillAmount = Mathf.Lerp(last, fillValue, 0.1f);
+        else
+            energyLoadImg.fillAmount = fillValue;
+
     }
 }

@@ -68,4 +68,28 @@ public class EffectManager : MonoBehaviour, IManager
         }
         return 0.5f;
     }
+
+    public void SpellCastEff(Vector3 startPos, Vector3 endPos, float dur, bool isJump = false, System.Action cb = null)
+    {
+        var spell = LeanPool.Spawn(ResourceProvider.Effect.spellCast);
+        spell.transform.position = startPos;
+        var seq = DOTween.Sequence();
+        if (!isJump) seq.Append(spell.transform.DOMove(endPos, dur).SetEase(Ease.OutSine));
+        else seq.Append(spell.transform.DOJump(endPos, 2, 1, dur).SetEase(Ease.OutSine));
+        seq.AppendCallback(() =>
+        {
+            cb?.Invoke();
+            spell.Stop(false, ParticleSystemStopBehavior.StopEmitting);
+        });
+        seq.AppendInterval(2);
+        seq.AppendCallback(() => LeanPool.Despawn(spell));
+    }
+
+    public void SpawnUpgradeEff(Vector3 wPos, float scale = 0.3f)
+    {
+        var pos = GamePlayUtils.Y2Z(wPos, -0.2f);
+        var upgrade = LeanPool.Spawn(ResourceProvider.Effect.upgrade, pos, Quaternion.identity, transform);
+        upgrade.transform.localScale = Vector3.one * scale;
+        this.DelayCall(5, () => LeanPool.Despawn(upgrade));
+    }
 }

@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: GameComponentSet
   m_EditorClassIdentifier: 
   healthBar: {fileID: -9217135690164535944, guid: 09751caf5656d2e4d809435bb8383cf4, type: 3}
+  mine: {fileID: 8812594191982174737, guid: 4d831193e536b294d9974580035473bd, type: 3}

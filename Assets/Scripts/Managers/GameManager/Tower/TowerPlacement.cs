@@ -27,6 +27,7 @@ public class TowerPlacement : MonoBehaviour
         else
         {
             Tower.LevelUp();
+            App.Get<EffectManager>().SpawnUpgradeEff(transform.position + Vector3.up * 0.5f);
         }
     }
 

@@ -20,3 +20,4 @@ MonoBehaviour:
   burning: {fileID: 2157581094552298791, guid: 63f4e463f2b90bb4aae081f37be4d40e, type: 3}
   arrowFocus: {fileID: 3378167563473650397, guid: 10f6a75efceaf6e469b207ee45f71697, type: 3}
   spellCast: {fileID: 2287997349404154520, guid: d824e984811b6c940a9b8608ac1e66cb, type: 3}
+  upgrade: {fileID: 1774025922053691977, guid: d7db649d73f0b3242baeb7e0d006ffa2, type: 3}

@@ -17,4 +17,5 @@ public interface IGamePlay
     bool IsWPosInPolygon(Vector3 wPos);
     void SpawnAlly(AllyEnum allyType, Vector3 wPos);
     void DropNapalm(Vector3 position, int fireNumber, Vector2 radius, Damage instantlyDamage, float interval, float damagePerSec, Vector2 eachRadius);
+    void DropMine(Vector3 wPos);
 }

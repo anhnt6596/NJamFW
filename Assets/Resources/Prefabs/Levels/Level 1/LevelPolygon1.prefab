@@ -756,7 +756,7 @@ GameObject:
   - component: {fileID: 5577792343141032735}
   - component: {fileID: 6959369459798311212}
   m_Layer: 0
-  m_Name: bg_level_1
+  m_Name: LevelPolygon1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -929,7 +929,7 @@ MonoBehaviour:
   - {fileID: 5644407587769064512}
   - {fileID: 7596149758930381828}
   loop: 1
-  lineColor: {r: 0, g: 1, b: 0, a: 1}
+  lineColor: {r: 1, g: 1, b: 1, a: 1}
   nodeGizmoSize: 0.12
 --- !u!1 &5765748472235607089
 GameObject:

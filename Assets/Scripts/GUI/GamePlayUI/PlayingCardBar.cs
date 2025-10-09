@@ -70,6 +70,10 @@ public class PlayingCardBar : MonoBehaviour
                     game.DropNapalm(worldPos);
                     return true;
                 }
+            case CardEnum.Mine:
+                {
+                    return TryDropMine(worldPos);
+                }
         }
         return true;
     }
@@ -95,6 +99,16 @@ public class PlayingCardBar : MonoBehaviour
         {
             var allyConfig = (AllyCardConfig)Configs.GetCardConfig(game.PlayingCard);
             game.GamePlay.SpawnAlly(allyConfig.Ally, wPos);
+            return true;
+        }
+        return false;
+    }
+
+    private bool TryDropMine(Vector3 wPos)
+    {
+        if (game.GamePlay.IsWPosInPolygon(wPos))
+        {
+            game.GamePlay.DropMine(wPos);
             return true;
         }
         return false;

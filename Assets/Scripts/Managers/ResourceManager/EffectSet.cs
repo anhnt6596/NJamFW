@@ -13,4 +13,5 @@ public class EffectSet : ResourceSet
     public GameObject burning;
     public ArrowFocus arrowFocus;
     public ParticleSystem spellCast;
+    public ParticleSystem upgrade;
 }

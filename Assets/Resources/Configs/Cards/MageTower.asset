@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: MageTower
   m_EditorClassIdentifier: 
   card: 2
-  cost: 1
+  cost: 2
   escalatingCost: 1
   maxSellectedTime: -1
+  isAbilityCard: 0
   isUse: 1
   tower: 2

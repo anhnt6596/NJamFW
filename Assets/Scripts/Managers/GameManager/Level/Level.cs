@@ -66,13 +66,18 @@ public class Level : MonoBehaviour, IGamePlay
         LeanPool.Despawn(enemy);
     }
 
-    private void OnEnemyDeath(Unit enemy)
+    private void OnEnemyDeath(Unit unit)
     {
-        DespawnEnemy((EnemyVisual)enemy);
-
+        var enemy = (EnemyVisual)unit;
+        DespawnEnemy(enemy);
+        Game.State.energy += enemy.config.DeathEnergy;
         if (spawnCount == 0
             && Enemies.Count == 0
-            && Game.State.baseHealth > 0) Game.CompleteTurn();
+            && Game.State.baseHealth > 0)
+        {
+            App.Get<GUIEffectManager>().BannerAnounce($"Turn {Game.CurrentTurn + 1} completed!");
+            this.DelayCall(1.5f, () => Game.CompleteTurn());
+        }
     }
 
     private void OnEnemyReachDestination(EnemyVisual enemy)
@@ -109,7 +114,7 @@ public class Level : MonoBehaviour, IGamePlay
         boss.DoCastAnim((pos) =>
         {
             var placement = towerPlacements[placeIndex];
-            SpellCastEff(pos, placement.transform.position, 0.6f, true, () =>
+            App.Get<EffectManager>().SpellCastEff(pos, placement.transform.position, 0.6f, true, () =>
             {
                 placement.BuildTower(tower, this);
             });
@@ -126,7 +131,7 @@ public class Level : MonoBehaviour, IGamePlay
     {
         boss.DoCastAnim((pos) =>
         {
-            SpellCastEff(pos, wPos, 0.6f, true, () =>
+            App.Get<EffectManager>().SpellCastEff(pos, wPos, 0.6f, true, () =>
             {
                 var ally = LeanPool.Spawn(ResourceProvider.GetAlly(allyType), unitParent);
                 ally.transform.position = wPos;
@@ -182,22 +187,6 @@ public class Level : MonoBehaviour, IGamePlay
 
     #region CastSpell
 
-    private void SpellCastEff(Vector3 startPos, Vector3 endPos, float dur, bool isJump = false, System.Action cb = null)
-    {
-        var spell = LeanPool.Spawn(ResourceProvider.Effect.spellCast);
-        spell.transform.position = startPos;
-        var seq = DOTween.Sequence();
-        if (!isJump) seq.Append(spell.transform.DOMove(endPos, dur).SetEase(Ease.OutSine));
-        else seq.Append(spell.transform.DOJump(endPos, 2, 1, dur).SetEase(Ease.OutSine));
-        seq.AppendCallback(() =>
-        {
-            cb?.Invoke();
-            spell.Stop(false, ParticleSystemStopBehavior.StopEmitting);
-        });
-        seq.AppendInterval(2);
-        seq.AppendCallback(() => LeanPool.Despawn(spell));
-    }
-
     private void SpawnGroup(EnemySpawnGroup group)
     {
         var space = group.Quantity == 0 ? 0 : group.SpawnTime / (group.Quantity);
@@ -216,10 +205,10 @@ public class Level : MonoBehaviour, IGamePlay
     {
         boss.DoCastAnim((pos) =>
         {
-            SpellCastEff(pos, pos + Vector3.up * 20, 2);
+            App.Get<EffectManager>().SpellCastEff(pos, pos + Vector3.up * 0.2f, 0.1f, true);
             for (int i = 0; i < times; i++)
             {
-                this.DelayCall(0.5f + i * delayEachLightning, () => Lightning(damage));
+                this.DelayCall(i * delayEachLightning, () => Lightning(damage));
             }
         });
     }
@@ -263,7 +252,7 @@ public class Level : MonoBehaviour, IGamePlay
     {
         boss.DoCastAnim(pos =>
         {
-            SpellCastEff(pos, wPos, 1, true, () =>
+            App.Get<EffectManager>().SpellCastEff(pos, wPos, 1, true, () =>
             {
                 SoundManager.Play(ResourceProvider.Sound.general.teleport);
                 foreach (var enemy in Enemies)
@@ -280,7 +269,7 @@ public class Level : MonoBehaviour, IGamePlay
     {
         boss.DoCastAnim(pos =>
         {
-            SpellCastEff(pos, wPos, 0.6f, true, () =>
+            App.Get<EffectManager>().SpellCastEff(pos, wPos, 0.6f, true, () =>
             {
                 CameraShake.Shake(0.3f, 0.1f);
                 App.Get<EffectManager>().SpawnBombEffect(wPos);
@@ -299,27 +288,45 @@ public class Level : MonoBehaviour, IGamePlay
 
     public void DropNapalm(Vector3 position, int fireNumber, Vector2 radius, Damage instantlyDamage, float interval, float dps, Vector2 eachRadius)
     {
-        for (int i = 0; i < fireNumber; i++)
+        boss.DoCastAnim((pos) =>
         {
-            this.DelayCall(i * 0.1f, () => {
-                var aFirePos = GamePlayUtils.GetRandomPointInEllipse(position, radius);
-                var dur = App.Get<EffectManager>().NapalmDrop(aFirePos);
-                this.DelayCall(dur, () =>
+            App.Get<EffectManager>().SpellCastEff(pos, pos + Vector3.up * 0.2f, 0.1f, true);
+            for (int i = 0; i < fireNumber; i++)
+            {
+                this.DelayCall(i * 0.1f, () =>
                 {
-                    CameraShake.Shake(0.3f, 0.1f);
-                    for (int i = Enemies.Count; i > 0; i--)
+                    var aFirePos = GamePlayUtils.GetRandomPointInEllipse(position, radius);
+                    var dur = App.Get<EffectManager>().NapalmDrop(aFirePos);
+                    this.DelayCall(dur, () =>
                     {
-                        var enemy = Enemies[i - 1];
-                        var v = GamePlayUtils.CheckElipse(enemy.transform.position, aFirePos, eachRadius);
-                        if (v < 1)
+                        CameraShake.Shake(0.3f, 0.1f);
+                        for (int i = Enemies.Count; i > 0; i--)
                         {
-                            enemy.AddStatus(new UnitStatus(UnitStatusEnum.Burning, interval, dps));
-                            enemy.TakeDamage(instantlyDamage);
+                            var enemy = Enemies[i - 1];
+                            var v = GamePlayUtils.CheckElipse(enemy.transform.position, aFirePos, eachRadius);
+                            if (v < 1)
+                            {
+                                enemy.AddStatus(new UnitStatus(UnitStatusEnum.Burning, interval, dps));
+                                enemy.TakeDamage(instantlyDamage);
+                            }
                         }
-                    }
+                    });
                 });
+            }
+        });
+    }
+
+    public void DropMine(Vector3 wPos)
+    {
+        boss.DoCastAnim(pos =>
+        {
+            App.Get<EffectManager>().SpellCastEff(pos, wPos, 0.6f, true, () =>
+            {
+                var mine = LeanPool.Spawn(ResourceProvider.Component.Mine, unitParent);
+                mine.transform.position = wPos;
+                mine.Setup(this);
             });
-        }
+        });
     }
 
 
