@@ -10,9 +10,10 @@ public class SoundResourceSet : ResourceSet
     [Serializable]
     public class Music
     {
-        public AudioClip backgroundMusic;
-        public AudioClip gameMusic;
-        public AudioClip climaxMusic;
+        public AudioClip menuMusic;
+        public AudioClip prepareTurnMusic;
+        public AudioClip chillCombatMusic;
+        public AudioClip climaxCombatMusic;
     }
 
     [Serializable]
