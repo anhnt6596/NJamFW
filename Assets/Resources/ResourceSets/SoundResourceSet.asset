@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: SoundResourceSet
   m_EditorClassIdentifier: 
   music:
-    backgroundMusic: {fileID: 8300000, guid: 7aaabbc5a237c5b47972d35d50e5bb3a, type: 3}
-    gameMusic: {fileID: 0}
-    climaxMusic: {fileID: 0}
+    menuMusic: {fileID: 8300000, guid: c144529fd87a76c4381c9c3bccbebd54, type: 3}
+    prepareTurnMusic: {fileID: 8300000, guid: b5402684fab09214e8b387856f619729, type: 3}
+    chillCombatMusic: {fileID: 8300000, guid: 238b3e2e548306b4aa9281c515ff77c4, type: 3}
+    climaxCombatMusic: {fileID: 8300000, guid: 7aaabbc5a237c5b47972d35d50e5bb3a, type: 3}
   general:
     button: {fileID: 8300000, guid: 9e471882e50fade43ac4a33c2f2770eb, type: 3}
     arrowShot: {fileID: 8300000, guid: c0834d46bd04ab94ea60c90c348a1214, type: 3}
