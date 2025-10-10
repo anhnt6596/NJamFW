@@ -16,7 +16,7 @@ public class SceneGameUI : MonoBehaviour
 
     private void OnDisable()
     {
-        Game.OnPhaseChanged += OnPhaseChanged;
+        Game.OnPhaseChanged -= OnPhaseChanged;
     }
 
     private void OnPhaseChanged(int turn, TurnPhaseEnum phase)
@@ -34,9 +34,5 @@ public class SceneGameUI : MonoBehaviour
     public void OnClickPause()
     {
         App.Get<GameManager>().PauseGame();
-    }
-
-    private void DisplayTurnText()
-    {
     }
 }

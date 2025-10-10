@@ -12,6 +12,7 @@ public class TurnInfoUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI turnText;
     [SerializeField] private EnemyInfoUI enemyInfoUI;
     [SerializeField] private Image arrowFocus;
+    [SerializeField] private GameObject buttonStart;
 
     private void Awake()
     {

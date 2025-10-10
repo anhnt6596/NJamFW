@@ -127,6 +127,11 @@ public class CardUI : MonoBehaviour
         if (game.State.energy >= CardConfig.GetCost(game)) game.DoSelectCard(Index);
     }
 
+    public void OnClickInfo()
+    {
+        App.Get<GameManager>().ShowCardInfo(Card);
+    }
+
     private void Update()
     {
         if (game == null || !cardDisplayed) return;

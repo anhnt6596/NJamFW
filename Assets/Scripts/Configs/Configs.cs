@@ -7,12 +7,14 @@ public static class Configs
 {
     public static GamePlayConfig GamePlay;
     public static Dictionary<CardEnum, CardConfig> CardConfigs { get; } = new();
+    public static Dictionary<CardEnum, CardInfo> CardInfos { get; } = new();
     public static Dictionary<EnemyEnum, EnemyConfig> EnemyConfigs { get; } = new();
     public static Dictionary<AllyEnum, AllyConfig> AllyConfigs { get; } = new();
     public static Dictionary<int, LevelConfig> LevelConfigs { get; } = new();
     public static Dictionary<TowerEnum, TowerConfig> TowerConfigs { get; } = new();
 
     public static CardConfig GetCardConfig(CardEnum card) => CardConfigs[card];
+    public static CardInfo GetCardInfo(CardEnum card) => CardInfos[card];
     public static EnemyConfig GetEnemyConfig(EnemyEnum enemy) => EnemyConfigs[enemy];
     public static AllyConfig GetAllyConfig(AllyEnum ally) => AllyConfigs[ally];
     public static LevelConfig GetLevelConfig(int level) => LevelConfigs[level];
@@ -21,6 +23,7 @@ public static class Configs
     {
         GamePlay = (GamePlayConfig)Resources.LoadAll("", typeof(GamePlayConfig))[0];
         LoadCardConfigs();
+        LoadCardInfos();
         LoadEnemyConfigs();
         LoadAllyConfigs();
         LoadLevelConfigs();
@@ -35,6 +38,17 @@ public static class Configs
         {
             var config = (CardConfig) configObj;
             if (config.IsUse && !CardConfigs.ContainsKey(config.Card)) CardConfigs.Add(config.Card, config);
+        }
+    }
+
+    private static void LoadCardInfos()
+    {
+        CardInfos.Clear();
+        var allInfos = Resources.LoadAll("", typeof(CardInfo));
+        foreach (var infoObj in allInfos)
+        {
+            var info = (CardInfo) infoObj;
+            if (!CardInfos.ContainsKey(info.Type)) CardInfos.Add(info.Type, info);
         }
     }
 

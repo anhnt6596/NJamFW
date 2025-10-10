@@ -1,4 +1,5 @@
 using Core;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -94,6 +95,14 @@ public class GameManager : MonoBehaviour, IManager
             ContinueGame();
             PlayerPrefs.SetInt($"tut_{tutIndex}", 1);
         };
+    }
+
+    public void ShowCardInfo(CardEnum card)
+    {
+        Time.timeScale = 0;
+        var popup = App.Get<GUIManager>().ShowGui<CardInfoPopup>();
+        popup.SetCardInfo(card);
+        popup.OKAction = () => ContinueGame();
     }
 
     private void Update()

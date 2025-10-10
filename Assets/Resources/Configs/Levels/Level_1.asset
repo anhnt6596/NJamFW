@@ -21,7 +21,7 @@ MonoBehaviour:
       delay: 0
       spawnTime: 4
     turnEnergyGain: 5
-    freeRollGain: 1
+    freeRollGain: 0
   - enemySpawnGroups:
     - enemy: 1
       quantity: 7

@@ -9,18 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62c70a153e90f0342a8424cb89d24e15, type: 3}
-  m_Name: TroopMed
+  m_Script: {fileID: 11500000, guid: 2e9ba66e0472dfd41888d695d94aa6f8, type: 3}
+  m_Name: Add1Energy-info
   m_EditorClassIdentifier: 
-  hp: 450
-  speed: 1
-  def:
-    armor: 0
-    magicRes: 0
-  attackRange: {x: 0.3, y: 0.21}
-  attackSpeed: 0.6
-  attackDamage:
-    amount: 35
-    type: 0
-  type: 2
-  detectionRadius: {x: 1.5, y: 1.05}
+  type: 13
+  displayName: Stamina
+  contents:
+  - Increase your Energy by 1
