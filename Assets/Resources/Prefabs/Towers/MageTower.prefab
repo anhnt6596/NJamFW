@@ -51,6 +51,8 @@ MonoBehaviour:
   levelText: {fileID: 830312204177637993}
   fireIndicator: {fileID: 7495093242831522588}
   sniper: {fileID: 345396453533961400}
+  animator: {fileID: 0}
+  shootAnimDur: 0
 --- !u!1 &2704069823476891948
 GameObject:
   m_ObjectHideFlags: 0

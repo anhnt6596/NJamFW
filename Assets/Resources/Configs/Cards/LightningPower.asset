@@ -18,5 +18,5 @@ MonoBehaviour:
   maxSellectedTime: 1
   isAbilityCard: 0
   isUse: 1
-  damageMult: 2
+  damageMult: 1.5
   lightningUsedToAppear: 2

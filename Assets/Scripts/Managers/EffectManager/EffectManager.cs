@@ -38,7 +38,7 @@ public class EffectManager : MonoBehaviour, IManager
 
     public void SpawnExplodeEffect(Vector3 wPos, float scale = 0.4f)
     {
-        var pos = GamePlayUtils.Y2Z(wPos, -0.1f * scale);
+        var pos = GamePlayUtils.Y2Z(wPos, -0.04f * scale);
         var explosion = LeanPool.Spawn(ResourceProvider.Effect.bombExplosion, pos, Quaternion.identity, transform);
         explosion.transform.localScale = Vector3.one * scale;
         this.DelayCall(5, () => LeanPool.Despawn(explosion));

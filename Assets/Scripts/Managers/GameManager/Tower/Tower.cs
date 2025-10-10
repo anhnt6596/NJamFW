@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using Core;
+using DG.Tweening;
 using Lean.Pool;
 using System;
 using TMPro;
@@ -12,6 +13,8 @@ public class Tower : MonoBehaviour
     [SerializeField] TextMeshProUGUI levelText;
     [SerializeField] Image fireIndicator;
     [SerializeField] Transform sniper;
+    [SerializeField] Animator animator;
+    [SerializeField] float shootDelay = 0;
     public int Level { get; private set; } = 1;
     TowerConfig config;
     public Damage damage => config.GetAttackByLevel(Level);
@@ -92,18 +95,19 @@ public class Tower : MonoBehaviour
 
         if (bulletPrefab == null || firePoint == null) return;
 
-        BaseBullet bullet = LeanPool.Spawn(bulletPrefab, firePoint.position, Quaternion.identity);
-        bullet.SetDamage(damage);
-        bullet.Display();
-        if (bullet != null)
-        {
-            bullet.SetTarget(target);
-        }
-        PlaySoundBullet(config.Type);
+        if (animator) animator.SetTrigger("Shoot");
+
         SoundManager.Play(ResourceProvider.Sound.combat.tower.GetShotSound(config.Type));
-    }
-    public void PlaySoundBullet(TowerEnum tower)
-    {
+        this.DelayCall(shootDelay, () =>
+        {
+            BaseBullet bullet = LeanPool.Spawn(bulletPrefab, firePoint.position, Quaternion.identity);
+            bullet.SetDamage(damage);
+            bullet.Display();
+            if (bullet != null)
+            {
+                bullet.SetTarget(target);
+            }
+        });
     }
 
     void OnDrawGizmosSelected()
