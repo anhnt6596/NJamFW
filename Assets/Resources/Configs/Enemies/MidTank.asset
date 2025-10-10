@@ -24,4 +24,4 @@ MonoBehaviour:
     type: 0
   type: 2
   damageToBase: 1
-  deathEnergy: 0.4
+  deathEnergy: 0.2

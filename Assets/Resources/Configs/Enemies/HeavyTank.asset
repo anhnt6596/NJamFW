@@ -20,8 +20,8 @@ MonoBehaviour:
   attackRange: {x: 0.3, y: 0.21}
   attackSpeed: 0.6
   attackDamage:
-    amount: 50
+    amount: 45
     type: 0
   type: 3
   damageToBase: 2
-  deathEnergy: 1
+  deathEnergy: 0.4

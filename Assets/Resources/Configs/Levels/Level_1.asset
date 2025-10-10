@@ -36,32 +36,37 @@ MonoBehaviour:
       gateIdx: 0
       delay: 0
       spawnTime: 12
-    turnEnergyGain: 2
-    freeRollGain: 1
-  - enemySpawnGroups:
     - enemy: 2
       quantity: 1
       gateIdx: 0
-      delay: 0
+      delay: 14
       spawnTime: 0
-    - enemy: 2
-      quantity: 2
-      gateIdx: 0
-      delay: 10
-      spawnTime: 4
     turnEnergyGain: 2
     freeRollGain: 1
   - enemySpawnGroups:
     - enemy: 2
-      quantity: 2
+      quantity: 3
       gateIdx: 0
       delay: 0
-      spawnTime: 4
+      spawnTime: 6
     - enemy: 1
       quantity: 5
       gateIdx: 1
-      delay: 16
+      delay: 0
       spawnTime: 8
+    turnEnergyGain: 2
+    freeRollGain: 1
+  - enemySpawnGroups:
+    - enemy: 2
+      quantity: 3
+      gateIdx: 1
+      delay: 0
+      spawnTime: 6
+    - enemy: 4
+      quantity: 5
+      gateIdx: 1
+      delay: 9
+      spawnTime: 4
     turnEnergyGain: 2
     freeRollGain: 1
   - enemySpawnGroups:
@@ -70,14 +75,19 @@ MonoBehaviour:
       gateIdx: 0
       delay: 0
       spawnTime: 0
+    - enemy: 2
+      quantity: 2
+      gateIdx: 0
+      delay: 5
+      spawnTime: 2
     turnEnergyGain: 2
     freeRollGain: 1
   - enemySpawnGroups:
     - enemy: 1
-      quantity: 7
+      quantity: 12
       gateIdx: 1
       delay: 0
-      spawnTime: 12
+      spawnTime: 22
     - enemy: 3
       quantity: 2
       gateIdx: 0
@@ -87,10 +97,10 @@ MonoBehaviour:
     freeRollGain: 1
   - enemySpawnGroups:
     - enemy: 4
-      quantity: 15
+      quantity: 20
       gateIdx: 0
       delay: 0
-      spawnTime: 14
+      spawnTime: 19
     turnEnergyGain: 2
     freeRollGain: 1
   - enemySpawnGroups:
@@ -108,28 +118,23 @@ MonoBehaviour:
     freeRollGain: 1
   - enemySpawnGroups:
     - enemy: 3
-      quantity: 3
-      gateIdx: 0
-      delay: 0
-      spawnTime: 8
-    - enemy: 4
-      quantity: 15
-      gateIdx: 1
-      delay: 5
-      spawnTime: 14
-    turnEnergyGain: 2
-    freeRollGain: 1
-  - enemySpawnGroups:
-    - enemy: 3
       quantity: 5
       gateIdx: 0
       delay: 0
       spawnTime: 12
-    - enemy: 2
-      quantity: 7
+    turnEnergyGain: 2
+    freeRollGain: 1
+  - enemySpawnGroups:
+    - enemy: 4
+      quantity: 30
       gateIdx: 1
-      delay: 6
-      spawnTime: 12
+      delay: 0
+      spawnTime: 29
+    - enemy: 3
+      quantity: 3
+      gateIdx: 0
+      delay: 10
+      spawnTime: 10
     turnEnergyGain: 2
     freeRollGain: 1
   - enemySpawnGroups:
@@ -138,10 +143,20 @@ MonoBehaviour:
       gateIdx: 0
       delay: 0
       spawnTime: 21
-    - enemy: 2
-      quantity: 12
+    - enemy: 4
+      quantity: 25
       gateIdx: 1
       delay: 6
-      spawnTime: 22
+      spawnTime: 24
+    - enemy: 2
+      quantity: 10
+      gateIdx: 1
+      delay: 30
+      spawnTime: 18
+    - enemy: 1
+      quantity: 45
+      gateIdx: 0
+      delay: 40
+      spawnTime: 20
     turnEnergyGain: 2
     freeRollGain: 1
