@@ -16,6 +16,7 @@ public class TurnInfoUI : MonoBehaviour
     private void Awake()
     {
         display.SetActive(false);
+        arrowStartPos = arrowFocus.transform.localPosition;
         arrowFocus.gameObject.SetActive(false);
     }
 
@@ -72,6 +73,7 @@ public class TurnInfoUI : MonoBehaviour
     [Header("Arrow config")]
     [SerializeField] private float moveDistance = 30f;
     [SerializeField] private float moveDuration = 0.5f;
+    Vector3 arrowStartPos;
 
     private bool CheckShowArrow()
     {
@@ -96,6 +98,7 @@ public class TurnInfoUI : MonoBehaviour
     private void ShowArrow()
     {
         arrowFocus.gameObject.SetActive(true);
+        arrowFocus.transform.localPosition = arrowStartPos;
 
         moveTween?.Kill();
         fadeTween?.Kill();

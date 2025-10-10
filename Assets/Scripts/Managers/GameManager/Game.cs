@@ -242,8 +242,9 @@ public class Game
     public void CancelPlayingCard()
     {
         // tam thoi, sau nay se lam lai han hoi, phai action card thi moi tru cost + add vao card da choi
-        PlayingCard = CardEnum.None;
         State.selectedCards.RemoveAt(State.selectedCards.Count - 1);
+        IncreaseEnergy(GetCardCost(PlayingCard));
+        PlayingCard = CardEnum.None;
         InputStateEnum = InputStateEnum.SelectingCard;
     }
     public void CastLightnings(int times, Damage damage)
