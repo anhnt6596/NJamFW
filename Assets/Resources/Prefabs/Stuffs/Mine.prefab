@@ -64,7 +64,7 @@ MonoBehaviour:
   damage:
     amount: 250
     type: 1
-  rangeCheck: {x: 0.5, y: 0.35}
+  rangeCheck: {x: 1, y: 0.7}
   range: {x: 3, y: 2.1}
 --- !u!1 &1439871004155193285
 GameObject:

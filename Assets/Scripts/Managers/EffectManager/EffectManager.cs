@@ -30,9 +30,10 @@ public class EffectManager : MonoBehaviour, IManager
 
         var lightning = LeanPool.Spawn(effectLazer, pos, Quaternion.identity, transform);
         lightning.Play();
-        lightning.transform.localScale = Vector3.one * 0.5f;
-        SoundManager.Play(ResourceProvider.Sound.general.lightning);
         this.DelayCall(5, () => LeanPool.Despawn(lightning));
+        lightning.transform.localScale = Vector3.one * 0.5f;
+
+        SoundManager.Play(ResourceProvider.Sound.combat.lightning);
     }
 
     public void SpawnBombEffect(Vector3 wPos, float scale = 0.4f)
@@ -40,8 +41,9 @@ public class EffectManager : MonoBehaviour, IManager
         var pos = GamePlayUtils.Y2Z(wPos, -0.2f);
         var explosion = LeanPool.Spawn(ResourceProvider.Effect.bombExplosion, pos, Quaternion.identity, transform);
         explosion.transform.localScale = Vector3.one * scale;
-        SoundManager.Play(ResourceProvider.Sound.general.bombExplosion);
         this.DelayCall(5, () => LeanPool.Despawn(explosion));
+
+        SoundManager.Play(ResourceProvider.Sound.combat.explode);
     }
 
     public void SpawnSmokeEffect(Vector3 wPos)

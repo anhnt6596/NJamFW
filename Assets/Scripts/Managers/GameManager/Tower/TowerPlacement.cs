@@ -22,7 +22,7 @@ public class TowerPlacement : MonoBehaviour
             var towerPrefab = ResourceProvider.GetTower(tower);
             Tower = Instantiate(towerPrefab, transform);
             Tower.Setup(tower, gamePlay);
-            Tower.transform.localPosition = Vector3.back * 0.1f;
+            Tower.transform.localPosition = Vector3.back * 0.001f;
         }
         else
         {

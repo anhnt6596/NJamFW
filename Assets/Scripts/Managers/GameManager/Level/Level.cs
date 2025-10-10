@@ -84,8 +84,9 @@ public class Level : MonoBehaviour, IGamePlay
     {
         Game.TakeDamage(enemy.config.DamageToBase);
         App.Get<GUIEffectManager>().FlashScreen(new Color(1, 0, 0, 0.3f));
-        SoundManager.Play(ResourceProvider.Sound.general.damageSound);
         OnEnemyDeath(enemy);
+
+        SoundManager.Play(ResourceProvider.Sound.combat.damageTaken);
     }
 
     private IMovingPath GetRandomMovingPath(int group)
@@ -254,7 +255,7 @@ public class Level : MonoBehaviour, IGamePlay
         {
             App.Get<EffectManager>().SpellCastEff(pos, wPos, 1, true, () =>
             {
-                SoundManager.Play(ResourceProvider.Sound.general.teleport);
+                SoundManager.Play(ResourceProvider.Sound.combat.teleport);
                 foreach (var enemy in Enemies)
                 {
                     if (!enemy.isDead

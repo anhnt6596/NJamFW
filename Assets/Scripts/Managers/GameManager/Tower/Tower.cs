@@ -105,13 +105,15 @@ public class Tower : MonoBehaviour
         if (tower == TowerEnum.None) return;
         if (tower == TowerEnum.ArcherTower)
         {
-            SoundManager.Play(ResourceProvider.Sound.general.arrowShot);
-        }else if (tower == TowerEnum.ArtilleryTower)
+            SoundManager.Play(ResourceProvider.Sound.combat.arrowShot);
+        }
+        else if (tower == TowerEnum.ArtilleryTower)
         {
-            SoundManager.Play(ResourceProvider.Sound.general.cannonFire);
-        }else if (tower == TowerEnum.MageTower)
+            SoundManager.Play(ResourceProvider.Sound.combat.cannonFire);
+        }
+        else if (tower == TowerEnum.MageTower)
         {
-            SoundManager.Play(ResourceProvider.Sound.general.spellAttack);
+            SoundManager.Play(ResourceProvider.Sound.combat.spellAttack);
         }
     }
 
