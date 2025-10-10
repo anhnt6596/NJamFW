@@ -16,5 +16,6 @@ MonoBehaviour:
   cost: 1
   escalatingCost: 0
   maxSellectedTime: 1
-  isUse: 1
+  isAbilityCard: 0
+  isUse: 0
   value: 3

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TowerPlacement : MonoBehaviour
 {
-    [SerializeField] Vector2 placeRadius = new Vector2(1, 0.7f);
+    [SerializeField] Vector2 placeRadius = new Vector2(1.05f, 1.5f);
     [SerializeField] Vector3 focusPos, focusPosHaveTower;
     public Tower Tower { get; private set; }
 
@@ -12,7 +12,7 @@ public class TowerPlacement : MonoBehaviour
     {
         if (Tower != null && Tower.TowerType != tower) return false;
         // add them ca neu bam trung tower cu da xay sau
-        return GamePlayUtils.IsInRange(wPos, transform.position, placeRadius);
+        return GamePlayUtils.IsInRange(wPos, transform.position + Vector3.up * 0.25f, placeRadius);
     }
 
     public void BuildTower(TowerEnum tower, IGamePlay gamePlay)

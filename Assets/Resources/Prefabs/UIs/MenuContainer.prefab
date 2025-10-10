@@ -393,9 +393,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 315151738643454496, guid: 099418b07dec7d64d90b4a99a6991852, type: 3}
       propertyPath: m_text
-      value: 'Setting
-
-'
+      value: Cards
       objectReference: {fileID: 0}
     - target: {fileID: 315151738643454496, guid: 099418b07dec7d64d90b4a99a6991852, type: 3}
       propertyPath: m_fontSize
@@ -423,7 +421,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 661013432690931482, guid: 099418b07dec7d64d90b4a99a6991852, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OpenSettings
+      value: OpenCardPopup
       objectReference: {fileID: 0}
     - target: {fileID: 661013432690931482, guid: 099418b07dec7d64d90b4a99a6991852, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -515,7 +513,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9056189772265752309, guid: 099418b07dec7d64d90b4a99a6991852, type: 3}
       propertyPath: m_Name
-      value: SettingButton
+      value: CardButton
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

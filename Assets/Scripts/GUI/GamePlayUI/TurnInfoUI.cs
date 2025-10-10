@@ -80,6 +80,7 @@ public class TurnInfoUI : MonoBehaviour
     {
         if (arrowFocus.gameObject.activeSelf) return false;
         var game = App.Get<GameManager>().RunningGame;
+        if (game == null) return false;
         if (game.TurnPhase != TurnPhaseEnum.Prepare) return false;
         if (game.InputStateEnum != InputStateEnum.SelectingCard) return false;
         else

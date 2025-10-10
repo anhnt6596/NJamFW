@@ -16,6 +16,9 @@ public abstract class CardConfig : ScriptableObject
     public CardEnum Card => card;
     public bool IsAbilityCard => isAbilityCard; // neu la true, se la card real tume, neu false la card turn setup
     public bool IsUse => isUse;  // bien tam thoi, neu false thi la config khong duoc su dung
+    public int BaseCost => cost;
+    public float EscalatingCost => escalatingCost;
+    public int MaxUsed => maxSellectedTime;
     public virtual int GetCost(Game game)
     {
         var useTime = game.State.selectedCards.Count(c => c == card);

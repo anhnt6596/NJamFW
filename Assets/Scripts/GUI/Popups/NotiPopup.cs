@@ -25,6 +25,7 @@ public class NotiPopup : BasePopup
     {
         base.Hide();
         OKAction?.Invoke();
+        OKAction = null;
     }
 
 }

@@ -55,19 +55,19 @@ public class MenuContainer : MonoBehaviour
     public void OpenAboutUsPopup() => App.Get<GUIManager>().ShowGui<AboutUsPopup>();
     public void OpenHelpPopup()
     {
-        PlayerPrefs.DeleteAll();
-        PlayerPrefs.Save();
-        App.Get<GUIManager>().ShowGui<HelpPopup>();
-    }
-
-    public void OpenSettings()
-    {
         var notiPopup = App.Get<GUIManager>().ShowGui<NotiPopup>();
-        notiPopup.Tittle = "Opp!!";
-        notiPopup.Content = "Feature not ready!!!!";
+        notiPopup.Tittle = "Help!!!";
+        notiPopup.Content = "I need help, humans attack me!!";
         notiPopup.OKAction = () =>
         {
-            Debug.Log("Popup Setting Close!");
+            PlayerPrefs.DeleteAll();
+            PlayerPrefs.Save();
         };
+    }
+
+    public void OpenCardPopup()
+    {
+        var popup = App.Get<GUIManager>().ShowGui<CardInfoPopup>();
+        popup.DisplayCardInfo(CardEnum.ArcherTower);
     }
 }

@@ -101,7 +101,7 @@ public class GameManager : MonoBehaviour, IManager
     {
         Time.timeScale = 0;
         var popup = App.Get<GUIManager>().ShowGui<CardInfoPopup>();
-        popup.SetCardInfo(card);
+        popup.DisplayCardInfo(card);
         popup.OKAction = () => ContinueGame();
     }
 

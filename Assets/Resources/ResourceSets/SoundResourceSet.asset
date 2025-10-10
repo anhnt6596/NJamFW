@@ -20,7 +20,7 @@ MonoBehaviour:
     win: {fileID: 8300000, guid: fc6e02b31fa015e4394a8085cfaadd94, type: 3}
     lose: {fileID: 8300000, guid: 11099826848049245accf79128f45777, type: 3}
     startTurn: {fileID: 8300000, guid: 63331a8cb731dce428fe8dcc71c3edc3, type: 3}
-    turnCompleted: {fileID: 8300000, guid: e906035234cd7d74595d0e6882f4d5f8, type: 3}
+    turnCompleted: {fileID: 8300000, guid: 4685f2d8dd80bea4bb73d6bb801ef02a, type: 3}
   combat:
     tower:
       arrowShot: {fileID: 8300000, guid: 72da7215b2dc4b148a1ab65b9fdfe7d4, type: 3}

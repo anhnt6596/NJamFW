@@ -75,7 +75,11 @@ public class Level : MonoBehaviour, IGamePlay
             && Game.State.baseHealth > 0)
         {
             App.Get<GUIEffectManager>().BannerAnounce($"Turn {Game.CurrentTurn + 1} completed!");
-            this.DelayCall(1.5f, () => Game.CompleteTurn());
+            this.DelayCall(1.5f, () =>
+            {
+                SoundManager.Play(ResourceProvider.Sound.general.turnCompleted);
+                Game.CompleteTurn();
+            });
         }
     }
 

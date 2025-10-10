@@ -15,6 +15,5 @@ MonoBehaviour:
   type: 2
   displayName: Evil Tower
   contents:
-  - Tower attack with Magic Attack
-  - Low speed
-  - Slow victim
+  - Tower attack with Magic and Slow victim
+  - 
