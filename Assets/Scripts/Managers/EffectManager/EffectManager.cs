@@ -41,7 +41,6 @@ public class EffectManager : MonoBehaviour, IManager
         var pos = GamePlayUtils.Y2Z(wPos, -0.2f);
         var explosion = LeanPool.Spawn(ResourceProvider.Effect.bombExplosion, pos, Quaternion.identity, transform);
         explosion.transform.localScale = Vector3.one * scale;
-        explosion.transform.localRotation = Quaternion.Euler(-90,0,0);
         this.DelayCall(5, () => LeanPool.Despawn(explosion));
 
         if (scale >= 0.4f)
