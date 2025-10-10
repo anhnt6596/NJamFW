@@ -13,20 +13,26 @@ MonoBehaviour:
   m_Name: SoundResourceSet
   m_EditorClassIdentifier: 
   music:
-    menuMusic: {fileID: 0}
-    prepareTurnMusic: {fileID: 0}
-    chillCombatMusic: {fileID: 0}
-    climaxCombatMusic: {fileID: 0}
+    menuMusic: {fileID: 8300000, guid: 83e1e390345a8ef4197268da93d2711a, type: 3}
+    combatMusic: {fileID: 8300000, guid: 3a9a6a95b885fed498b6084a9c4434a2, type: 3}
   general:
     button: {fileID: 8300000, guid: 9e471882e50fade43ac4a33c2f2770eb, type: 3}
-    arrowShot: {fileID: 8300000, guid: 5338338607f559b409f45b8c015c60cb, type: 3}
-    lightning: {fileID: 0}
-    manaBuff: {fileID: 8300000, guid: c8376f4e4fdb4e44eaf21307cfb8e2f8, type: 3}
-    troopFight: {fileID: 8300000, guid: f2c61f7de74227142b54e72001238f08, type: 3}
-    teleport: {fileID: 8300000, guid: 14a3e04f71f9aa34ca73376b5b8a91ef, type: 3}
-    spellAttack: {fileID: 8300000, guid: 26cfb7b72b4b08e46a6463d51c340a29, type: 3}
-    cannonFire: {fileID: 8300000, guid: 43fe7ed3ae636ce41892942e27c36c22, type: 3}
-    bombExplosion: {fileID: 8300000, guid: bb3ea269cb7d16943ba490c34f5e708a, type: 3}
-    moreRoll: {fileID: 8300000, guid: 9e471882e50fade43ac4a33c2f2770eb, type: 3}
-    damageSound: {fileID: 8300000, guid: 2a836281911c10547b89acbb35349e99, type: 3}
-    napalBombSound: {fileID: 8300000, guid: a30480632afbdbc47a39e9ac077caef9, type: 3}
+    win: {fileID: 8300000, guid: fc6e02b31fa015e4394a8085cfaadd94, type: 3}
+    lose: {fileID: 8300000, guid: 11099826848049245accf79128f45777, type: 3}
+    startTurn: {fileID: 8300000, guid: 63331a8cb731dce428fe8dcc71c3edc3, type: 3}
+    turnCompleted: {fileID: 8300000, guid: e906035234cd7d74595d0e6882f4d5f8, type: 3}
+  combat:
+    tower:
+      arrowShot: {fileID: 8300000, guid: 72da7215b2dc4b148a1ab65b9fdfe7d4, type: 3}
+      mageShot: {fileID: 8300000, guid: 0b3d5fa574fd00c418fb45b798e700a0, type: 3}
+      artilleryShot: {fileID: 8300000, guid: 278baa4e73387ab44811836b6f327c36, type: 3}
+      build: {fileID: 8300000, guid: 4a74ddbccb08831478aba05fe7ed4dff, type: 3}
+      upgrade: {fileID: 8300000, guid: fe1b7c4109f65dc4bbbecf977b895746, type: 3}
+    lightning: {fileID: 8300000, guid: b5ee4629583317c498fe7d65cfe326fb, type: 3}
+    gain: {fileID: 8300000, guid: 656f4b903d822c34c8f9721c234411d7, type: 3}
+    teleport: {fileID: 8300000, guid: 859c7b50a8bcf274ba9d06a2e8b226c2, type: 3}
+    hugeExplode: {fileID: 8300000, guid: b15ade48aa64be1448ad591635119c4d, type: 3}
+    smallExplode: {fileID: 8300000, guid: 8f3c3056d884f3847b8e5ebec6794e6b, type: 3}
+    damageTaken: {fileID: 8300000, guid: bbd2b91b594366d47b3e9a0348cdcb9b, type: 3}
+    sword: {fileID: 8300000, guid: 41cd8394758e0104ba9d22ce8a567b2d, type: 3}
+    bossCastSpell: {fileID: 8300000, guid: e1e856efdf5b56740af7c10c6da67210, type: 3}

@@ -43,6 +43,7 @@ public class Boss : MonoBehaviour
     float castTime = 0.4f;
     public void DoCastAnim(Action<Vector3> callback)
     {
+        SoundManager.Play(ResourceProvider.Sound.combat.bossCastSpell);
         animator.SetTrigger("Cast");
         this.DelayCall(castTime, () => callback?.Invoke(castNode.position));
     }

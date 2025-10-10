@@ -173,6 +173,7 @@ public class Level : MonoBehaviour, IGamePlay
 
     public void StartNewWave(TurnConfig waveConfig)
     {
+        SoundManager.Play(ResourceProvider.Sound.general.startTurn);
         spawnCount = 0;
         for (int i = 0; i < waveConfig.EnemySpawnGroups.Count; i++)
         {
@@ -273,7 +274,7 @@ public class Level : MonoBehaviour, IGamePlay
             App.Get<EffectManager>().SpellCastEff(pos, wPos, 0.6f, true, () =>
             {
                 CameraShake.Shake(0.3f, 0.1f);
-                App.Get<EffectManager>().SpawnBombEffect(wPos);
+                App.Get<EffectManager>().SpawnExplodeEffect(wPos);
                 for (int i = Enemies.Count; i > 0; i--)
                 {
                     var enemy = Enemies[i - 1];
@@ -324,7 +325,8 @@ public class Level : MonoBehaviour, IGamePlay
             App.Get<EffectManager>().SpellCastEff(pos, wPos, 0.6f, true, () =>
             {
                 var mine = LeanPool.Spawn(ResourceProvider.Component.Mine, unitParent);
-                mine.transform.position = wPos;
+                var minePos = GamePlayUtils.Y2Z(wPos, 0);
+                mine.transform.position = minePos;
                 mine.Setup(this);
             });
         });

@@ -10,6 +10,8 @@ public class AddFreeRollCardConfig : CardConfig
 
     public override InputStateEnum ApplySellectedEffect(Game game)
     {
+        SoundManager.Play(ResourceProvider.Sound.combat.gain);
+
         game.State.freeRoll += value;
         return base.ApplySellectedEffect(game);
     }

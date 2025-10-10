@@ -36,14 +36,19 @@ public class EffectManager : MonoBehaviour, IManager
         SoundManager.Play(ResourceProvider.Sound.combat.lightning);
     }
 
-    public void SpawnBombEffect(Vector3 wPos, float scale = 0.4f)
+    public void SpawnExplodeEffect(Vector3 wPos, float scale = 0.4f)
     {
         var pos = GamePlayUtils.Y2Z(wPos, -0.2f);
         var explosion = LeanPool.Spawn(ResourceProvider.Effect.bombExplosion, pos, Quaternion.identity, transform);
         explosion.transform.localScale = Vector3.one * scale;
         this.DelayCall(5, () => LeanPool.Despawn(explosion));
 
-        SoundManager.Play(ResourceProvider.Sound.combat.explode);
+        if (scale >= 0.4f)
+        {
+            SoundManager.Play(ResourceProvider.Sound.combat.hugeExplode);
+        }
+        else
+            SoundManager.Play(ResourceProvider.Sound.combat.smallExplode);
     }
 
     public void SpawnSmokeEffect(Vector3 wPos)
@@ -64,7 +69,7 @@ public class EffectManager : MonoBehaviour, IManager
             fire.transform.position = GamePlayUtils.Y2Z(pos + Vector3.up * 12, -0.2f);
             fire.transform.DOMove(pos, 0.5f).SetEase(Ease.InQuad).OnComplete(() =>
             {
-                App.Get<EffectManager>().SpawnBombEffect(position, 0.3f);
+                App.Get<EffectManager>().SpawnExplodeEffect(position, 0.3f);
                 LeanPool.Despawn(fire);
             });
         }

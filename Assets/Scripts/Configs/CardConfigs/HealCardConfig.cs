@@ -10,6 +10,8 @@ public class HEalCardConfig : CardConfig
 
     public override InputStateEnum ApplySellectedEffect(Game game)
     {
+        SoundManager.Play(ResourceProvider.Sound.combat.gain);
+
         game.Heal(Value);
         return InputStateEnum.SelectingCard;
     }

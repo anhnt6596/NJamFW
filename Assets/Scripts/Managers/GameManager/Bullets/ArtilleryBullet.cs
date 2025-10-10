@@ -17,7 +17,7 @@ public class ArtilleryBullet : BaseBullet
             .OnComplete(() =>
             {
                 LeanPool.Despawn(this);
-                App.Get<EffectManager>().SpawnBombEffect(transform.position, 0.25f);
+                App.Get<EffectManager>().SpawnExplodeEffect(transform.position, 0.25f);
                 var enemies = App.Get<GameManager>().RunningGame.GamePlay.Enemies;
                 for (int i = enemies.Count; i > 0; i--)
                 {

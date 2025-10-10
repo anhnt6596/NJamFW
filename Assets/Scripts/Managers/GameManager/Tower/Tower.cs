@@ -1,4 +1,5 @@
-﻿using Lean.Pool;
+﻿using DG.Tweening;
+using Lean.Pool;
 using System;
 using TMPro;
 using Unity.Burst.Intrinsics;
@@ -92,29 +93,17 @@ public class Tower : MonoBehaviour
         if (bulletPrefab == null || firePoint == null) return;
 
         BaseBullet bullet = LeanPool.Spawn(bulletPrefab, firePoint.position, Quaternion.identity);
-        PlaySoundBullet(config.Type);
         bullet.SetDamage(damage);
         bullet.Display();
         if (bullet != null)
         {
             bullet.SetTarget(target);
         }
+        PlaySoundBullet(config.Type);
+        SoundManager.Play(ResourceProvider.Sound.combat.tower.GetShotSound(config.Type));
     }
     public void PlaySoundBullet(TowerEnum tower)
     {
-        if (tower == TowerEnum.None) return;
-        if (tower == TowerEnum.ArcherTower)
-        {
-            SoundManager.Play(ResourceProvider.Sound.combat.arrowShot);
-        }
-        else if (tower == TowerEnum.ArtilleryTower)
-        {
-            SoundManager.Play(ResourceProvider.Sound.combat.cannonFire);
-        }
-        else if (tower == TowerEnum.MageTower)
-        {
-            SoundManager.Play(ResourceProvider.Sound.combat.spellAttack);
-        }
     }
 
     void OnDrawGizmosSelected()

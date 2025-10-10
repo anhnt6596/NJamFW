@@ -23,11 +23,13 @@ public class TowerPlacement : MonoBehaviour
             Tower = Instantiate(towerPrefab, transform);
             Tower.Setup(tower, gamePlay);
             Tower.transform.localPosition = Vector3.back * 0.001f;
+            SoundManager.Play(ResourceProvider.Sound.combat.tower.build);
         }
         else
         {
             Tower.LevelUp();
             App.Get<EffectManager>().SpawnUpgradeEff(transform.position + Vector3.up * 0.5f);
+            SoundManager.Play(ResourceProvider.Sound.combat.tower.upgrade);
         }
     }
 

@@ -27,5 +27,8 @@ public class GameInitialize : MonoBehaviour
         //this.DelayCall(5, () => game.StartGame());
 
         this.DelayCall(0.1f, () => game.StartGame());
+
+
+        SoundManager.PlayMusic(ResourceProvider.Sound.music.combatMusic);
     }
 }

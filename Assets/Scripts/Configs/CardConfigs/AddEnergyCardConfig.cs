@@ -11,6 +11,8 @@ public class AddEnergyCardConfig : CardConfig
 
     public override InputStateEnum ApplySellectedEffect(Game game)
     {
+        SoundManager.Play(ResourceProvider.Sound.combat.gain);
+
         game.IncreaseEnergy(value);
         return InputStateEnum.SelectingCard;
     }

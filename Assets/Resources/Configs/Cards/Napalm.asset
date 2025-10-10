@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Napalm
   m_EditorClassIdentifier: 
   card: 17
-  cost: 4
+  cost: 3
   escalatingCost: 0
   maxSellectedTime: -1
   isAbilityCard: 1

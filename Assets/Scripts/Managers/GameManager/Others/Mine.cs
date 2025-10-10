@@ -69,7 +69,7 @@ public class Mine : MonoBehaviour
         seq.Append(eye.DOFade(1, 0.05f));
         seq.AppendCallback(() =>
         {
-            App.Get<EffectManager>().SpawnBombEffect(transform.position, 0.65f);
+            App.Get<EffectManager>().SpawnExplodeEffect(transform.position, 0.65f);
             CameraShake.Shake(0.3f, 0.1f);
             DealDamage();
             LeanPool.Despawn(this);

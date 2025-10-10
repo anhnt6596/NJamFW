@@ -254,6 +254,7 @@ GameObject:
   - component: {fileID: 3041333159414211672}
   - component: {fileID: 6370694608464395499}
   - component: {fileID: 5224557985348221089}
+  - component: {fileID: 46430753028905056}
   m_Layer: 5
   m_Name: RerollButton
   m_TagString: Untagged
@@ -395,6 +396,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &46430753028905056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6046743734394775475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14a0041f77160924785519068f9a8cd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7336157045109048558
 GameObject:
   m_ObjectHideFlags: 0
