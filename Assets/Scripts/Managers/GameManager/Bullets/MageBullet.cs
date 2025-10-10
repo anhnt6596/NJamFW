@@ -23,13 +23,14 @@ public class MageBullet : BaseBullet
             }
         }
 
-        Vector3 dir = (target.transform.position - transform.position).normalized;
+        var des = target.transform.position + Vector3.up * 0.25f;
+        Vector3 dir = (des - transform.position).normalized;
         transform.position += dir * speed * Time.deltaTime;
 
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle + rotationOffset, Vector3.forward);
 
-        if (Vector2.Distance(transform.position, target.transform.position) < 0.2f)
+        if (Vector2.Distance(transform.position, des) < 0.2f)
         {
             target.AddStatus(new UnitStatus(UnitStatusEnum.Slow, 3, 0.5f));
             target.TakeDamage(damage);
