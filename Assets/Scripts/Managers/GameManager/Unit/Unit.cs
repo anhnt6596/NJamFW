@@ -33,6 +33,14 @@ public abstract class Unit : MonoBehaviour
         if (HP <= 0) Die();
     }
 
+
+    protected CharacterAnimator unitAnimator;
+
+    private void Awake()
+    {
+        unitAnimator = GetComponentInChildren<CharacterAnimator>();
+    }
+
     protected void Die()
     {
         statusList.Clear();

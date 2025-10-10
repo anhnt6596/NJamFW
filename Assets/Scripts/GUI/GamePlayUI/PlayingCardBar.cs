@@ -43,6 +43,7 @@ public class PlayingCardBar : MonoBehaviour
 
     private bool TryPlayCard(Vector3 worldPos)
     {
+        // sau se switch theo loai card
         switch (game.PlayingCard)
         {
             case CardEnum.Bomb:
@@ -62,6 +63,7 @@ public class PlayingCardBar : MonoBehaviour
                     return true;
                 }
             case CardEnum.Troop:
+            case CardEnum.TroopMed:
                 {
                     return TryPlaceTroop(worldPos);
                 }

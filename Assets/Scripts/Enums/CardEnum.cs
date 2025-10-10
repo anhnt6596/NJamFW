@@ -20,4 +20,5 @@ public enum CardEnum
     Napalm = 17,
     Mine = 18,
     Heal1 = 19,
+    TroopMed = 20,
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class Ally : Unit
 {
@@ -27,6 +28,7 @@ public class Ally : Unit
         def = config.Def;
         statusList = new();
         CurrentTarget = null;
+        unitAnimator.UpdateDir(1);
     }
 
     void Update()
@@ -46,6 +48,7 @@ public class Ally : Unit
 
     void SearchForTarget()
     {
+        unitAnimator.UpdateState(0);
         var enemies = level.Enemies;
 
         EnemyVisual nearestEnemy = null;
@@ -73,6 +76,8 @@ public class Ally : Unit
         }
     }
 
+    bool hasAttackThisCycle = false;
+
     void CombatBehavior()
     {
         if (CurrentTarget == null || CurrentTarget.isDead)
@@ -87,19 +92,37 @@ public class Ally : Unit
 
         if (dist <= 1)
         {
-            if (Time.time - lastAttackTime >= 1f / attackSpeed)
+            if (unitAnimator.State == 1) unitAnimator.UpdateState(0);
+            var remainAttackTime = Time.time - lastAttackTime;
+            var shootCycle = 1f / attackSpeed;
+
+            if (remainAttackTime > shootCycle * 0.85f && !hasAttackThisCycle)
+            {
+                SoundManager.Play(ResourceProvider.Sound.combat.sword);
+                unitAnimator.TriggerAttack();
+                hasAttackThisCycle = true;
+            }
+
+            if (remainAttackTime >= shootCycle)
             {
                 lastAttackTime = Time.time;
                 CurrentTarget.TakeDamage(config.AttackDamage);
+                hasAttackThisCycle = false;
             }
         }
         else
         {
-            transform.position = Vector2.MoveTowards(
+            var nextPos = Vector3.MoveTowards(
                 transform.position,
                 CurrentTarget.transform.position,
                 config.Speed * Time.deltaTime
             );
+
+            var dir = GamePlayUtils.GetDirection2Index(nextPos - transform.position);
+            unitAnimator.UpdateState(1);
+            if (dir != -1) unitAnimator.UpdateDir(dir);
+            transform.position = nextPos;
+
             lastAttackTime = Time.time;
         }
     }

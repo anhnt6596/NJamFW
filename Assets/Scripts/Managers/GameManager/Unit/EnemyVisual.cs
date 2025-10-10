@@ -24,13 +24,6 @@ public class EnemyVisual : Unit
     public IMovingPath line;
     public System.Action<EnemyVisual> OnReachDestination;
 
-    private CharacterAnimator unitAnimator;
-
-    private void Awake()
-    {
-        unitAnimator = GetComponentInChildren<CharacterAnimator>();
-    }
-
     public Ally CurrentTarget { get; private set; }
     public void Setup(IMovingPath line, EnemyConfig config)
     {

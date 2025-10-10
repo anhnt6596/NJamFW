@@ -3,8 +3,9 @@
 public class CharacterAnimator : MonoBehaviour
 {
     [SerializeField] private Animator animator;
-    
+
     // 0: idle, 1: move, 2: other
+    public int State => animator.GetInteger("State");
     public void UpdateState(int state)
     {
         if (animator.GetInteger("State") != state) animator.SetInteger("State", state);

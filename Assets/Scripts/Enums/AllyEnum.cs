@@ -6,4 +6,5 @@ public enum AllyEnum
 {
     None,
     Troop,
+    TroopMed,
 }
