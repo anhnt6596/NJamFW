@@ -15,12 +15,12 @@ MonoBehaviour:
   hp: 100
   speed: 1.75
   def:
-    armor: 0
+    armor: 1
     magicRes: 0
   attackRange: {x: 0.3, y: 0.21}
-  attackSpeed: 1
+  attackSpeed: 0.4
   attackDamage:
-    amount: 20
+    amount: 50
     type: 0
   type: 4
   damageToBase: 1
