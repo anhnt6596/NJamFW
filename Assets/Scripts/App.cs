@@ -25,6 +25,7 @@ public class App : BaseApp
 
     protected override void StartApp()
     {
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
         SceneManager.LoadSceneAsync(SceneName.MenuScene);
     }
 
