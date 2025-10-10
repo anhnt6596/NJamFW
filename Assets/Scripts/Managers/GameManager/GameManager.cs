@@ -45,6 +45,12 @@ public class GameManager : MonoBehaviour, IManager
         Time.timeScale = 0;
         App.Get<GUIManager>().ShowGui<PausePopup>();
     }
+
+    public void Restart()
+    {
+        Time.timeScale = 1;
+        RunSceneGame(RunningGame.Level);
+    }
     
     public void ContinueGame()
     {
@@ -54,9 +60,9 @@ public class GameManager : MonoBehaviour, IManager
     public void QuitGame()
     {
         Time.timeScale = 1;
+        RunningGame = null;
         App.Get<SceneService>().LoadScene(SceneName.MenuScene);
         //App.Get<ChangeSceneUI>().DoLoadScene(SceneName.MenuScene);
-        RunningGame = null;
     }
 
     public void GameWin()
@@ -80,5 +86,11 @@ public class GameManager : MonoBehaviour, IManager
     private void Update()
     {
         if (RunningGame != null) RunningGame.Update();
+    }
+
+
+    private void OnApplicationPause(bool isPause)
+    {
+        if (isPause && RunningGame != null) PauseGame();
     }
 }

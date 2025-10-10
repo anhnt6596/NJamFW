@@ -4,19 +4,24 @@ using UnityEngine;
 using System;
 using TMPro;
 using Core;
+using DG.Tweening;
 
 public class WinPopup : BasePopup
 {
+    private void OnEnable()
+    {
+        SoundManager.Play(ResourceProvider.Sound.general.win);    
+    }
+
     public void OnClickContinue()
     {
-        Time.timeScale = 1;
-        App.Get<SceneService>().LoadScene(SceneName.MenuScene);
+        var gameMgr = App.Get<GameManager>();
+        gameMgr.QuitGame();
     }
 
     public void OnClickRestart()
     {
-        Time.timeScale = 1;
         var gameMgr = App.Get<GameManager>();
-        gameMgr.RunSceneGame(gameMgr.RunningGame.Level);
+        gameMgr.Restart();
     }
 }

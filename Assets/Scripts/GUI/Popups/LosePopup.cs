@@ -7,10 +7,15 @@ using Core;
 
 public class LosePopup : BasePopup
 {
+    private void OnEnable()
+    {
+        SoundManager.Play(ResourceProvider.Sound.general.lose);
+    }
+
     public void OnClickQuit()
     {
-        Time.timeScale = 1;
-        App.Get<SceneService>().LoadScene(SceneName.MenuScene);
+        var gameMgr = App.Get<GameManager>();
+        gameMgr.QuitGame();
     }
 
     public void OnClickRestart()
