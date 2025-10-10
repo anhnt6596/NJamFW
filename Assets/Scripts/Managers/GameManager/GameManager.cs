@@ -83,6 +83,19 @@ public class GameManager : MonoBehaviour, IManager
         });
     }
 
+    public void CheckShowTutPopup(int tutIndex)
+    {
+        if (PlayerPrefs.GetInt($"tut_{tutIndex}", 0) == 1) return;
+        Time.timeScale = 0;
+        var popup = App.Get<GUIManager>().ShowGui<TutPopup>();
+        popup.DisplayTut(tutIndex);
+        popup.OKAction = () =>
+        {
+            ContinueGame();
+            PlayerPrefs.SetInt($"tut_{tutIndex}", 1);
+        };
+    }
+
     private void Update()
     {
         if (RunningGame != null) RunningGame.Update();

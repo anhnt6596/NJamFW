@@ -9,7 +9,8 @@ public class GameInitialize : MonoBehaviour
     [SerializeField] Transform sceneGameUI;
     private void Start()
     {
-        var game = App.Get<GameManager>().CreateGame();
+        var gameMgr = App.Get<GameManager>();
+        var game = gameMgr.CreateGame();
 
         // Instantiate Level
         var levelPrefab = ResourceProvider.GetLevel(game.Level);
@@ -26,7 +27,11 @@ public class GameInitialize : MonoBehaviour
         //this.DelayCall(4, () => App.Get<GUIEffectManager>().BannerAnounce("Ready!"));
         //this.DelayCall(5, () => game.StartGame());
 
-        this.DelayCall(0.1f, () => game.StartGame());
+        this.DelayCall(0.1f, () =>
+        {
+            gameMgr.CheckShowTutPopup(0);
+            game.StartGame();
+        });
 
 
         SoundManager.PlayMusic(ResourceProvider.Sound.music.combatMusic);
