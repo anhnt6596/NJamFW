@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
@@ -22,5 +23,9 @@ public class TowerCardConfig : CardConfig
         return base.CanBeRoll(game);
     }
 
-    public override string GetPlayDescription(Game game) => $"Tab to build {Tower}";
+    public override string GetPlayDescription(Game game)
+    {
+        var towerName = Configs.GetCardInfo(Card).DisplayName;
+        return $"Tab to build {towerName}";
+    }
 }

@@ -15,6 +15,7 @@ public class AllyCardConfig : CardConfig
 
     public override string GetPlayDescription(Game game)
     {
-        return $"Place {ally} to the road";
+        var allyName = Configs.GetCardInfo(Card).DisplayName;
+        return $"Place {allyName} to the road";
     }
 }

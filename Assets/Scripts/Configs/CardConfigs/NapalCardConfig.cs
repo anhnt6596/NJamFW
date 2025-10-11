@@ -23,5 +23,5 @@ public class NapalmCardConfig : CardConfig
         return InputStateEnum.PlayCard;
     }
 
-    public override string GetPlayDescription(Game game) => "Tap to drop Napalm";
+    public override string GetPlayDescription(Game game) => "Tap to drop Fire Rain";
 }

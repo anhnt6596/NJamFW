@@ -21,5 +21,5 @@ public class BombCardConfig : CardConfig
         return InputStateEnum.PlayCard;
     }
 
-    public override string GetPlayDescription(Game game) =>  "Tap to drop Bomb";
+    public override string GetPlayDescription(Game game) =>  "Tap to drop Magic Bomb";
 }
