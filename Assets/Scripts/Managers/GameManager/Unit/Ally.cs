@@ -13,8 +13,11 @@ public class Ally : Unit
     public override float attackSpeed => config.AttackSpeed;
 
 
+
     public EnemyVisual CurrentTarget { get; set; }
     private float lastAttackTime;
+    private float lastTakeDamageTime;
+    private float outOfCombatRegenTime = 2f;
 
     private IGamePlay level;
     private enum State { Search, Combat }
@@ -44,6 +47,8 @@ public class Ally : Unit
                 CombatBehavior();
                 break;
         }
+
+        CheckRegen();
     }
 
     void SearchForTarget()
@@ -125,6 +130,35 @@ public class Ally : Unit
 
             lastAttackTime = Time.time;
         }
+    }
+
+    public override void TakeDamage(Damage dmgInput)
+    {
+        lastTakeDamageTime = Time.time;
+        base.TakeDamage(dmgInput);
+    }
+
+    private void CheckRegen()
+    {
+        if (Time.time - lastTakeDamageTime > outOfCombatRegenTime)
+        {
+            Heal(Time.deltaTime * config.HealRegen);
+        }
+    }
+
+    private void OnEnable()
+    {
+        Game.OnPhaseChanged += OnPhaseChanged;
+    }
+
+    private void OnDisable()
+    {
+        Game.OnPhaseChanged += OnPhaseChanged;
+    }
+
+    private void OnPhaseChanged(int turn, TurnPhaseEnum phase)
+    {
+        if (phase == TurnPhaseEnum.Prepare) Heal(config.Hp);
     }
 
     void OnDrawGizmosSelected()

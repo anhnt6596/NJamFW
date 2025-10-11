@@ -25,12 +25,17 @@ public abstract class Unit : MonoBehaviour
     #endregion Visual
 
     public System.Action<Unit> OnDeath;
-    public void TakeDamage(Damage dmgInput)
+    public virtual void TakeDamage(Damage dmgInput)
     {
         if (HP <= 0) return;
         var damageTake = GamePlayUtils.CalculateDamage(dmgInput, def);
         HP -= damageTake.amount;
         if (HP <= 0) Die();
+    }
+
+    public void Heal(float amount)
+    {
+        HP = Mathf.Min(maxHP, HP + amount);
     }
 
 

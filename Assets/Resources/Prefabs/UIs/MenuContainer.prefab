@@ -397,11 +397,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 315151738643454496, guid: 099418b07dec7d64d90b4a99a6991852, type: 3}
       propertyPath: m_fontSize
-      value: 100
+      value: 86
       objectReference: {fileID: 0}
     - target: {fileID: 315151738643454496, guid: 099418b07dec7d64d90b4a99a6991852, type: 3}
       propertyPath: m_fontSizeBase
-      value: 100
+      value: 86
       objectReference: {fileID: 0}
     - target: {fileID: 661013432690931482, guid: 099418b07dec7d64d90b4a99a6991852, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -535,11 +535,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 315151738643454496, guid: 099418b07dec7d64d90b4a99a6991852, type: 3}
       propertyPath: m_fontSize
-      value: 132
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 315151738643454496, guid: 099418b07dec7d64d90b4a99a6991852, type: 3}
       propertyPath: m_fontSizeBase
-      value: 132
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 661013432690931482, guid: 099418b07dec7d64d90b4a99a6991852, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -679,11 +679,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 315151738643454496, guid: 099418b07dec7d64d90b4a99a6991852, type: 3}
       propertyPath: m_fontSize
-      value: 100
+      value: 86
       objectReference: {fileID: 0}
     - target: {fileID: 315151738643454496, guid: 099418b07dec7d64d90b4a99a6991852, type: 3}
       propertyPath: m_fontSizeBase
-      value: 100
+      value: 86
       objectReference: {fileID: 0}
     - target: {fileID: 661013432690931482, guid: 099418b07dec7d64d90b4a99a6991852, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -821,11 +821,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 315151738643454496, guid: 099418b07dec7d64d90b4a99a6991852, type: 3}
       propertyPath: m_fontSize
-      value: 100
+      value: 86
       objectReference: {fileID: 0}
     - target: {fileID: 315151738643454496, guid: 099418b07dec7d64d90b4a99a6991852, type: 3}
       propertyPath: m_fontSizeBase
-      value: 100
+      value: 86
       objectReference: {fileID: 0}
     - target: {fileID: 661013432690931482, guid: 099418b07dec7d64d90b4a99a6991852, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size

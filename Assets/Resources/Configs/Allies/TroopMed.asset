@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62c70a153e90f0342a8424cb89d24e15, type: 3}
   m_Name: TroopMed
   m_EditorClassIdentifier: 
-  hp: 500
+  hp: 350
   speed: 1
   def:
     armor: 0
@@ -24,3 +24,4 @@ MonoBehaviour:
     type: 0
   type: 2
   detectionRadius: {x: 1.5, y: 1.05}
+  healRegen: 20
