@@ -66,12 +66,14 @@ public class GameManager : MonoBehaviour, IManager
         //App.Get<ChangeSceneUI>().DoLoadScene(SceneName.MenuScene);
     }
 
-    public void GameWin()
+    // sau se dua tat ca thong so game de show luon
+    public void GameWin(int rate)
     {
         this.DelayCall(0.5f, () =>
         {
             Time.timeScale = 0;
-            App.Get<GUIManager>().ShowGui<WinPopup>();
+            var popup = App.Get<GUIManager>().ShowGui<WinPopup>();
+            popup.DisplayRate(rate);
         });
     }
     
@@ -113,6 +115,6 @@ public class GameManager : MonoBehaviour, IManager
 
     private void OnApplicationPause(bool isPause)
     {
-        if (isPause && RunningGame != null) PauseGame();
+        if (isPause && RunningGame != null && Time.timeScale != 0) PauseGame();
     }
 }

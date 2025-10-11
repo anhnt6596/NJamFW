@@ -27,8 +27,8 @@ public class GameInitialize : MonoBehaviour
         this.DelayCall(4, () => App.Get<GUIEffectManager>().BannerAnounce("Ready!"));
         this.DelayCall(5, () =>
         {
-            gameMgr.CheckShowTutPopup(0);
-            game.StartGame();
+            gameMgr.GameWin(3);
+            //game.StartGame();
         });
 
 

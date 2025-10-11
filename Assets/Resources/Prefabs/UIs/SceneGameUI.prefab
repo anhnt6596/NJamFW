@@ -371,6 +371,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4784256776793825176}
     m_Modifications:
+    - target: {fileID: 1611021897505363052, guid: dfb1e298bc9fcf94fb36d646b9e66916, type: 3}
+      propertyPath: m_text
+      value: Deck Shuffling...
+      objectReference: {fileID: 0}
+    - target: {fileID: 1611021897505363052, guid: dfb1e298bc9fcf94fb36d646b9e66916, type: 3}
+      propertyPath: m_fontSize
+      value: 86
+      objectReference: {fileID: 0}
+    - target: {fileID: 1611021897505363052, guid: dfb1e298bc9fcf94fb36d646b9e66916, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 86
+      objectReference: {fileID: 0}
     - target: {fileID: 2749370569852036345, guid: dfb1e298bc9fcf94fb36d646b9e66916, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

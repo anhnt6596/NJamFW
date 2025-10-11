@@ -113,7 +113,17 @@ public class Game
         HealthChanged?.Invoke(State.baseHealth, last);
     }
 
-    public void Win() => App.Get<GameManager>().GameWin();
+    public void Win()
+    {
+        var rate = State.baseHealth switch
+        {
+            >= 5 => 3,
+            >= 3 => 2,
+            > 1 => 1,
+            _ => 0
+        };
+        App.Get<GameManager>().GameWin(rate);
+    }
 
     public void DoPayReroll()
     {

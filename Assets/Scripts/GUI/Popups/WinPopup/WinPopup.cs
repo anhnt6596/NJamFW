@@ -8,9 +8,16 @@ using DG.Tweening;
 
 public class WinPopup : BasePopup
 {
+    [SerializeField] WinPopup_StarRate starRate;
     private void OnEnable()
     {
         SoundManager.Play(ResourceProvider.Sound.general.win);    
+    }
+
+    public void DisplayRate(int rate)
+    {
+        starRate.HideAllStars();
+        starRate.ShowStars(rate);
     }
 
     public void OnClickContinue()
