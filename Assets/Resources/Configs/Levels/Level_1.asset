@@ -16,18 +16,18 @@ MonoBehaviour:
   waveConfigs:
   - enemySpawnGroups:
     - enemy: 1
-      quantity: 3
-      gateIdx: 0
+      quantity: 2
+      gateIdx: 1
       delay: 0
-      spawnTime: 4
+      spawnTime: 2
     turnEnergyGain: 5
     freeRollGain: 0
   - enemySpawnGroups:
     - enemy: 1
-      quantity: 3
-      gateIdx: 1
+      quantity: 5
+      gateIdx: 0
       delay: 0
-      spawnTime: 4
+      spawnTime: 8
     turnEnergyGain: 2
     freeRollGain: 1
   - enemySpawnGroups:
@@ -50,10 +50,10 @@ MonoBehaviour:
       delay: 0
       spawnTime: 6
     - enemy: 1
-      quantity: 5
+      quantity: 9
       gateIdx: 1
       delay: 0
-      spawnTime: 8
+      spawnTime: 16
     turnEnergyGain: 2
     freeRollGain: 1
   - enemySpawnGroups:
@@ -123,10 +123,10 @@ MonoBehaviour:
       delay: 0
       spawnTime: 12
     - enemy: 2
-      quantity: 15
+      quantity: 9
       gateIdx: 0
       delay: 15
-      spawnTime: 28
+      spawnTime: 16
     turnEnergyGain: 2
     freeRollGain: 1
   - enemySpawnGroups:
@@ -159,14 +159,14 @@ MonoBehaviour:
       delay: 30
       spawnTime: 18
     - enemy: 1
-      quantity: 45
+      quantity: 35
       gateIdx: 0
       delay: 40
-      spawnTime: 20
+      spawnTime: 34
     - enemy: 3
-      quantity: 10
+      quantity: 5
       gateIdx: 0
       delay: 60
-      spawnTime: 20
+      spawnTime: 12
     turnEnergyGain: 2
     freeRollGain: 1

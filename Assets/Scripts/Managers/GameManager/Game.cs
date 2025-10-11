@@ -100,7 +100,7 @@ public class Game
     {
         if (State.baseHealth <= 0) return;
         var last = State.baseHealth;
-        State.baseHealth -= value;
+        State.baseHealth = Mathf.Max(State.baseHealth - value, 0);
         HealthChanged?.Invoke(State.baseHealth, last);
         if (State.baseHealth <= 0) App.Get<GameManager>().GameLose();
     }

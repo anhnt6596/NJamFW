@@ -16,5 +16,5 @@ MonoBehaviour:
   baseAttack:
     amount: 25
     type: 0
-  fireRate: 0.6
+  fireRate: 0.7
   range: {x: 3, y: 2.1}

@@ -14,7 +14,6 @@ public class Tower : MonoBehaviour
     [SerializeField] Image fireIndicator;
     [SerializeField] Transform sniper;
     [SerializeField] Animator animator;
-    [SerializeField] float shootDelay = 0;
     public int Level { get; private set; } = 1;
     TowerConfig config;
     public Damage damage => config.GetAttackByLevel(Level);
@@ -98,16 +97,14 @@ public class Tower : MonoBehaviour
         if (animator) animator.SetTrigger("Shoot");
 
         SoundManager.Play(ResourceProvider.Sound.combat.tower.GetShotSound(config.Type));
-        this.DelayCall(shootDelay, () =>
+
+        BaseBullet bullet = LeanPool.Spawn(bulletPrefab, firePoint.position, Quaternion.identity);
+        bullet.SetDamage(damage);
+        bullet.Display();
+        if (bullet != null)
         {
-            BaseBullet bullet = LeanPool.Spawn(bulletPrefab, firePoint.position, Quaternion.identity);
-            bullet.SetDamage(damage);
-            bullet.Display();
-            if (bullet != null)
-            {
-                bullet.SetTarget(target);
-            }
-        });
+            bullet.SetTarget(target);
+        }
     }
 
     void OnDrawGizmosSelected()
