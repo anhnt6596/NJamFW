@@ -23,6 +23,7 @@ public class Tower : MonoBehaviour
 
     private EnemyVisual currentTarget;
     IGamePlay gamePlay;
+
     public void Setup(TowerEnum type, IGamePlay gamePlay)
     {
         TowerType = type;
