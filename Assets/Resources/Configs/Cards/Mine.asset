@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card: 18
   cost: 0
-  escalatingCost: 1
-  maxSellectedTime: -1
+  escalatingCost: 0
+  maxSellectedTime: 3
   isAbilityCard: 0
   isUse: 1
+  maxEnergy: 0
