@@ -21,8 +21,8 @@ MonoBehaviour:
   damagePerSec: 25
   damageInterval: 10
   fireNumber: 10
-  radius: {x: 1, y: 0.7}
-  eachRadius: {x: 1, y: 0.7}
+  radius: {x: 1.5, y: 1.05}
+  eachRadius: {x: 1.5, y: 1.05}
   instantlyDamage:
     amount: 30
     type: 0
