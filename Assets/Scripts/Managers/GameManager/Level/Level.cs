@@ -46,7 +46,7 @@ public class Level : MonoBehaviour, IGamePlay
         Enemies.Add(enemy);
 
         var healthBar = LeanPool.Spawn(ResourceProvider.Component.HealthBar, healthBarParent);
-        healthBar.Setup(enemy, Color.red);
+        healthBar.Setup(enemy, Color.green);
         healthBars.Add(healthBar);
 
         enemy.OnDeath += OnEnemyDeath;
@@ -143,7 +143,7 @@ public class Level : MonoBehaviour, IGamePlay
                 Allies.Add(ally);
 
                 var healthBar = LeanPool.Spawn(ResourceProvider.Component.HealthBar, healthBarParent);
-                healthBar.Setup(ally, Color.green);
+                healthBar.Setup(ally, Color.red);
                 healthBars.Add(healthBar);
 
                 ally.OnDeath += OnAllyDeath;
