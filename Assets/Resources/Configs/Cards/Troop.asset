@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Troop
   m_EditorClassIdentifier: 
   card: 4
-  cost: 0
+  cost: 1
   escalatingCost: 0
   maxSellectedTime: -1
   isAbilityCard: 0
