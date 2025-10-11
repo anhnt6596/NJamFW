@@ -21,11 +21,11 @@ public class MenuContainer : MonoBehaviour
         // game tittle
         {
             var oriPos = gameTittle.anchoredPosition;
-            gameTittle.anchoredPosition = oriPos + Vector2.up * 400;
+            gameTittle.anchoredPosition = oriPos + Vector2.up * 250;
             var cg = gameTittle.gameObject.GetOrAddComponent<CanvasGroup>();
             cg.alpha = 0;
 
-            this.DelayCall(0.5f, () =>
+            this.DelayCall(1.2f, () =>
             {
                 cg.DOFade(1, 0.5f);
                 gameTittle.DOAnchorPos(oriPos, 0.5f).SetEase(Ease.OutSine);
@@ -43,7 +43,7 @@ public class MenuContainer : MonoBehaviour
             var oriScale = button.transform.localScale;
             button.transform.localScale = oriScale * 0.3f;
 
-            this.DelayCall(1f + i * 0.2f, () =>
+            this.DelayCall(1.7f + i * 0.2f, () =>
             {
                 cg.DOFade(1, 0.5f).SetEase(Ease.OutSine);
                 button.transform.DOScale(oriScale, 0.5f).SetEase(Ease.OutBack);
