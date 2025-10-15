@@ -1,8 +1,10 @@
+using System;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "DarkHole", menuName = "Config/Card/DarkHole")]
+[Obsolete]
 public class DarkHoleConfig : CardConfig
 {
     [SerializeField] float damage = 500;

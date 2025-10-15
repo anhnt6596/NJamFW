@@ -7,10 +7,7 @@ using UnityEngine;
 public class TowerBuffCardConfig : CardConfig
 {
     [SerializeField] float mult = 2;
-    public override InputStateEnum ApplySellectedEffect(Game game)
-    {
-        return InputStateEnum.PlayCard;
-    }
+
     public override bool CanBeRoll(Game game)
     {
         if (!HaveAnyTower(game)) return false;

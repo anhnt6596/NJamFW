@@ -206,7 +206,7 @@ public class Level : MonoBehaviour, IGamePlay
         }
     }
 
-    public void CastGameLightnings(int times, Damage damage)
+    public void CastLightning(int times, Damage damage)
     {
         boss.DoCastAnim((pos) =>
         {

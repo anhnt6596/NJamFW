@@ -163,24 +163,35 @@ public class Game
         var energyCost = GetCardCost(cardEnum);
 
         if (State.energy < energyCost) return;
-
-        IncreaseEnergy(-energyCost);
-
         if (State.lockedCardIdxs.Contains(cardIdx)) State.lockedCardIdxs.Remove(cardIdx);
-        State.selectingCardIdx = cardIdx;
 
         // Do Card Action
-        var inputState = Configs.GetCardConfig(cardEnum).ApplySellectedEffect(this);
-        State.selectedCards.Add(cardEnum);
-        if (inputState == InputStateEnum.SelectingCard)
+        var cardConfig = Configs.GetCardConfig(cardEnum);
+        //cardConfig.OnSelected(this);
+        PlayingCard = cardEnum;
+
+        switch (cardConfig)
         {
-            RollCards(true);
+            case ICardPlayingInstantly instantCard:
+                ApplyPlayingCard();
+                break;
+            default:
+                InputStateEnum = InputStateEnum.PlayCard;
+                break;
         }
-        else
-        {
-            PlayingCard = cardEnum;
-            InputStateEnum = inputState;
-        }
+    }
+
+    public void ApplyPlayingCard()
+    {
+        if (PlayingCard == CardEnum.None) return;
+
+        var energyCost = GetCardCost(PlayingCard);
+        IncreaseEnergy(-energyCost);
+        var config = Configs.GetCardConfig(PlayingCard);
+        config.ApplyCardEffect(this);
+        State.selectedCards.Add(PlayingCard);
+
+        RollCards(); // tu dong roll sau khi dung card, co the viet ham chuyen state game
     }
 
     private void RollCards(bool isAutoRoll = false)
@@ -248,51 +259,14 @@ public class Game
 
     #region Game Actions
 
-    public void CardActionDone() => RollCards(true);
     public void CancelPlayingCard()
     {
-        // tam thoi, sau nay se lam lai han hoi, phai action card thi moi tru cost + add vao card da choi
-        State.selectedCards.RemoveAt(State.selectedCards.Count - 1);
-        IncreaseEnergy(GetCardCost(PlayingCard));
         PlayingCard = CardEnum.None;
         InputStateEnum = InputStateEnum.SelectingCard;
-    }
-    public void CastLightnings(int times, Damage damage)
-    {
-        GamePlay?.CastGameLightnings(times, damage);
     }
     public void DoFrozenAllEnemies(float duration)
     {
         GamePlay?.FreezeEnemies(duration);
-    }
-    
-    public void ReverseEnemies(Vector3 wPos)
-    {
-        var config = (TimeReverseCardConfig)Configs.GetCardConfig(CardEnum.TimeReverse);
-        GamePlay.ReverseEnemies(wPos, config.Radius, config.ReverseTime);
-    }
-
-    public void DropBomb(Vector3 position)
-    {
-        if (InputStateEnum != InputStateEnum.PlayCard) return;
-        // hardcode goi config, sau nay lay dmg va radius tu modifier
-        var config = ((BombCardConfig)Configs.GetCardConfig(CardEnum.Bomb));
-        GamePlay.DropBomb(position, config.Damage, config.Radius);
-    }
-
-    public void PlaceTower(int placeIndex, TowerEnum tower)
-    {
-        Debug.Log($"Place Tower {tower}");
-        GamePlay?.PlaceTower(placeIndex, tower);
-    }
-
-    public void DropNapalm(Vector3 position)
-    {
-        if (InputStateEnum != InputStateEnum.PlayCard) return;
-        // hardcode goi config, sau nay config cua cac the chuc nang se o cho rieng, the chi co config co ban
-        var config = ((NapalmCardConfig)Configs.GetCardConfig(CardEnum.Napalm));
-        GamePlay.DropNapalm(position, config.FireNumber, config.Radius, config.InstantlyDamage, config.DamageInterval, config.DamagePerSec, config.EachRadius);
-        
     }
 
     #endregion

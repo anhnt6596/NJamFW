@@ -8,7 +8,7 @@ public interface IGamePlay
     int TowerPlacementCount { get; }
     void StartNewWave(TurnConfig waveConfig);
 
-    void CastGameLightnings(int times, Damage damage);
+    void CastLightning(int times, Damage damage);
     void FreezeEnemies(float duration);
     void ReverseEnemies(Vector3 wPos, Vector3 radius, float duration);
     void DropBomb(Vector3 position, Damage damage, Vector2 radius);

@@ -10,7 +10,6 @@ public class GameState : ScriptableObject
     public double energy;
     public List<CardEnum> cards;
     public List<int> lockedCardIdxs;
-    public int selectingCardIdx;
     public List<CardEnum> selectedCards;
     public int freeRoll;
     public int autoRolled;
@@ -27,7 +26,6 @@ public class GameState : ScriptableObject
         energy = 0;
         cards = new List<CardEnum>();
         lockedCardIdxs = new List<int>();
-        selectingCardIdx = -1;
         selectedCards = new List<CardEnum>();
         freeRoll = 0;
         energy = 0;

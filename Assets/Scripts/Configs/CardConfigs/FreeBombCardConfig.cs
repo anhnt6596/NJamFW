@@ -3,7 +3,7 @@ using UnityEditor;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "FreeBomb", menuName = "Config/Card/FreeBomb")]
-public class FreeBombCardConfig : CardConfig
+public class FreeBombCardConfig : CardConfig, ICardPlayingInstantly
 {
     [SerializeField] int bombUsed = 2;
     public override bool CanBeRoll(Game game)

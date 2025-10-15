@@ -3,7 +3,7 @@ using UnityEditor;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "LightningPower", menuName = "Config/Card/Lightning Power")]
-public class LightningPowerConfig : CardConfig, ILightningPowerModifier
+public class LightningPowerConfig : CardConfig, ILightningPowerModifier, ICardPlayingInstantly
 {
     [SerializeField] float damageMult = 2;
     [SerializeField] float lightningUsedToAppear = 5;

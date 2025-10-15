@@ -4,15 +4,18 @@ using UnityEditor;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "TowerCardConfig", menuName = "Config/Card/Tower")]
-public class TowerCardConfig : CardConfig
+public class TowerCardConfig : CardConfig, ICardPlayingTowerPlace
 {
     [SerializeField] TowerEnum tower;
     public TowerEnum Tower => tower;
-    
-    public override InputStateEnum ApplySellectedEffect(Game game)
+
+    public int PlacementIndex { get; set; }
+    public override void ApplyCardEffect(Game game)
     {
-        return InputStateEnum.PlayCard;
+        var gamePlay = game.GamePlay;
+        gamePlay?.PlaceTower(PlacementIndex, tower);
     }
+
     public override bool CanBeRoll(Game game)
     {
         var gamePlay = game.GamePlay;
@@ -25,7 +28,7 @@ public class TowerCardConfig : CardConfig
 
     public override string GetPlayDescription(Game game)
     {
-        var towerName = Configs.GetCardInfo(Card).DisplayName;
-        return $"Tab to build {towerName}";
+        var cardInfo = Configs.GetCardInfo(Card);
+        return cardInfo.PlayDescription.Replace("@name#", cardInfo.DisplayName);
     }
 }

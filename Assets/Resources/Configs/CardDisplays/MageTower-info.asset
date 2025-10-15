@@ -16,4 +16,4 @@ MonoBehaviour:
   displayName: Evil Tower
   contents:
   - Tower attack with Magic and Slow victim
-  - 
+  playDescription: Tab to build @name#

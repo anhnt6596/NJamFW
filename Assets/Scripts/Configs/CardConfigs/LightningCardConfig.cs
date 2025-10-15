@@ -3,7 +3,7 @@ using UnityEditor;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Lightning", menuName = "Config/Card/Lightning")]
-public class LightningCardConfig : CardConfig
+public class LightningCardConfig : CardConfig, ICardPlayingInstantly
 {
     [SerializeField] int init = 1;
     [SerializeField] int increase = 1;
@@ -12,7 +12,7 @@ public class LightningCardConfig : CardConfig
     [SerializeField] int maxEnergy = 3;
     [SerializeField] DamageEnum damageType = DamageEnum.Magic;
 
-    public override InputStateEnum ApplySellectedEffect(Game game)
+    public override void ApplyCardEffect(Game game)
     {
         var times = GetLightingTime(game);
 
@@ -22,9 +22,7 @@ public class LightningCardConfig : CardConfig
             dmg = modifier.ModifyLightningDamageEnergy(dmg);
         }
 
-        game.CastLightnings(times, new Damage(dmg, damageType));
-
-        return InputStateEnum.SelectingCard;
+        game.GamePlay.CastLightning(times, new Damage(dmg, damageType));
     }
 
     public override string GetDetailInfo(Game game)

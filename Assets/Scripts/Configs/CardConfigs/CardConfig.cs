@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using static Lean.Touch.LeanSelectableByFinger;
 
-public abstract class CardConfig : ScriptableObject
+public abstract class CardConfig : ScriptableObject, ICardPlayingStyle
 {
     [SerializeField] CardEnum card;
     [SerializeField] int cost = 1;
@@ -26,10 +26,6 @@ public abstract class CardConfig : ScriptableObject
         return Mathf.Clamp(nextCost, 0, (int)Configs.GamePlay.MaxEnergy);
     }
 
-    public virtual InputStateEnum ApplySellectedEffect(Game game)
-    {
-        return InputStateEnum.SelectingCard;
-    }
     public virtual string GetDetailInfo(Game game) => "";
     public virtual string GetPlayDescription(Game game) => "";
     public virtual bool CanBeRoll(Game game)
@@ -41,5 +37,10 @@ public abstract class CardConfig : ScriptableObject
     protected bool ReachLimitedRoll(Game game)
     {
         return (maxSellectedTime != -1 && game.State.selectedCards.Count(c => c == card) >= maxSellectedTime);
+    }
+
+    public virtual void ApplyCardEffect(Game game)
+    {
+
     }
 }

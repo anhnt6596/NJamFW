@@ -16,3 +16,4 @@ MonoBehaviour:
   displayName: Bone Tower
   contents:
   - Tower Attack with High Speed
+  playDescription: Tab to build @name#

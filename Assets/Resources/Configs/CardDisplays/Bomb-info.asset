@@ -17,3 +17,4 @@ MonoBehaviour:
   contents:
   - Select position to throw an bomb
   - Deal damage in an area
+  playDescription: Tab to drop @name#

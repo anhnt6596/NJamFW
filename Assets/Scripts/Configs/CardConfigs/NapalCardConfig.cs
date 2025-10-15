@@ -1,8 +1,10 @@
-﻿using UnityEditor;
+﻿using Unity.VisualScripting.FullSerializer;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 [CreateAssetMenu(fileName = "Napalm", menuName = "Config/Card/Napalm")]
-public class NapalmCardConfig : CardConfig
+public class NapalmCardConfig : CardConfig, ICardPlayingAnywhere
 {
     [SerializeField] float damagePerSec = 20;
     [SerializeField] float damageInterval = 6;
@@ -18,10 +20,12 @@ public class NapalmCardConfig : CardConfig
     public Vector2 EachRadius => eachRadius;
     public Damage InstantlyDamage => instantlyDamage;
 
-    public override InputStateEnum ApplySellectedEffect(Game game)
+    public Vector3 WPos { get; set; }
+    public override void ApplyCardEffect(Game game)
     {
-        return InputStateEnum.PlayCard;
+        game.GamePlay.DropNapalm(WPos, FireNumber, Radius, InstantlyDamage, DamageInterval, DamagePerSec, EachRadius);
     }
 
-    public override string GetPlayDescription(Game game) => "Tap to drop Fire Rain";
+
+    public override string GetPlayDescription(Game game) => Configs.GetCardInfo(Card).PlayDescription;
 }

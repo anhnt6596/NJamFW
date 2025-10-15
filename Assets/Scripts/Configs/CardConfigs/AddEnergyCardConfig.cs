@@ -2,19 +2,17 @@ using UnityEditor;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "AddXEnergy", menuName = "Config/Card/AddEnergy")]
-public class AddEnergyCardConfig : CardConfig
+public class AddEnergyCardConfig : CardConfig, ICardPlayingInstantly
 {
     [SerializeField] double value;
     [SerializeField] int appearAtTotalRoll;
 
     public double Value => value;
 
-    public override InputStateEnum ApplySellectedEffect(Game game)
+    public override void ApplyCardEffect(Game game)
     {
         SoundManager.Play(ResourceProvider.Sound.combat.gain);
-
         game.IncreaseEnergy(value);
-        return InputStateEnum.SelectingCard;
     }
 
     public override bool CanBeRoll(Game game)

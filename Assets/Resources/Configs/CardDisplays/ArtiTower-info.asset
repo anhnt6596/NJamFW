@@ -16,3 +16,4 @@ MonoBehaviour:
   displayName: Kraken Cannon
   contents:
   - Tower Attack with AOE damage
+  playDescription: Tab to build @name#

@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class LoadingScene : MonoBehaviour
 {
-    public void LoadGame()
-    {
-        App.Instance.LoadGame();
-    }
+    private void Awake() => LoadGame();
+    public void LoadGame() => App.Instance.LoadGame();
 }

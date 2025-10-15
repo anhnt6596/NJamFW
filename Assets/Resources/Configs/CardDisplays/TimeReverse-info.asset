@@ -17,3 +17,4 @@ MonoBehaviour:
   contents:
   - Select position to create a time fissure
   - Reverse enemy inside to position in the past
+  playDescription: Tap to reverse time all enemy in an area @second#s

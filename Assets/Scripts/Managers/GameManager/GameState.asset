@@ -13,11 +13,10 @@ MonoBehaviour:
   m_Name: GameState
   m_EditorClassIdentifier: 
   baseHealth: 5
-  energy: 1.1000000014901161
-  cards: 050000000600000011000000
+  energy: 2.2000000029802322
+  cards: 120000000400000003000000
   lockedCardIdxs: 
-  selectingCardIdx: 0
-  selectedCards: 03000000010000001200000001000000
+  selectedCards: 020000001200000012000000020000000d0000000d000000
   freeRoll: 1
-  autoRolled: 8
-  proactiveRolled: 0
+  autoRolled: 3
+  proactiveRolled: 6
