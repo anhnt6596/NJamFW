@@ -8,7 +8,7 @@ public class App : BaseApp
     public new static T Get<T>() where T : IManager => Instance.Get<T>();
     protected override void ConfigApp()
     {
-        Input.multiTouchEnabled = false;
+        //Input.multiTouchEnabled = false;
     }
 
     protected override void SetAllManagers()
@@ -27,6 +27,8 @@ public class App : BaseApp
     {
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
         SceneManager.LoadSceneAsync(SceneName.MenuScene);
+
+        //ActionService.Sub<TouchDownAction>(action => Get<GUIEffectManager>().ShowScreenText("A", action.Finger.ScreenPosition, Color.white));
     }
 
     private void OnApplicationQuit()

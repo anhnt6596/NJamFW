@@ -10,12 +10,12 @@ public class PlayingCardBar : MonoBehaviour
     Game game;
     private void OnEnable()
     {
-        ActionService.Sub<TouchDownAction>(OnTouchDown);
+        ActionService.Sub<TapAction>(OnTap);
     }
 
     private void OnDisable()
     {
-        ActionService.Unsub<TouchDownAction>(OnTouchDown);
+        ActionService.Unsub<TapAction>(OnTap);
     }
 
     public void Display(Game game)
@@ -26,7 +26,7 @@ public class PlayingCardBar : MonoBehaviour
         CheckShowTut();
     }
 
-    private void OnTouchDown(TouchDownAction obj)
+    private void OnTap(TapAction obj)
     {
         Vector3 screenPos = obj.Finger.ScreenPosition;
         Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, Camera.main.nearClipPlane));
@@ -80,7 +80,6 @@ public class PlayingCardBar : MonoBehaviour
         if (game.GamePlay.IsWPosInPolygon(wPos))
         {
             card.WPos = wPos;
-            game.ApplyPlayingCard();
             return true;
         }
         return false;

@@ -4,12 +4,6 @@ using UnityEngine;
 
 public class TouchService : MonoBehaviour, IManager
 {
-    //public delegate void TouchDownEvent(Vector2 touch);
-    //public event TouchDownEvent touchDown;
-    //public delegate void TouchUpdateEvent(Vector2 delta);
-    //public event TouchDownEvent touchUpdate;
-    //public delegate void TouchUpEvent(Vector2 touch);
-    //public event TouchDownEvent touchUp;
     public void Init()
     {
         LeanTouch.OnFingerTap += LeanTouch_OnFingerTap;
@@ -39,32 +33,47 @@ public class TouchService : MonoBehaviour, IManager
         LeanTouch.OnFingerDown += FingerDown;
         LeanTouch.OnFingerUpdate += FingerUpdate;
         LeanTouch.OnFingerUp += FingerUp;
+        LeanTouch.OnFingerTap += FingerTap;
     }
     void OnDisable()
     {
         LeanTouch.OnFingerDown -= FingerDown;
         LeanTouch.OnFingerUpdate -= FingerUpdate;
         LeanTouch.OnFingerUp -= FingerUp;
+        LeanTouch.OnFingerTap -= FingerTap;
     }
-    LeanFinger currentFinger;
+    private int? activeFingerId = null;
     void FingerDown(LeanFinger finger)
     {
-        if (currentFinger == null && !finger.StartedOverGui && !finger.IsOverGui)
+        if (activeFingerId == null && !finger.StartedOverGui && !finger.IsOverGui)
         {
+            activeFingerId = finger.Index;
             ActionService.Dispatch<TouchDownAction>(finger);
-            currentFinger = finger;
         }
     }
+
     void FingerUpdate(LeanFinger finger)
     {
-        if (finger == currentFinger) ActionService.Dispatch<TouchUpdateAction>(finger);
+        if (activeFingerId == finger.Index)
+        {
+            ActionService.Dispatch<TouchUpdateAction>(finger);
+        }
     }
+
     void FingerUp(LeanFinger finger)
     {
-        if (finger == currentFinger)
+        if (activeFingerId == finger.Index)
         {
             ActionService.Dispatch<TouchUpAction>(finger);
-            currentFinger = null;
+            activeFingerId = null;
+        }
+    }
+
+    void FingerTap(LeanFinger finger)
+    {
+        if (!finger.StartedOverGui && !finger.IsOverGui)
+        {
+            ActionService.Dispatch<TapAction>(finger);
         }
     }
     #endregion
