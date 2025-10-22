@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class Ally : Unit
@@ -14,16 +15,16 @@ public class Ally : Unit
 
 
 
-    public EnemyVisual CurrentTarget { get; set; }
+    public Enemy CurrentTarget { get; set; }
     private float lastAttackTime;
     private float lastTakeDamageTime;
     private float outOfCombatRegenTime = 2f;
 
-    private IGamePlay level;
+    private IGameField level;
     private enum State { Search, Combat }
     private State state = State.Search;
 
-    public void Setup(IGamePlay level, AllyConfig config)
+    public void Setup(IGameField level, AllyConfig config)
     {
         this.level = level;
         this.config = config;
@@ -56,7 +57,7 @@ public class Ally : Unit
         unitAnimator.UpdateState(0);
         var enemies = level.Enemies;
 
-        EnemyVisual nearestEnemy = null;
+        Enemy nearestEnemy = null;
         float smallestV = Mathf.Infinity;
 
         foreach (var enemy in enemies)
@@ -123,9 +124,9 @@ public class Ally : Unit
                 config.Speed * Time.deltaTime
             );
 
-            var dir = GamePlayUtils.GetDirection2Index(nextPos - transform.position);
+            var dir = MovingUtils.GetDirection2Index(nextPos - transform.position, Camera.main.transform);
             unitAnimator.UpdateState(1);
-            if (dir != -1) unitAnimator.UpdateDir(dir);
+            if (dir != Dir2.Unknown) unitAnimator.UpdateDir((int)dir);
             transform.position = nextPos;
 
             lastAttackTime = Time.time;

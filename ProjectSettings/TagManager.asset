@@ -11,10 +11,10 @@ TagManager:
   - 
   - Water
   - UI
-  - Ground
-  - Player
-  - Item
-  - Area
+  - World
+  - Light
+  - 
+  - 
   - 
   - 
   - 
@@ -38,6 +38,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Ground
+    uniqueID: 1895483843
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

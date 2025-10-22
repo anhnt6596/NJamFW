@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Bullet : BaseBullet
 {
-    protected EnemyVisual target;
+    protected Enemy target;
     [SerializeField] private float rotSpeed = 90f;
 
-    public override void SetTarget(EnemyVisual enemy)
+    public override void SetTarget(Enemy enemy)
     {
         target = enemy;
     }

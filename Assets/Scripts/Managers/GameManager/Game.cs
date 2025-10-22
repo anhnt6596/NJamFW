@@ -71,7 +71,7 @@ public class Game
 
     #endregion Turn Info
 
-    public IGamePlay GamePlay { get; set; }
+    public IGameField GamePlay { get; set; }
     private InputStateEnum _inputStateEnum;
     public InputStateEnum InputStateEnum
     {

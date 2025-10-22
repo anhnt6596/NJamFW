@@ -35,16 +35,16 @@ public static class ResourceProvider
     public static IconResourceSet Icon => GetSet<IconResourceSet>();
     public static GameComponentSet Component => GetSet<GameComponentSet>();
     public static EffectSet Effect => GetSet<EffectSet>();
-    public static Level GetLevel(int levelIdx) => GetSet<LevelSet>().levels[levelIdx];
+    public static GameObject GetLevel(int levelIdx) => GetSet<LevelSet>().levels[levelIdx];
 
     public static Sprite GetCardArt(CardEnum card)
     {
         return Resources.Load<Sprite>($"Images/CardArts/{card}");
     }
 
-    public static EnemyVisual GetEnemyVisual(EnemyEnum enemy)
+    public static Enemy GetEnemyVisual(EnemyEnum enemy)
     {
-        return Resources.Load<EnemyVisual>($"Prefabs/Enemies/{enemy}");
+        return Resources.Load<Enemy>($"Prefabs/Enemies/{enemy}");
     }
 
     public static Ally GetAlly(AllyEnum ally)

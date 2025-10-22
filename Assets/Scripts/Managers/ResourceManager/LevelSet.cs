@@ -5,6 +5,5 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "LevelSet", menuName = "Resource/Level")]
 public class LevelSet : ResourceSet
 {
-    [SerializeField] public List<Level> levels
-        ;
+    [SerializeField] public List<GameObject> levels;
 }

@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 1750337044597066053}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.75, z: -0.1}
+  m_LocalPosition: {x: 0, y: 1.23, z: -0.1}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -42,7 +42,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5164638759999843366}
   - component: {fileID: 6121543572778404679}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: righthand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -232,7 +232,7 @@ Transform:
   m_GameObject: {fileID: 2264512334149075268}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.2342, y: -1.87, z: 0}
+  m_LocalPosition: {x: -0.2342, y: 0.110000014, z: 0}
   m_LocalScale: {x: 2.3700607, y: 1.0949725, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -301,7 +301,7 @@ GameObject:
   - component: {fileID: 309432971369209464}
   - component: {fileID: 7725552893623288652}
   - component: {fileID: 1136547359836389071}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Art
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -409,7 +409,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6178480328694467761}
   - component: {fileID: 9202320410526288807}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: lefthand1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -569,7 +569,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5353230080565788266}
   - component: {fileID: 503513332917697818}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: eye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -745,7 +745,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -0.311, y: 1.31}
+  m_AnchoredPosition: {x: -0.311, y: 3.29}
   m_SizeDelta: {x: 1.74, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &1182761350367018869
@@ -820,7 +820,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2935261696946475048}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: nodeCast
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -852,7 +852,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3314153961708213872}
   - component: {fileID: 3701347987329861339}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: lefthand
   m_TagString: Untagged
   m_Icon: {fileID: 0}

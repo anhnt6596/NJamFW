@@ -17,7 +17,7 @@ MonoBehaviour:
   - enemySpawnGroups:
     - enemy: 1
       quantity: 2
-      gateIdx: 1
+      gateIdx: 0
       delay: 0
       spawnTime: 2
     turnEnergyGain: 5

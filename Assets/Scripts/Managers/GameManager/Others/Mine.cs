@@ -14,9 +14,9 @@ public class Mine : MonoBehaviour
     public Vector2 rangeCheck = new Vector2(1.5f, 1.05f);
     public Vector2 range = new Vector2(2, 1.4f);
 
-    IGamePlay gamePlay;
+    IGameField gamePlay;
     bool isExploded = false;
-    public void Setup(IGamePlay gamePlay)
+    public void Setup(IGameField gamePlay)
     {
         this.gamePlay = gamePlay;
         isExploded = false;

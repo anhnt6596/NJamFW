@@ -2,6 +2,7 @@
 using DG.Tweening;
 using Lean.Pool;
 using System;
+using System.Collections.Generic;
 using TMPro;
 using Unity.Burst.Intrinsics;
 using UnityEngine;
@@ -21,10 +22,10 @@ public class Tower : MonoBehaviour
     private float fireCooldown;
     private BaseBullet bulletPrefab;
 
-    private EnemyVisual currentTarget;
-    IGamePlay gamePlay;
+    private Enemy currentTarget;
+    IGameField gamePlay;
 
-    public void Setup(TowerEnum type, IGamePlay gamePlay)
+    public void Setup(TowerEnum type, IGameField gamePlay)
     {
         TowerType = type;
         this.gamePlay = gamePlay;
@@ -85,12 +86,12 @@ public class Tower : MonoBehaviour
         }
     }
 
-    void Shoot(EnemyVisual target)
+    void Shoot(Enemy target)
     {
         if (sniper != null)
         {
-            var a = GamePlayUtils.GetDirection2Index(target.transform.position - sniper.transform.position);
-            sniper.localScale = new Vector3(a == 1 ? 1 : -1, 1, 1) * 1.2f;
+            var a = MovingUtils.GetDirection2Index(target.transform.position - sniper.transform.position, Camera.main.transform);
+            sniper.localScale = new Vector3(a == Dir2.Right ? 1 : -1, 1, 1) * 1.2f;
         }
 
         if (bulletPrefab == null || firePoint == null) return;

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Level : MonoBehaviour, IGamePlay
+public class Level : MonoBehaviour, IGameField
 {
     [SerializeField] Transform unitParent;
     [SerializeField] Transform healthBarParent;
@@ -16,7 +16,7 @@ public class Level : MonoBehaviour, IGamePlay
     [SerializeField] Boss boss;
     
     public List<LineGroup> LineGroups { get; private set; } = new();
-    public List<EnemyVisual> Enemies { get; private set; } = new List<EnemyVisual>();
+    public List<Enemy> Enemies { get; private set; } = new List<Enemy>();
     public List<Ally> Allies { get; private set; } = new List<Ally>();
     List<HealthBar> healthBars = new List<HealthBar>();
     public Game Game { get; set; }
@@ -53,7 +53,7 @@ public class Level : MonoBehaviour, IGamePlay
         enemy.OnReachDestination += OnEnemyReachDestination;
     }
 
-    private void DespawnEnemy(EnemyVisual enemy)
+    private void DespawnEnemy(Enemy enemy)
     {
         var healthBar = healthBars.First(h => h.Target == enemy);
         healthBars.Remove(healthBar);
@@ -67,7 +67,7 @@ public class Level : MonoBehaviour, IGamePlay
 
     private void OnEnemyDeath(Unit unit)
     {
-        var enemy = (EnemyVisual)unit;
+        var enemy = (Enemy)unit;
         DespawnEnemy(enemy);
         Game.State.energy += enemy.config.DeathEnergy;
         if (spawnCount == 0
@@ -83,7 +83,7 @@ public class Level : MonoBehaviour, IGamePlay
         }
     }
 
-    private void OnEnemyReachDestination(EnemyVisual enemy)
+    private void OnEnemyReachDestination(Enemy enemy)
     {
         Game.TakeDamage(enemy.config.DamageToBase);
         App.Get<GUIEffectManager>().FlashScreen(new Color(1, 0, 0, 0.3f));

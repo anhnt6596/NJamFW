@@ -9,7 +9,7 @@ public class ArtilleryBullet : BaseBullet
     [SerializeField] Vector2 radius = new Vector2(1f, 0.7f);
     Vector3 targetPos;
 
-    public override void SetTarget(EnemyVisual enemy)
+    public override void SetTarget(Enemy enemy)
     {
         targetPos = enemy.GetFuturePosition(1/speed);
         transform.DOJump(targetPos, 2.5f, 1, 1/speed)

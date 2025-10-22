@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class MageBullet : BaseBullet
 {
-    protected EnemyVisual target;
+    protected Enemy target;
 
-    public override void SetTarget(EnemyVisual enemy)
+    public override void SetTarget(Enemy enemy)
     {
         target = enemy;
     }
@@ -38,9 +38,9 @@ public class MageBullet : BaseBullet
         }
     }
 
-    private EnemyVisual FindAnotherTarget()
+    private Enemy FindAnotherTarget()
     {
-        EnemyVisual target = null;
+        Enemy target = null;
         var enemies = App.Get<GameManager>().RunningGame.GamePlay.Enemies;
         if (enemies.Count == 0) return null;
 

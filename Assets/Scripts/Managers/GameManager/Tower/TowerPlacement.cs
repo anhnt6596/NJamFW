@@ -15,7 +15,7 @@ public class TowerPlacement : MonoBehaviour
         return GamePlayUtils.IsInRange(wPos, transform.position + Vector3.up * 0.25f, placeRadius);
     }
 
-    public void BuildTower(TowerEnum tower, IGamePlay gamePlay)
+    public void BuildTower(TowerEnum tower, IGameField gamePlay)
     {
         if (!Tower)
         {

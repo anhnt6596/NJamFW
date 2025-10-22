@@ -6,7 +6,7 @@ public abstract class BaseBullet : MonoBehaviour
 {
     public float speed = 6f;
     protected Damage damage;
-    public abstract void SetTarget(EnemyVisual enemy);
+    public abstract void SetTarget(Enemy enemy);
     public void SetDamage(Damage dmg) => damage = dmg;
 
     public void Display()

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class LineGroup : MonoBehaviour
 {
-    public List<CatmullRomSpline2D> Lines { get; } = new();
+    public List<CatmullRomSpline> Lines { get; } = new();
 
     public IMovingPath GetRandomLine()
     {
@@ -14,6 +14,6 @@ public class LineGroup : MonoBehaviour
 
     private void Awake()
     {
-        Lines.AddRange(GetComponentsInChildren<CatmullRomSpline2D>());
+        Lines.AddRange(GetComponentsInChildren<CatmullRomSpline>());
     }
 }

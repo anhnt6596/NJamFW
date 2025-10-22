@@ -1,8 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class EnemyVisual : Unit
+public class Enemy : Unit
 {
     public EnemyConfig config { get; private set; }
     public override float speed => GetSpeed();
@@ -22,7 +23,7 @@ public class EnemyVisual : Unit
     private State state = State.Moving;
     public float movingDist = 0;
     public IMovingPath line;
-    public System.Action<EnemyVisual> OnReachDestination;
+    public System.Action<Enemy> OnReachDestination;
 
     public Ally CurrentTarget { get; private set; }
     public void Setup(IMovingPath line, EnemyConfig config)
@@ -69,7 +70,7 @@ public class EnemyVisual : Unit
         {
             var last = transform.position;
             transform.position = line.GetPointByDistance(movingDist);
-            var dir = GamePlayUtils.GetDirection2Index(transform.position - last);
+            var dir = (int)MovingUtils.GetDirection2Index(transform.position - last, Camera.main.transform);
             unitAnimator.UpdateState(1);
             if (dir != -1) unitAnimator.UpdateDir(dir);
         }
@@ -110,7 +111,8 @@ public class EnemyVisual : Unit
         float dist = GamePlayUtils.CheckElipse(transform.position, CurrentTarget.transform.position, totalAttackRange);
         if (dist > 1)
         {
-            unitAnimator.UpdateDir(GamePlayUtils.GetDirection2Index(CurrentTarget.transform.position - transform.position));
+            var dir = (int)MovingUtils.GetDirection2Index(CurrentTarget.transform.position - transform.position, Camera.main.transform);
+            unitAnimator.UpdateDir(dir);
         }
         else
         {

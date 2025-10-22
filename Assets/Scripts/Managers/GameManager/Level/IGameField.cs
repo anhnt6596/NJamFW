@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public interface IGamePlay
+public interface IGameField
 {
-    List<EnemyVisual> Enemies { get; }
+    Game Game { get; set; }
+    List<Enemy> Enemies { get; }
     List<Tower> Towers { get; }
     int TowerPlacementCount { get; }
     void StartNewWave(TurnConfig waveConfig);

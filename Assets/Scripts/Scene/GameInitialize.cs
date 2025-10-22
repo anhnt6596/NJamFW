@@ -14,7 +14,8 @@ public class GameInitialize : MonoBehaviour
 
         // Instantiate Level
         var levelPrefab = ResourceProvider.GetLevel(game.Level);
-        var level = Instantiate(levelPrefab, transform);
+        var levelGO = Instantiate(levelPrefab, transform);
+        var level = levelGO.GetComponent<IGameField>();
         level.Game = game;
         game.GamePlay = level;
 
