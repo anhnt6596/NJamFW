@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [ExecuteAlways]
-public class PolygonDrawer : MonoBehaviour
+public class PolygonDrawer : MonoBehaviour, IPolygon
 {
     [Header("Nodes (auto-created as child GameObjects)")]
     public List<Transform> nodes = new List<Transform>();
@@ -58,6 +58,17 @@ public class PolygonDrawer : MonoBehaviour
         {
             if (t == null) continue;
             list.Add(new Vector2(t.position.x, t.position.y));
+        }
+        return list;
+    }
+
+    public List<Vector3> GetPolygon()
+    {
+        var list = new List<Vector3>(nodes.Count);
+        foreach (var t in nodes)
+        {
+            if (t == null) continue;
+            list.Add(new Vector3(t.position.x, t.position.y, t.position.z));
         }
         return list;
     }

@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEditor;
 
 [CustomEditor(typeof(PolygonDrawer))]
@@ -67,9 +67,10 @@ public class PolygonDrawerEditor : Editor
         // Left Ctrl + Click => add node at mouse position (XY plane, z = 0)
         if (e.type == EventType.MouseDown && e.button == 0 && e.control && !e.alt && !e.shift)
         {
-            Vector3 worldPoint = GetMouseWorldPosition(e.mousePosition, 0f);
+            Vector3 worldPoint = GetMouseWorldOnYPlane(e.mousePosition, 0f);
+            Vector3 localPoint = poly.transform.InverseTransformPoint(worldPoint);
             Undo.RecordObject(poly, "Add Polygon Node");
-            poly.AddNode(worldPoint);
+            poly.AddNode(localPoint);
             EditorUtility.SetDirty(poly);
             e.Use();
         }
@@ -144,19 +145,13 @@ public class PolygonDrawerEditor : Editor
     }
 
     // convert mouse pos (GUI coords) to world XY plane at zPlane
-    static Vector3 GetMouseWorldPosition(Vector2 mousePosition, float zPlane)
+    static Vector3 GetMouseWorldOnYPlane(Vector2 guiMousePos, float y = 0f)
     {
-        // mousePosition comes in GUI coords (y from top)
-        // convert to screen coords:
-        Vector2 screenPos = new Vector2(mousePosition.x, SceneView.currentDrawingSceneView.camera.pixelHeight - mousePosition.y);
-        Ray ray = SceneView.currentDrawingSceneView.camera.ScreenPointToRay(screenPos);
+        // Lấy ray theo GUI coords chuẩn của OnSceneGUI
+        Ray ray = HandleUtility.GUIPointToWorldRay(guiMousePos);
 
-        // intersect with plane z = zPlane (in world space)
-        Plane p = new Plane(Vector3.forward, new Vector3(0, 0, zPlane));
-        if (p.Raycast(ray, out float enter))
-        {
-            return ray.GetPoint(enter);
-        }
-        return Vector3.zero;
+        // Mặt phẳng y = const
+        Plane plane = new Plane(Vector3.up, new Vector3(0f, y, 0f));
+        return plane.Raycast(ray, out float dist) ? ray.GetPoint(dist) : Vector3.zero;
     }
 }

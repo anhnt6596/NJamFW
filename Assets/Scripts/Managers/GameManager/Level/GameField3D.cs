@@ -9,6 +9,7 @@ public class GameField3D : MonoBehaviour, IGameField
 {
     [SerializeField] Transform unitParent;
     [SerializeField] Transform healthBarParent;
+    [SerializeField] private List<TowerPlacement> towerPlacements;
     public List<LineGroup> LineGroups { get; private set; } = new();
 
     private List<HealthBar> healthBars = new List<HealthBar>();
