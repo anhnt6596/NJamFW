@@ -23,7 +23,7 @@ public class CameraFollowOrbit : MonoBehaviour
     public float snapSpeed = 8f;     // mượt xoay Q/E
 
     [Header("Snap (Q/E)")]
-    public float snapStep = 90f;
+    public float snapStep = 45;
 
     [Header("Free Mode - Pan")]
     public float groundY = 0f;
@@ -46,7 +46,7 @@ public class CameraFollowOrbit : MonoBehaviour
 
         pivot = (mode == CamMode.Focus && target)
             ? target.position
-            : transform.position + transform.forward * distance;
+            : MathUtils.RaycastToXZPlane(transform.position, transform.forward);
 
         _panTargetPivot = pivot;
         currentPos = transform.position;
@@ -69,11 +69,11 @@ public class CameraFollowOrbit : MonoBehaviour
             distance = Mathf.Clamp(distance - scroll * scrollSpeed, minDistance, maxDistance);
 
         // Snap Q/E
-        if (mode == CamMode.Focus)
-        {
-            if (Input.GetKeyDown(KeyCode.Q)) { targetYaw -= snapStep; isSnapping = true; }
-            if (Input.GetKeyDown(KeyCode.E)) { targetYaw += snapStep; isSnapping = true; }
-        }
+        //if (mode == CamMode.Focus)
+        //{
+        if (Input.GetKeyDown(KeyCode.Q)) { targetYaw -= snapStep; isSnapping = true; }
+        if (Input.GetKeyDown(KeyCode.E)) { targetYaw += snapStep; isSnapping = true; }
+        //}
 
         // Lerp yaw -> targetYaw
         if (isSnapping)
@@ -83,11 +83,9 @@ public class CameraFollowOrbit : MonoBehaviour
             { yaw = targetYaw; isSnapping = false; }
         }
 
-        // Update pivot theo mode
-        if (mode == CamMode.Focus)
+        if (mode == CamMode.Focus && target)
         {
-            if (target)
-                pivot = Vector3.Lerp(pivot, target.position, Time.deltaTime * followSmooth);
+            pivot = Vector3.Lerp(pivot, target.position, Time.deltaTime * followSmooth);
         }
         else // Free
         {
@@ -103,19 +101,19 @@ public class CameraFollowOrbit : MonoBehaviour
         transform.position = currentPos;
 
         // ---- ROTATION THEO MODE ----
-        if (mode == CamMode.Focus)
-        {
-            // Nhìn vào pivot để theo target mượt, không “nhảy tưng”
+        //if (mode == CamMode.Focus)
+        //{
+        //    // Nhìn vào pivot để theo target mượt, không “nhảy tưng”
             var lookRot = Quaternion.LookRotation(pivot - currentPos, Vector3.up);
             transform.rotation = lookRot;
             // (pitch/yaw lúc này chỉ quyết định vị trí trên quỹ đạo thông qua desiredPos)
-        }
-        else // Free
-        {
-            // Giữ góc cố định (không LookAt)
-            var rot = Quaternion.Euler(pitch, yaw, 0f);
-            transform.rotation = rot;
-        }
+        //}
+        //else // Free
+        //{
+        //    // Giữ góc cố định (không LookAt)
+        //    var rot = Quaternion.Euler(pitch, yaw, 0f);
+        //    transform.rotation = rot;
+        //}
     }
 
     void RecomputeDesired()
