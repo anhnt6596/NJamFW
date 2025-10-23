@@ -32,7 +32,6 @@ public class BuildGrid : MonoBehaviour
     void OnEnable()
     {
         EnsureAlloc();
-        AddBlockedRect(1, 1, 5, 5);
     }
 
     void OnValidate()
@@ -231,18 +230,18 @@ public class BuildGrid : MonoBehaviour
     /// Quy tắc xung đột: blocked thắng.
     /// </summary>
     public void BakeBlockedFromPolygonsWorld(
-        List<List<Vector3>> forbiddenPolys,
-        List<List<Vector3>> allowedPolys)
+        List<List<Vector3>> blockPolys,
+        List<List<Vector3>> allowPolys)
     {
         // chuyển sang local (x,z)
         List<List<Vector2>> forbLocal = new();
-        if (forbiddenPolys != null)
-            foreach (var poly in forbiddenPolys)
+        if (blockPolys != null)
+            foreach (var poly in blockPolys)
                 forbLocal.Add(WorldPolyToLocalXZ(poly));
 
         List<List<Vector2>> allowLocal = new();
-        if (allowedPolys != null)
-            foreach (var poly in allowedPolys)
+        if (allowPolys != null)
+            foreach (var poly in allowPolys)
                 allowLocal.Add(WorldPolyToLocalXZ(poly));
 
         BakeBlockedFromPolygonsLocal(forbLocal, allowLocal);
@@ -255,8 +254,8 @@ public class BuildGrid : MonoBehaviour
     /// Quy tắc xung đột: blocked thắng.
     /// </summary>
     public void BakeBlockedFromPolygonsLocal(
-        List<List<Vector2>> forbiddenLocal,
-        List<List<Vector2>> allowedLocal)
+        List<List<Vector2>> blockLocal,
+        List<List<Vector2>> allowLocal)
     {
         EnsureAlloc();
 
@@ -264,13 +263,13 @@ public class BuildGrid : MonoBehaviour
         ClearBlocked();
 
         // 2) Nếu có allowed polys: tính "ô ở trong ÍT NHẤT MỘT allowed poly"
-        bool useAllowed = (allowedLocal != null && allowedLocal.Count > 0);
+        bool useAllowed = (allowLocal != null && allowLocal.Count > 0);
         bool[,] insideAnyAllowed = null;
         if (useAllowed)
         {
             insideAnyAllowed = new bool[width, height];
 
-            foreach (var poly in allowedLocal)
+            foreach (var poly in allowLocal)
             {
                 if (poly == null || poly.Count < 3) continue;
 
@@ -280,23 +279,12 @@ public class BuildGrid : MonoBehaviour
                     for (int x = x0; x <= x1; x++)
                     {
                         // Tâm ô (local)
-                        float cx = (x + 0.5f) * cellSize;
-                        float cy = (y + 0.5f) * cellSize;
-                        Vector2 center = new Vector2(cx, cy);
+                        Vector2 center = new Vector2(
+                            (x + 0.5f) * cellSize,
+                            (y + 0.5f) * cellSize);
 
-                        // 1) Nếu tâm nằm trong polygon → coi ô thuộc allowed (ổn định, tránh sọc)
-                        bool insideByCenter = PolygonHelper.PointInPolyInclusive(center, (List<Vector2>)poly);
-
-                        // 2) Nếu không, kiểm tra ô giao cạnh polygon (để bắt các ô viền)
-                        if (!insideByCenter)
-                        {
-                            RectToLocal(x, y, out Vector2 rMin, out Vector2 rMax);
-                            if (PolygonHelper.RectIntersectsPoly(rMin, rMax, (List<Vector2>)poly))
-                                insideByCenter = true;
-                        }
-
-                        if (insideByCenter)
-                            insideAnyAllowed[x, y] = true; // union các allowed
+                        if (PolygonHelper.PointInPoly(center, poly))
+                            insideAnyAllowed[x, y] = true;
                     }
             }
         }
@@ -309,10 +297,10 @@ public class BuildGrid : MonoBehaviour
                     if (!insideAnyAllowed[x, y]) blocked[x, y] = true;
         }
 
-        // 4) Áp forbidden: bên trong forbidden → blocked (OR chồng lên)
-        if (forbiddenLocal != null)
+        // 4) Áp forbidden: bên trong forbidden → blocked
+        if (blockLocal != null)
         {
-            foreach (var poly in forbiddenLocal)
+            foreach (var poly in blockLocal)
             {
                 if (poly == null || poly.Count < 3) continue;
 
@@ -320,9 +308,13 @@ public class BuildGrid : MonoBehaviour
                 for (int y = y0; y <= y1; y++)
                     for (int x = x0; x <= x1; x++)
                     {
-                        RectToLocal(x, y, out Vector2 rMin, out Vector2 rMax);
-                        if (PolygonHelper.RectIntersectsPoly(rMin, rMax, poly))
-                            blocked[x, y] = true; // OR → blocked thắng
+                        // Tâm ô (local)
+                        Vector2 center = new Vector2(
+                            (x + 0.5f) * cellSize,
+                            (y + 0.5f) * cellSize);
+
+                        if (PolygonHelper.PointInPoly(center, poly))
+                            blocked[x, y] = true;
                     }
             }
         }
