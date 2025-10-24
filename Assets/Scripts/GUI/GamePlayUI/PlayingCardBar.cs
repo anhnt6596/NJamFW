@@ -48,6 +48,8 @@ public class PlayingCardBar : MonoBehaviour
         var card = Configs.GetCardConfig(game.PlayingCard);
         switch (card)
         {
+            case ICardPlayingTilePlace tilePlaceCard:
+                return TryFindTile(worldPos, tilePlaceCard);
             case ICardPlayingTowerPlace towerPlaceCard:
                 return TryFindTowerPlacement(worldPos, towerPlaceCard);
             case ICardPlayingRoad roadPlaceCard:
@@ -59,6 +61,11 @@ public class PlayingCardBar : MonoBehaviour
             } 
         }
         return true;
+    }
+
+    private bool TryFindTile(Vector3 wPos, ICardPlayingTilePlace tile)
+    {
+        return false;
     }
 
     private bool TryFindTowerPlacement(Vector3 wPos, ICardPlayingTowerPlace card)
@@ -93,6 +100,7 @@ public class PlayingCardBar : MonoBehaviour
     // quick quick check show tut
     private void CheckShowTut()
     {
+        return;
         var gameMgr = App.Get<GameManager>();
         switch (game.PlayingCard)
         {
