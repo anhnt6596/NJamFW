@@ -22,10 +22,10 @@ public class CardRoller
     {
         // hard code 1st and 2nd roll
         List<CardEnum> newCards;
-        if (false) newCards = new List<CardEnum>() {
-            CardEnum.Troop,
-            CardEnum.Troop,
-            CardEnum.Troop,
+        if (true) newCards = new List<CardEnum>() {
+            CardEnum.Torch,
+            CardEnum.Torch,
+            CardEnum.Torch,
         };
         else if (Game.State.totalRolled == 0) newCards = new List<CardEnum>() {
             CardEnum.ArcherTower,

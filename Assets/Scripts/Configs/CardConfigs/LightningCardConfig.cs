@@ -22,7 +22,7 @@ public class LightningCardConfig : CardConfig, ICardPlayingInstantly
             dmg = modifier.ModifyLightningDamageEnergy(dmg);
         }
 
-        game.GamePlay.CastLightning(times, new Damage(dmg, damageType));
+        game.GameField.CastLightning(times, new Damage(dmg, damageType));
     }
 
     public override string GetDetailInfo(Game game)

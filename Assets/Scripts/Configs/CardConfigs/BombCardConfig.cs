@@ -21,7 +21,7 @@ public class BombCardConfig : CardConfig, ICardPlayingAnywhere
 
     public override void ApplyCardEffect(Game game)
     {
-        game.GamePlay.DropBomb(WPos, Damage, Radius);
+        game.GameField.DropBomb(WPos, Damage, Radius);
     }
 
     public override string GetPlayDescription(Game game)

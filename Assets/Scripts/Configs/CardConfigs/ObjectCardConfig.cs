@@ -9,12 +9,12 @@ public class ObjectCardConfig : CardConfig, ICardPlayingTilePlace
     [SerializeField] ObjectEnum objectType;
 
     public ObjectEnum ObjectType => objectType;
-    public (int, int) GridPosition { get; set; }
+    public GridPos GridPosition { get; set; }
 
     public override void ApplyCardEffect(Game game)
     {
-        var gamePlay = game.GamePlay;
-        //gamePlay?.PlaceObject(ObjectType, GridPosition);
+        var gamePlay = game.GameField;
+        gamePlay?.PlaceObject(ObjectType, GridPosition);
     }
 
     public override bool CanBeRoll(Game game)

@@ -41,7 +41,7 @@ public class MageBullet : BaseBullet
     private Enemy FindAnotherTarget()
     {
         Enemy target = null;
-        var enemies = App.Get<GameManager>().RunningGame.GamePlay.Enemies;
+        var enemies = App.Get<GameManager>().RunningGame.GameField.Enemies;
         if (enemies.Count == 0) return null;
 
         float smallestMag = Mathf.Infinity;

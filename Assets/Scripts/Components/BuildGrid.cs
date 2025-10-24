@@ -11,8 +11,14 @@ using System.Linq;
 /// - Lưu chiếm chỗ bằng id (int) để tiện release về sau.
 /// </summary>
 [ExecuteAlways]
-public class BuildGrid : MonoBehaviour
+public class BuildGrid : MonoBehaviour, IGrid
 {
+    #region Interface
+    public int Width => width;
+    public int Height => height;
+    public float CellSize => cellSize;
+    #endregion Interface
+
     [Header("Grid Settings")]
     [Min(1)] public int width = 64;
     [Min(1)] public int height = 64;
@@ -361,7 +367,7 @@ public class BuildGrid : MonoBehaviour
     /// Đặt trạng thái blocked cho một vùng chữ nhật theo tọa độ Ô (x,z) và kích thước (w,h).
     /// Trả về số ô thực sự thay đổi trạng thái.
     /// </summary>
-    public int SetBlockedRect(int x, int z, int w, int h, bool state = true)
+    protected int SetBlockedRect(int x, int z, int w, int h, bool state = true)
     {
         EnsureAlloc();
         if (w <= 0 || h <= 0) return 0;

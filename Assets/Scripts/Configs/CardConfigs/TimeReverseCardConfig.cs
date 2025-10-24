@@ -15,7 +15,7 @@ public class TimeReverseCardConfig : CardConfig, ICardPlayingAnywhere
     public Vector3 WPos { get; set; }
     public override void ApplyCardEffect(Game game)
     {
-        game.GamePlay.ReverseEnemies(WPos, Radius, ReverseTime);
+        game.GameField.ReverseEnemies(WPos, Radius, ReverseTime);
     }
 
     public override bool CanBeRoll(Game game)

@@ -12,13 +12,13 @@ public class TowerCardConfig : CardConfig, ICardPlayingTowerPlace
     public int PlacementIndex { get; set; }
     public override void ApplyCardEffect(Game game)
     {
-        var gamePlay = game.GamePlay;
+        var gamePlay = game.GameField;
         gamePlay?.PlaceTower(PlacementIndex, tower);
     }
 
     public override bool CanBeRoll(Game game)
     {
-        var gamePlay = game.GamePlay;
+        var gamePlay = game.GameField;
         var towers = gamePlay.Towers;
         // neu het cho dat thap ma k co thap nao cung loai thi khong the roll ra
         bool isFull = towers.Count >= gamePlay.TowerPlacementCount;

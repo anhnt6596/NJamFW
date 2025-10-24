@@ -23,7 +23,7 @@ public class NapalmCardConfig : CardConfig, ICardPlayingAnywhere
     public Vector3 WPos { get; set; }
     public override void ApplyCardEffect(Game game)
     {
-        game.GamePlay.DropNapalm(WPos, FireNumber, Radius, InstantlyDamage, DamageInterval, DamagePerSec, EachRadius);
+        game.GameField.DropNapalm(WPos, FireNumber, Radius, InstantlyDamage, DamageInterval, DamagePerSec, EachRadius);
     }
 
 

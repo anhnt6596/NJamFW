@@ -21,4 +21,7 @@ public enum CardEnum
     Mine = 18,
     Heal1 = 19,
     TroopMed = 20,
+
+    // object bat dau tu 1000
+    Torch = 1000,
 }

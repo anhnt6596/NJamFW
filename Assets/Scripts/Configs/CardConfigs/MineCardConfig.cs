@@ -16,7 +16,7 @@ public class MineCardConfig : CardConfig, ICardPlayingRoad
 
     public override void ApplyCardEffect(Game game)
     {
-        game.GamePlay.DropMine(WPos);
+        game.GameField.DropMine(WPos);
     }
 
     public override string GetPlayDescription(Game game) => Configs.GetCardInfo(Card).PlayDescription;

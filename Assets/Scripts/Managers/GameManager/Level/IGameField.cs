@@ -16,7 +16,9 @@ public interface IGameField
     bool CheckPlaceTowerPosition(Vector3 wPos, TowerEnum tower, out int placeIndex);
     void PlaceTower(int placeIndex, TowerEnum tower);
     bool IsWPosInPolygon(Vector3 wPos);
+    bool CheckValidWPosOnGrid(Vector3 wPos, GridSize size, out GridPos pos);
     void SpawnAlly(AllyEnum allyType, Vector3 wPos);
     void DropNapalm(Vector3 position, int fireNumber, Vector2 radius, Damage instantlyDamage, float interval, float damagePerSec, Vector2 eachRadius);
     void DropMine(Vector3 wPos);
+    void PlaceObject(ObjectEnum objectType, GridPos gridPosition);
 }

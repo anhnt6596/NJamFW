@@ -71,7 +71,7 @@ public class Game
 
     #endregion Turn Info
 
-    public IGameField GamePlay { get; set; }
+    public IGameField GameField { get; set; }
     private InputStateEnum _inputStateEnum;
     public InputStateEnum InputStateEnum
     {
@@ -228,7 +228,7 @@ public class Game
         else
         {
             var turnConfig = LevelConfig.GetTurnConfig(CurrentTurn);
-            GamePlay.StartNewWave(turnConfig);
+            GameField.StartNewWave(turnConfig);
         }
     }
 
@@ -266,7 +266,7 @@ public class Game
     }
     public void DoFrozenAllEnemies(float duration)
     {
-        GamePlay?.FreezeEnemies(duration);
+        GameField?.FreezeEnemies(duration);
     }
 
     #endregion

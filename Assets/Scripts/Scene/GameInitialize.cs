@@ -17,7 +17,7 @@ public class GameInitialize : MonoBehaviour
         var levelGO = Instantiate(levelPrefab, transform);
         var level = levelGO.GetComponent<IGameField>();
         level.Game = game;
-        game.GamePlay = level;
+        game.GameField = level;
 
         // Instantiate UI
         Instantiate(sceneGameUI, sceneGameCanvas);

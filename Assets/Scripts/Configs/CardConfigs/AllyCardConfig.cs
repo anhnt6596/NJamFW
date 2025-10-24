@@ -12,7 +12,7 @@ public class AllyCardConfig : CardConfig, ICardPlayingRoad
 
     public override void ApplyCardEffect(Game game)
     {
-        game.GamePlay.SpawnAlly(Ally, WPos);
+        game.GameField.SpawnAlly(Ally, WPos);
     }
 
     public override string GetPlayDescription(Game game)

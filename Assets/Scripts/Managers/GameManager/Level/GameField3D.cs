@@ -9,14 +9,17 @@ public class GameField3D : MonoBehaviour, IGameField
 {
     [SerializeField] Transform unitParent;
     [SerializeField] Transform healthBarParent;
-    [SerializeField] private List<TowerPlacement> towerPlacements;
+    [SerializeField] GameObject grid;
     public List<LineGroup> LineGroups { get; private set; } = new();
 
     private List<HealthBar> healthBars = new List<HealthBar>();
+    protected IGrid Grid { get; set; }
     private void Awake()
     {
         // nen co nut de khoi tao, khong phai chay lai moi khi awake
         LineGroups.AddRange(GetComponentsInChildren<LineGroup>());
+
+        Grid = grid.GetComponent<IGrid>();
     }
 
     int spawnCount;
@@ -109,6 +112,17 @@ public class GameField3D : MonoBehaviour, IGameField
         return lineGroup.GetRandomLine();
     }
 
+    public bool CheckValidWPosOnGrid(Vector3 wPos, GridSize size, out GridPos pos)
+    {
+        Grid.WorldToCell(wPos, out int x, out int y);
+        pos = new GridPos(x, y);
+        if (Grid.IsAreaFreeRect(x, y, size.w, size.h))
+        {
+            return true;
+        }
+        return false;
+    }
+
     public List<Enemy> Enemies { get; private set; } = new List<Enemy>();
     public List<Tower> Towers => throw new System.NotImplementedException();
     public int TowerPlacementCount => throw new System.NotImplementedException();
@@ -162,5 +176,13 @@ public class GameField3D : MonoBehaviour, IGameField
     public void SpawnAlly(AllyEnum allyType, Vector3 wPos)
     {
         throw new System.NotImplementedException();
+    }
+
+    // test with torch
+    [SerializeField] GameObject torch;
+    public void PlaceObject(ObjectEnum objectType, GridPos gPos)
+    {
+        var obj = LeanPool.Spawn(torch, transform);
+        obj.transform.position = Grid.CellToWorld(gPos.x, gPos.y);
     }
 }

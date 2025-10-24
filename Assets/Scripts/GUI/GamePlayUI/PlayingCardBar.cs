@@ -29,17 +29,17 @@ public class PlayingCardBar : MonoBehaviour
     private void OnTap(TapAction obj)
     {
         Vector3 screenPos = obj.Finger.ScreenPosition;
-        Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, Camera.main.nearClipPlane));
-
-        worldPos.z = 0;
-        if (TryPlayCard(worldPos))
+        //Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, Camera.main.nearClipPlane));
+        Ray ray = Camera.main.ScreenPointToRay(screenPos);
+        Vector3 wPos = MathUtils.RaycastToXZPlane(ray.origin, ray.direction);
+        if (TryPlayCard(wPos))
         {
             game.ApplyPlayingCard();
         }
         else
         {
             var guiEffectMgr = App.Get<GUIEffectManager>();
-            guiEffectMgr.ShowInvalidEffect(worldPos, GUILayer.GUI);
+            guiEffectMgr.ShowInvalidEffect(wPos, GUILayer.GUI);
         }
     }
 
@@ -65,6 +65,11 @@ public class PlayingCardBar : MonoBehaviour
 
     private bool TryFindTile(Vector3 wPos, ICardPlayingTilePlace tile)
     {
+        if (game.GameField.CheckValidWPosOnGrid(wPos, new GridSize(1, 1), out var gridPos))
+        {
+            tile.GridPosition = gridPos;
+            return true;
+        }
         return false;
     }
 
@@ -73,7 +78,7 @@ public class PlayingCardBar : MonoBehaviour
         Debug.Log($"Check Can Place Tower {game.PlayingCard}");
 
         int placeIndex = -1;
-        var canPlaceTower = game.GamePlay?.CheckPlaceTowerPosition(wPos, card.Tower, out placeIndex);
+        var canPlaceTower = game.GameField?.CheckPlaceTowerPosition(wPos, card.Tower, out placeIndex);
         if (canPlaceTower != null && canPlaceTower.Value)
         {
             card.PlacementIndex = placeIndex;
@@ -84,7 +89,7 @@ public class PlayingCardBar : MonoBehaviour
 
     private bool TryPlaceRoad(Vector3 wPos, ICardPlayingRoad card)
     {
-        if (game.GamePlay.IsWPosInPolygon(wPos))
+        if (game.GameField.IsWPosInPolygon(wPos))
         {
             card.WPos = wPos;
             return true;
