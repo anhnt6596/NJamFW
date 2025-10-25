@@ -22,4 +22,9 @@ public static class MathUtils
         // Điểm giao
         return origin + direction * t;
     }
+
+    public static Vector3 GetOffsetXZ(GridSize size, float cellSize)
+    {
+        return new Vector3((size.w - 1) / 2f * cellSize, 0, (size.h - 1) / 2f * cellSize);
+    }
 }

@@ -24,4 +24,5 @@ public enum CardEnum
 
     // object bat dau tu 1000
     Torch = 1000,
+    Tower = 1001,
 }

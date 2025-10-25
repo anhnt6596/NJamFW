@@ -1,4 +1,5 @@
 using Core;
+using DG.Tweening;
 using Lean.Pool;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ public class GameField3D : MonoBehaviour, IGameField
     [SerializeField] Transform unitParent;
     [SerializeField] Transform healthBarParent;
     [SerializeField] GameObject grid;
+    [SerializeField] PlacingSquare placingSquare;
     public List<LineGroup> LineGroups { get; private set; } = new();
 
     private List<HealthBar> healthBars = new List<HealthBar>();
@@ -20,6 +22,17 @@ public class GameField3D : MonoBehaviour, IGameField
         LineGroups.AddRange(GetComponentsInChildren<LineGroup>());
 
         Grid = grid.GetComponent<IGrid>();
+        placingSquare.gameObject.SetActive(false);
+    }
+
+    private void OnEnable()
+    {
+        Game.OnInputStateChanged += OnInputStateChanged;
+    }
+    
+    private void OnDisable()
+    {
+        Game.OnInputStateChanged -= OnInputStateChanged;
     }
 
     int spawnCount;
@@ -112,9 +125,12 @@ public class GameField3D : MonoBehaviour, IGameField
         return lineGroup.GetRandomLine();
     }
 
-    public bool CheckValidWPosOnGrid(Vector3 wPos, GridSize size, out GridPos pos)
+    public bool CheckValidWPosOnGrid(Vector3 wPos, out GridPos pos)
     {
-        Grid.WorldToCell(wPos, out int x, out int y);
+        var config = (ObjectCardConfig) Configs.GetCardConfig(Game.PlayingCard);
+        var size = config.Size;
+        var offset = MathUtils.GetOffsetXZ(size, Grid.CellSize);
+        Grid.WorldToCell(wPos - offset, out int x, out int y);
         pos = new GridPos(x, y);
         if (Grid.IsAreaFreeRect(x, y, size.w, size.h))
         {
@@ -178,11 +194,37 @@ public class GameField3D : MonoBehaviour, IGameField
         throw new System.NotImplementedException();
     }
 
-    // test with torch
-    [SerializeField] GameObject torch;
-    public void PlaceObject(ObjectEnum objectType, GridPos gPos)
+    PlaceObject ghostObject;
+    public void ShowGhostObject(Vector3 wPos)
     {
-        var obj = LeanPool.Spawn(torch, transform);
-        obj.transform.position = Grid.CellToWorld(gPos.x, gPos.y);
+        var avaiablePos = CheckValidWPosOnGrid(wPos, out GridPos gPos);
+        var config = (ObjectCardConfig)Configs.GetCardConfig(Game.PlayingCard);
+        if (!ghostObject)
+        {
+            ghostObject = LeanPool.Spawn(ResourceProvider.GetPlaceObject(config.ObjectType));
+            placingSquare.gameObject.SetActive(true);
+            placingSquare.Display(config.Size);
+        }
+
+        var offset = MathUtils.GetOffsetXZ(config.Size, Grid.CellSize);
+        ghostObject.transform.position = Grid.CellToWorld(gPos.x, gPos.y) + offset;
+        placingSquare.transform.position = ghostObject.transform.position;
+        placingSquare.ShowAvaiable(avaiablePos);
+    }
+
+    private void OnInputStateChanged(InputStateEnum state)
+    {
+        LeanPool.Despawn(ghostObject);
+        placingSquare.gameObject.SetActive(false);
+        ghostObject = null;
+    }
+
+    public void PlaceObject(PlaceObjectEnum objectType, GridPos gPos)
+    {
+        var prefab = ResourceProvider.GetPlaceObject(objectType);
+        var obj = LeanPool.Spawn(prefab, transform);
+        var offset = MathUtils.GetOffsetXZ(prefab.Size, Grid.CellSize);
+        obj.transform.position = Grid.CellToWorld(gPos.x, gPos.y) + offset;
+        Grid.OccupyRect(gPos.x, gPos.y, prefab.Size.w, prefab.Size.h);
     }
 }

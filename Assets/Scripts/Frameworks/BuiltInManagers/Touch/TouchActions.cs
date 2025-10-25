@@ -18,6 +18,14 @@ public class TouchUpdateAction : IAction
         Finger = (LeanFinger)_params[0];
     }
 }
+public class MouseUpdateAction : IAction
+{
+    public LeanFinger Finger { get; set; }
+    public virtual void SetData(object[] _params)
+    {
+        Finger = (LeanFinger)_params[0];
+    }
+}
 public class TouchUpAction : IAction
 {
     public LeanFinger Finger { get; set; }

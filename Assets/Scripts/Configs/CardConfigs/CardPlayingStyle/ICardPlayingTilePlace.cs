@@ -1,5 +1,5 @@
 public interface ICardPlayingTilePlace : ICardPlayingStyle
 {
-    ObjectEnum ObjectType { get; }
+    PlaceObjectEnum ObjectType { get; }
     GridPos GridPosition { get; set; }
 }

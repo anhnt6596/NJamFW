@@ -28,8 +28,8 @@ Transform:
   m_GameObject: {fileID: 707132728886697007}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.0000009536743, z: 5.0999994}
-  m_LocalScale: {x: 2.0882792, y: 3.7124963, z: 1}
+  m_LocalPosition: {x: 0, y: 0.00000023841858, z: 5.100001}
+  m_LocalScale: {x: 6.599993, y: 3.7124963, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3805254027030119076}
@@ -209,8 +209,8 @@ Transform:
   m_GameObject: {fileID: 3543402937694368813}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.00000047683716, z: 5}
-  m_LocalScale: {x: 2.0473325, y: 3.6397023, z: 1}
+  m_LocalPosition: {x: -0.0000011920929, y: -0.00000011920929, z: 5}
+  m_LocalScale: {x: 6.470582, y: 3.6397023, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3805254027030119076}
@@ -331,7 +331,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   darknessMaterial: {fileID: 2100000, guid: 712bb9130e35ca04da8f8bf351d13c72, type: 2}
   fogMaterial: {fileID: 2100000, guid: a74d611d1d46ce44cb3579f5a6569ee9, type: 2}
-  ambientColor: {r: 0.17317548, g: 0.21764219, b: 0.4433962, a: 1}
+  ambientColor: {r: 0.09501601, g: 0.13100338, b: 0.3207547, a: 1}
   fogColor: {r: 0.14666483, g: 0.2264151, b: 0.03289426, a: 0.13333334}
   baseResolution: 512
   lightCam: {fileID: 7422796970273104650}

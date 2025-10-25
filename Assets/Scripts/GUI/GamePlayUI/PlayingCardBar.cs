@@ -8,15 +8,6 @@ public class PlayingCardBar : MonoBehaviour
     [SerializeField] TextMeshProUGUI textDescription;
 
     Game game;
-    private void OnEnable()
-    {
-        ActionService.Sub<TapAction>(OnTap);
-    }
-
-    private void OnDisable()
-    {
-        ActionService.Unsub<TapAction>(OnTap);
-    }
 
     public void Display(Game game)
     {
@@ -24,77 +15,6 @@ public class PlayingCardBar : MonoBehaviour
         textDescription.text = Configs.GetCardConfig(game.PlayingCard).GetPlayDescription(game);
 
         CheckShowTut();
-    }
-
-    private void OnTap(TapAction obj)
-    {
-        Vector3 screenPos = obj.Finger.ScreenPosition;
-        //Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, Camera.main.nearClipPlane));
-        Ray ray = Camera.main.ScreenPointToRay(screenPos);
-        Vector3 wPos = MathUtils.RaycastToXZPlane(ray.origin, ray.direction);
-        if (TryPlayCard(wPos))
-        {
-            game.ApplyPlayingCard();
-        }
-        else
-        {
-            var guiEffectMgr = App.Get<GUIEffectManager>();
-            guiEffectMgr.ShowInvalidEffect(wPos, GUILayer.GUI);
-        }
-    }
-
-    private bool TryPlayCard(Vector3 worldPos)
-    {
-        var card = Configs.GetCardConfig(game.PlayingCard);
-        switch (card)
-        {
-            case ICardPlayingTilePlace tilePlaceCard:
-                return TryFindTile(worldPos, tilePlaceCard);
-            case ICardPlayingTowerPlace towerPlaceCard:
-                return TryFindTowerPlacement(worldPos, towerPlaceCard);
-            case ICardPlayingRoad roadPlaceCard:
-                return TryPlaceRoad(worldPos, roadPlaceCard);
-            case ICardPlayingAnywhere playAnywhereCard:
-            {
-                playAnywhereCard.WPos = worldPos;
-                return true;
-            } 
-        }
-        return true;
-    }
-
-    private bool TryFindTile(Vector3 wPos, ICardPlayingTilePlace tile)
-    {
-        if (game.GameField.CheckValidWPosOnGrid(wPos, new GridSize(1, 1), out var gridPos))
-        {
-            tile.GridPosition = gridPos;
-            return true;
-        }
-        return false;
-    }
-
-    private bool TryFindTowerPlacement(Vector3 wPos, ICardPlayingTowerPlace card)
-    {
-        Debug.Log($"Check Can Place Tower {game.PlayingCard}");
-
-        int placeIndex = -1;
-        var canPlaceTower = game.GameField?.CheckPlaceTowerPosition(wPos, card.Tower, out placeIndex);
-        if (canPlaceTower != null && canPlaceTower.Value)
-        {
-            card.PlacementIndex = placeIndex;
-            return true;
-        }
-        return false;
-    }
-
-    private bool TryPlaceRoad(Vector3 wPos, ICardPlayingRoad card)
-    {
-        if (game.GameField.IsWPosInPolygon(wPos))
-        {
-            card.WPos = wPos;
-            return true;
-        }
-        return false;
     }
 
     public void OnClickCancel()

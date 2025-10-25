@@ -58,6 +58,10 @@ public class TouchService : MonoBehaviour, IManager
         {
             ActionService.Dispatch<TouchUpdateAction>(finger);
         }
+        if (finger.Index < 0)
+        {
+            ActionService.Dispatch<MouseUpdateAction>(finger);
+        }
     }
 
     void FingerUp(LeanFinger finger)

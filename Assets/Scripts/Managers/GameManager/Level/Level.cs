@@ -352,12 +352,17 @@ public class Level : MonoBehaviour, IGameField
             towerPlacements.ForEach(tp => tp.Focus(false));
     }
 
-    public bool CheckValidWPosOnGrid(Vector3 wPos, GridSize size, out GridPos pos)
+    public bool CheckValidWPosOnGrid(Vector3 wPos, out GridPos pos)
     {
         throw new System.NotImplementedException();
     }
 
-    public void PlaceObject(ObjectEnum objectType, GridPos gridPosition)
+    public void PlaceObject(PlaceObjectEnum objectType, GridPos gridPosition)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void ShowGhostObject(Vector3 wPos)
     {
         throw new System.NotImplementedException();
     }

@@ -1,3 +1,6 @@
+using System;
+
+[Serializable]
 public struct GridPos
 {
     public GridPos(int x, int y) { this.x = x; this.y = y; }
@@ -5,6 +8,7 @@ public struct GridPos
     public int y;
 }
 
+[Serializable]
 public struct GridSize
 {
     public GridSize(int w, int h) { this.w = w; this.h = h; }
@@ -12,6 +16,7 @@ public struct GridSize
     public int h;
 }
 
+[Serializable]
 public struct GridOccupy
 {
     public GridOccupy(GridPos pos, GridSize size) { this.pos = pos; this.size = size; }

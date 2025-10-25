@@ -51,14 +51,24 @@ public static class ResourceProvider
     {
         return Resources.Load<Ally>($"Prefabs/Allies/{ally}");
     }
+
     public static BaseBullet GetBullet(TowerEnum tower)
     {
         return Resources.Load<BaseBullet>($"Prefabs/Bullets/Bullet_{tower}");
     }
+
     public static Tower GetTower(TowerEnum tower)
     {
         return Resources.Load<Tower>($"Prefabs/Towers/{tower}");
     }
+
+    public static PlaceObject GetPlaceObject(PlaceObjectEnum type)
+    {
+        // sau them level cua object, skin, de lay dung object
+        // hoac lay ra roi set sau
+        return Resources.Load<PlaceObject>($"Prefabs/PlaceObjects/{type}");
+    }
+
     public static Sprite GetEnemyIcon(EnemyEnum enemy)
     {
         return Resources.Load<Sprite>($"Images/EnemyIcons/{enemy}");

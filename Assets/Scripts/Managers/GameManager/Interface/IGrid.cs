@@ -11,6 +11,7 @@ public interface IGrid
     Vector3 CellToWorld(int x, int y);
     Vector3 SnapWorldToCellCenter(Vector3 world);
     void ReleaseById(int id);
+    void OccupyRect(int x, int y, int rw, int rh, int id = 0);
     public int GetIdAt(int x, int y);
     bool IsAreaFreeRect(int x, int y, int w, int h);
     int AddBlockedRect(int x, int z, int w, int h);

@@ -1,5 +1,6 @@
-public enum ObjectEnum
+public enum PlaceObjectEnum
 {
     None = -1,
     Torch = 0,
+    Tower = 1,
 }

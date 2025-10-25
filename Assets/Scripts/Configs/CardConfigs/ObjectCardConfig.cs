@@ -6,9 +6,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "An Object Card", menuName = "Config/Card/Object")]
 public class ObjectCardConfig : CardConfig, ICardPlayingTilePlace
 {
-    [SerializeField] ObjectEnum objectType;
+    [SerializeField] PlaceObjectEnum objectType;
 
-    public ObjectEnum ObjectType => objectType;
+    public PlaceObjectEnum ObjectType => objectType;
     public GridPos GridPosition { get; set; }
 
     public override void ApplyCardEffect(Game game)
@@ -28,4 +28,6 @@ public class ObjectCardConfig : CardConfig, ICardPlayingTilePlace
         //var cardInfo = Configs.GetCardInfo(Card);
         //return cardInfo.PlayDescription.Replace("@name#", cardInfo.DisplayName);
     }
+
+    public GridSize Size => ResourceProvider.GetPlaceObject(objectType).Size;
 }

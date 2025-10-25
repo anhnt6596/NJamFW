@@ -6,7 +6,7 @@ Shader "Unlit/SoftLight"
     }
     SubShader {
         Tags { "Queue"="Transparent" "RenderType"="Transparent" }
-        Blend One OneMinusSrcAlpha
+        Blend SrcAlpha OneMinusSrcAlpha
         ZWrite Off
         Cull Off
         Pass {
