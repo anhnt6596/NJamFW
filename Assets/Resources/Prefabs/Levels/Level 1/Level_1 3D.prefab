@@ -3626,15 +3626,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2107706315217688974, guid: ad83cf337a9df9e43a7a7b4d3b9e9bc7, type: 3}
       propertyPath: ambientColor.b
-      value: 0.7169812
+      value: 0.1981132
       objectReference: {fileID: 0}
     - target: {fileID: 2107706315217688974, guid: ad83cf337a9df9e43a7a7b4d3b9e9bc7, type: 3}
       propertyPath: ambientColor.g
-      value: 0.55541885
+      value: 0.1981132
       objectReference: {fileID: 0}
     - target: {fileID: 2107706315217688974, guid: ad83cf337a9df9e43a7a7b4d3b9e9bc7, type: 3}
       propertyPath: ambientColor.r
-      value: 0.5370595
+      value: 0.1981132
       objectReference: {fileID: 0}
     - target: {fileID: 3781071600342696188, guid: ad83cf337a9df9e43a7a7b4d3b9e9bc7, type: 3}
       propertyPath: m_Name

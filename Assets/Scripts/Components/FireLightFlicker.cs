@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(MeshRenderer))]
 public class FireLightFlicker : MonoBehaviour
 {
     public enum Plane { XY, XZ }              // Sprite nằm trên mặt phẳng nào?
@@ -45,10 +44,7 @@ public class FireLightFlicker : MonoBehaviour
     private Vector3 scaleVel;                 // cho SmoothDamp
     private Vector3 targetScale;
 
-    private MeshRenderer mr;
-    private Material mat;
-
-    void Awake()
+    protected virtual void Awake()
     {
         basePos = useLocalSpace ? transform.localPosition : transform.position;
         baseScale = transform.localScale;
@@ -58,11 +54,6 @@ public class FireLightFlicker : MonoBehaviour
         if (Mathf.Approximately(seedScale, 0f)) seedScale = Random.value * 100f + 10f;
         if (Mathf.Approximately(seedPosX, 0f)) seedPosX = Random.value * 100f + 20f;
         if (Mathf.Approximately(seedPosYorZ, 0f)) seedPosYorZ = Random.value * 100f + 30f;
-
-        mr = GetComponent<MeshRenderer>();
-        mat = new Material(mr.material) { name = mr.material.name + " (Runtime)" };
-        mat.hideFlags = HideFlags.DontSaveInEditor | HideFlags.DontSaveInBuild;
-        mr.material = mat;
     }
 
     void Update()
@@ -84,7 +75,7 @@ public class FireLightFlicker : MonoBehaviour
             c.b -= s * colorShiftStrength; // hơi ngả đỏ -> ấm hơn
         }
 
-        mat.SetColor("_Color", c);
+        SetColor(c);
 
         // ---------- SCALE ----------
         float nS = Mathf.PerlinNoise(t * scaleSpeed, seedScale);
@@ -112,6 +103,11 @@ public class FireLightFlicker : MonoBehaviour
             transform.localPosition = Vector3.SmoothDamp(transform.localPosition, targetPos, ref posVel, 1f / Mathf.Max(0.0001f, posSmooth));
         else
             transform.position = Vector3.SmoothDamp(transform.position, targetPos, ref posVel, 1f / Mathf.Max(0.0001f, posSmooth));
+    }
+
+    protected virtual void SetColor(Color c)
+    {
+
     }
 
     // Nếu bạn thay đổi vị trí khi chạy và muốn "neo" basePos mới:
