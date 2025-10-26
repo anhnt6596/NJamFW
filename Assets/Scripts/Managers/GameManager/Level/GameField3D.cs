@@ -12,6 +12,7 @@ public class GameField3D : MonoBehaviour, IGameField
     [SerializeField] Transform healthBarParent;
     [SerializeField] GameObject grid;
     [SerializeField] PlacingSquare placingSquare;
+    [SerializeField] PlacingBoard placingBoard;
     public List<LineGroup> LineGroups { get; private set; } = new();
 
     private List<HealthBar> healthBars = new List<HealthBar>();
@@ -23,6 +24,7 @@ public class GameField3D : MonoBehaviour, IGameField
 
         Grid = grid.GetComponent<IGrid>();
         placingSquare.gameObject.SetActive(false);
+        placingBoard.gameObject.SetActive(false);
     }
 
     private void OnEnable()
@@ -73,7 +75,7 @@ public class GameField3D : MonoBehaviour, IGameField
         Enemies.Add(enemy);
 
         var healthBar = LeanPool.Spawn(ResourceProvider.Component.HealthBar, healthBarParent);
-        healthBar.Setup(enemy, Color.green);
+        healthBar.Setup(enemy, Color.red);
         healthBars.Add(healthBar);
 
         enemy.OnDeath += OnEnemyDeath;
@@ -204,6 +206,8 @@ public class GameField3D : MonoBehaviour, IGameField
             ghostObject = LeanPool.Spawn(ResourceProvider.GetPlaceObject(config.ObjectType));
             placingSquare.gameObject.SetActive(true);
             placingSquare.Display(config.Size);
+            placingBoard.gameObject.SetActive(true);
+            placingBoard.Display();
         }
 
         var offset = MathUtils.GetOffsetXZ(config.Size, Grid.CellSize);
@@ -216,6 +220,7 @@ public class GameField3D : MonoBehaviour, IGameField
     {
         LeanPool.Despawn(ghostObject);
         placingSquare.gameObject.SetActive(false);
+        placingBoard.gameObject.SetActive(false);
         ghostObject = null;
     }
 
