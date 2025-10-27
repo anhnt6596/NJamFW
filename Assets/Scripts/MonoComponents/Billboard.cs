@@ -4,10 +4,18 @@ using UnityEngine;
 
 public class Billboard : MonoBehaviour
 {
+    private void OnEnable()
+    {
+        DoBillboard();
+    }
     private void LateUpdate()
     {
-        var cam = Camera.main;
-        if (!cam) return;
-        transform.forward = cam.transform.forward;
+        if (CameraViewDir.TransformChanged)
+            DoBillboard();
+    }
+
+    public void DoBillboard()
+    {
+        transform.forward = CameraViewDir.CamForward.Value;
     }
 }

@@ -9,14 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e4f886127924e949a121cf3d8df114f, type: 3}
-  m_Name: GameState
+  m_Script: {fileID: 11500000, guid: f0ad2a4d40a68d743ab61ba2f7eaf004, type: 3}
+  m_Name: Wall
   m_EditorClassIdentifier: 
-  baseHealth: 99999999
-  energy: 2
-  cards: e8030000e9030000ea030000
-  lockedCardIdxs: 
-  selectedCards: e9030000e8030000ea030000ea030000e8030000
-  freeRoll: 0
-  autoRolled: 1
-  proactiveRolled: 5
+  card: 1002
+  cost: 0
+  escalatingCost: 0
+  maxSellectedTime: -1
+  isAbilityCard: 0
+  isUse: 1
+  objectType: 2

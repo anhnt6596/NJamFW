@@ -27,4 +27,34 @@ public static class MathUtils
     {
         return new Vector3((size.w - 1) / 2f * cellSize, 0, (size.h - 1) / 2f * cellSize);
     }
+
+    public static int GetViewType2(float angleY)
+    {
+        angleY %= 360f;
+        if (angleY < 0) angleY += 360f;
+
+        float[] diagonalAngles = { 45f, 135f, 225f, 315f };
+
+        const float threshold = 22.5f;
+
+        foreach (float diag in diagonalAngles)
+        {
+            if (Mathf.Abs(Mathf.DeltaAngle(angleY, diag)) <= threshold)
+                return 1;
+        }
+
+        return 0;
+    }
+
+    public static int GetViewType8(float angleY)
+    {
+        angleY %= 360f;
+        if (angleY < 0) angleY += 360f;
+
+        angleY += 22.5f;
+        if (angleY >= 360f) angleY -= 360f;
+
+        int index = Mathf.FloorToInt(angleY / 45f);
+        return index;
+    }
 }

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3554936979486418306}
   - component: {fileID: 3622185686693206997}
   m_Layer: 0
-  m_Name: tower
+  m_Name: enemy_spawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
