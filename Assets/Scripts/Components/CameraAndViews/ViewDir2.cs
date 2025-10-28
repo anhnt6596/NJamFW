@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
@@ -13,10 +14,20 @@ public class ViewDir2 : MonoBehaviour
     {
         sr = GetComponent<SpriteRenderer>();
     }
+
+    private void OnEnable()
+    {
+        UpdateImage();
+    }
+
     private void LateUpdate()
     {
         if (!CameraViewDir.TransformChanged) return;
+        UpdateImage();
+    }
 
+    private void UpdateImage()
+    {
         int viewDir = CameraViewDir.CurrentViewDir2;
 
         if (viewDir == lastViewDir) return;

@@ -66,7 +66,7 @@ public static class ResourceProvider
     {
         // sau them level cua object, skin, de lay dung object
         // hoac lay ra roi set sau
-        return Resources.Load<PlaceObject>($"Prefabs/PlaceObjects/{type}");
+        return Resources.Load<PlaceObject>($"Prefabs/GamePlayObjects/PlaceObjects/{type}");
     }
 
     public static Sprite GetEnemyIcon(EnemyEnum enemy)

@@ -7,9 +7,11 @@ public class CameraViewDir : MonoBehaviour
 
     public static bool TransformChanged { get; private set; } = false;
     public static Vector3 CamForward { get; private set; }
+    public static Transform Transform { get; private set; }
 
     private void OnEnable()
     {
+        Transform = transform;
         UpdateCamInfo();
     }
 
@@ -17,7 +19,7 @@ public class CameraViewDir : MonoBehaviour
     {
         var curForward = transform.forward;
 
-        if (curForward != CamForward)
+        if (Vector3.Distance(curForward, CamForward) > 0.0001f)
         {
             TransformChanged = true;
             UpdateCamInfo();
