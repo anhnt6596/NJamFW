@@ -16,6 +16,6 @@ public class Billboard : MonoBehaviour
 
     public void DoBillboard()
     {
-        transform.forward = CameraViewDir.CamForward.Value;
+        transform.forward = CameraViewDir.CamForward;
     }
 }

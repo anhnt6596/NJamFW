@@ -13,11 +13,9 @@ public class ViewDir2 : MonoBehaviour
     {
         sr = GetComponent<SpriteRenderer>();
     }
-
     private void LateUpdate()
     {
-        var cam = Camera.main;
-        if (!cam) return;
+        if (!CameraViewDir.TransformChanged) return;
 
         int viewDir = CameraViewDir.CurrentViewDir2;
 
