@@ -26,4 +26,7 @@ public enum CardEnum
     Torch = 1000,
     Tower = 1001,
     Wall = 1002,
+
+    // ontower bat dau tu 2000
+    Archer = 2000,
 }

@@ -18,11 +18,6 @@ public class TowerCardConfig : CardConfig, ICardPlayingTowerPlace
 
     public override bool CanBeRoll(Game game)
     {
-        var gamePlay = game.GameField;
-        var towers = gamePlay.Towers;
-        // neu het cho dat thap ma k co thap nao cung loai thi khong the roll ra
-        bool isFull = towers.Count >= gamePlay.TowerPlacementCount;
-        if (isFull && towers.Count(t => t.TowerType == Tower) <= 0) return false;
         return base.CanBeRoll(game);
     }
 

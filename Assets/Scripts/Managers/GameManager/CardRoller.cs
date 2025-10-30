@@ -25,7 +25,7 @@ public class CardRoller
         if (true) newCards = new List<CardEnum>() {
             CardEnum.Torch,
             CardEnum.Tower,
-            CardEnum.Wall,
+            CardEnum.Archer,
         };
         else if (Game.State.totalRolled == 0) newCards = new List<CardEnum>() {
             CardEnum.ArcherTower,

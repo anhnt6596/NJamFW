@@ -6,13 +6,13 @@ public interface IGameField
     Game Game { get; set; }
     List<Enemy> Enemies { get; }
     List<Tower> Towers { get; }
-    int TowerPlacementCount { get; }
     void StartNewWave(TurnConfig waveConfig);
 
     void CastLightning(int times, Damage damage);
     void FreezeEnemies(float duration);
     void ReverseEnemies(Vector3 wPos, Vector3 radius, float duration);
     void DropBomb(Vector3 position, Damage damage, Vector2 radius);
+    bool CheckTouchChooseTower(Vector3 screenPoint, OnTowerEnum type, out Tower tower);
     bool CheckPlaceTowerPosition(Vector3 wPos, TowerEnum tower, out int placeIndex);
     void PlaceTower(int placeIndex, TowerEnum tower);
     bool IsWPosInPolygon(Vector3 wPos);
@@ -22,4 +22,5 @@ public interface IGameField
     void DropNapalm(Vector3 position, int fireNumber, Vector2 radius, Damage instantlyDamage, float interval, float damagePerSec, Vector2 eachRadius);
     void DropMine(Vector3 wPos);
     void PlaceObject(PlaceObjectEnum objectType, GridPos gridPosition);
+    void PlaceOnTower(OnTowerEnum type, Tower tower);
 }

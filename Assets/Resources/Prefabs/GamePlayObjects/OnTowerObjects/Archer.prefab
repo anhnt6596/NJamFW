@@ -147,7 +147,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6672729946007578915}
-  - component: {fileID: 4742490882699979614}
   m_Layer: 0
   m_Name: ScaleNode
   m_TagString: Untagged
@@ -171,18 +170,6 @@ Transform:
   - {fileID: 2468667475446427431}
   m_Father: {fileID: 4188146837710722957}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4742490882699979614
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5171525355861265469}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3617457aeb958f74aa38bb4c02e46579, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &7132783544888768135
 GameObject:
   m_ObjectHideFlags: 0
@@ -192,6 +179,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4188146837710722957}
+  - component: {fileID: 5408043082288975632}
   m_Layer: 0
   m_Name: Archer
   m_TagString: Untagged
@@ -216,6 +204,18 @@ Transform:
   - {fileID: 1334504837241081209}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5408043082288975632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7132783544888768135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9208389b67ac08348b18e549407ff266, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5241008705165832981
 PrefabInstance:
   m_ObjectHideFlags: 0

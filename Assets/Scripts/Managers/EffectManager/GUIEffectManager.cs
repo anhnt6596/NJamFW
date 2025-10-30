@@ -41,9 +41,8 @@ public class GUIEffectManager : MonoBehaviour, IManager
         return text;
     }
 
-    public Image ShowInvalidEffect(Vector3 wPos, GUILayer layer = GUILayer.GUI)
+    public Image ShowInvalidEffect(Vector3 screenPos, GUILayer layer = GUILayer.GUI)
     {
-        var screenPos = Camera.main.WorldToScreenPoint(wPos);
         var invalid = LeanPool.Spawn(ResourceProvider.Effect.invalid);
         var guiLayer = _guiMgr.GetLayer(layer);
         invalid.transform.parent = guiLayer;

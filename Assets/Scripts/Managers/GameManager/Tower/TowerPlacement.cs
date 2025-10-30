@@ -6,7 +6,7 @@ public class TowerPlacement : MonoBehaviour
 {
     [SerializeField] Vector2 placeRadius = new Vector2(1.05f, 1.5f);
     [SerializeField] Vector3 focusPos, focusPosHaveTower;
-    public Tower Tower { get; private set; }
+    public TowerOld Tower { get; private set; }
 
     public bool CheckPostion(Vector3 wPos, TowerEnum tower)
     {

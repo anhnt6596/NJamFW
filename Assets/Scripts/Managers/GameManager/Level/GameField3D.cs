@@ -15,7 +15,10 @@ public class GameField3D : MonoBehaviour, IGameField
     [SerializeField] PlacingBoard placingBoard;
     public List<LineGroup> LineGroups { get; private set; } = new();
 
-    private List<HealthBar> healthBars = new List<HealthBar>();
+    private List<HealthBar> healthBars = new();
+
+    private List<PlaceObject> placeObjects = new();
+    public List<Tower> Towers { get; set; } = new();
     protected IGrid Grid { get; set; }
     private void Awake()
     {
@@ -142,13 +145,26 @@ public class GameField3D : MonoBehaviour, IGameField
     }
 
     public List<Enemy> Enemies { get; private set; } = new List<Enemy>();
-    public List<Tower> Towers => throw new System.NotImplementedException();
-    public int TowerPlacementCount => throw new System.NotImplementedException();
     public Game Game { get ; set; }
 
     public void CastLightning(int times, Damage damage)
     {
         throw new System.NotImplementedException();
+    }
+
+    public bool CheckTouchChooseTower(Vector3 screenPos, OnTowerEnum type, out Tower tower)
+    {
+        tower = null;
+        for (int i = 0; i < Towers.Count; i++)
+        {
+            var t = Towers[i];
+            if (t.CheckPlaceAlly(screenPos))
+            {
+                tower = t;
+                return true;
+            }
+        }
+        return false;
     }
 
     public bool CheckPlaceTowerPosition(Vector3 wPos, TowerEnum tower, out int placeIndex)
@@ -230,6 +246,18 @@ public class GameField3D : MonoBehaviour, IGameField
         var obj = LeanPool.Spawn(prefab, transform);
         var offset = MathUtils.GetOffsetXZ(prefab.Size, Grid.CellSize);
         obj.transform.position = Grid.CellToWorld(gPos.x, gPos.y) + offset;
+
+        placeObjects.Add(obj);
+        var tower = obj.GetComponent<Tower>();
+        if (tower) Towers.Add(tower);
+
         Grid.OccupyRect(gPos.x, gPos.y, prefab.Size.w, prefab.Size.h);
+    }
+
+    public void PlaceOnTower(OnTowerEnum type, Tower tower)
+    {
+        var prefab = ResourceProvider.GetOnTowerObject(type);
+        var obj = LeanPool.Spawn(prefab, transform);
+        tower.PlaceAlly(obj);
     }
 }

@@ -3,6 +3,7 @@ using System.Collections;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using static SoundResourceSet;
 
 public class GameInputController : MonoBehaviour
 {
@@ -23,30 +24,33 @@ public class GameInputController : MonoBehaviour
     private void OnTap(TapAction obj)
     {
         if (game.InputStateEnum != InputStateEnum.PlayCard) return;
-        Vector3 screenPos = obj.Finger.ScreenPosition;
         //Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, Camera.main.nearClipPlane));
-        Ray ray = Camera.main.ScreenPointToRay(screenPos);
-        Vector3 wPos = MathUtils.RaycastToXZPlane(ray.origin, ray.direction);
-        if (TryPlayCard(wPos))
+        Vector3 screenPos = obj.Finger.ScreenPosition;
+        if (TryPlayCard(screenPos))
         {
             game.ApplyPlayingCard();
         }
         else
         {
             var guiEffectMgr = App.Get<GUIEffectManager>();
-            guiEffectMgr.ShowInvalidEffect(wPos, GUILayer.GUI);
+            guiEffectMgr.ShowInvalidEffect(screenPos, GUILayer.GUI);
         }
     }
 
-    private bool TryPlayCard(Vector3 worldPos)
+    private bool TryPlayCard(Vector3 screenPos)
     {
+        Ray ray = Camera.main.ScreenPointToRay(screenPos);
+        Vector3 worldPos = MathUtils.RaycastToXZPlane(ray.origin, ray.direction);
+
         var card = Configs.GetCardConfig(game.PlayingCard);
         switch (card)
         {
             case ICardPlayingTilePlace tilePlaceCard:
                 return TryFindTile(worldPos, tilePlaceCard);
-            case ICardPlayingTowerPlace towerPlaceCard:
-                return TryFindTowerPlacement(worldPos, towerPlaceCard);
+            case ICardPlayingOnTower onTowerCard:
+                return TryFindTower(screenPos, onTowerCard);
+            //case ICardPlayingTowerPlace towerPlaceCard:
+            //    return TryFindTowerPlacement(worldPos, towerPlaceCard);
             case ICardPlayingRoad roadPlaceCard:
                 return TryPlaceRoad(worldPos, roadPlaceCard);
             case ICardPlayingAnywhere playAnywhereCard:
@@ -83,6 +87,18 @@ public class GameInputController : MonoBehaviour
         }
     }
 
+    private bool TryFindTower(Vector3 screenPos, ICardPlayingOnTower card)
+    {
+        Debug.Log($"Check Can Place On Tower {game.PlayingCard}");
+
+        var canPlaceOnTower = game.GameField.CheckTouchChooseTower(screenPos, card.Type, out var tower);
+        if (canPlaceOnTower)
+        {
+            card.Tower = tower;
+            return true;
+        }
+        return false;
+    }
     private bool TryFindTowerPlacement(Vector3 wPos, ICardPlayingTowerPlace card)
     {
         Debug.Log($"Check Can Place Tower {game.PlayingCard}");
