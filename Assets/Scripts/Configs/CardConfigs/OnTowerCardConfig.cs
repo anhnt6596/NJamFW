@@ -29,7 +29,6 @@ public class OnTowerCardConfig : CardConfig, ICardPlayingOnTower
 
     public override string GetPlayDescription(Game game)
     {
-        var cardInfo = Configs.GetCardInfo(Card);
-        return cardInfo.PlayDescription.Replace("@name#", cardInfo.DisplayName);
+        return "Place on a tower";
     }
 }

@@ -152,7 +152,7 @@ public class GameField3D : MonoBehaviour, IGameField
         throw new System.NotImplementedException();
     }
 
-    public bool CheckTouchChooseTower(Vector3 screenPos, OnTowerEnum type, out Tower tower)
+    public bool CheckPlaceOnTowerPosition(Vector3 screenPos, OnTowerEnum type, out Tower tower)
     {
         tower = null;
         for (int i = 0; i < Towers.Count; i++)
@@ -213,7 +213,7 @@ public class GameField3D : MonoBehaviour, IGameField
     }
 
     PlaceObject ghostObject;
-    public void ShowGhostObject(Vector3 wPos)
+    public void ShowGhostObjectOnTiles(Vector3 wPos)
     {
         var avaiablePos = CheckValidWPosOnGrid(wPos, out GridPos gPos);
         var config = (ObjectCardConfig)Configs.GetCardConfig(Game.PlayingCard);
@@ -232,12 +232,46 @@ public class GameField3D : MonoBehaviour, IGameField
         placingSquare.ShowAvaiable(avaiablePos);
     }
 
+    OnTower ghostOnTowerObject;
+    public void ShowGhostObjectOnTower(Vector3 screenPos)
+    {
+        var config = (OnTowerCardConfig)Configs.GetCardConfig(Game.PlayingCard);
+        var canPlaceOnTower = CheckPlaceOnTowerPosition(screenPos, config.Type, out var tower);
+
+        Towers.ForEach(t => t.ShowHighlightPlacement(t.Ally == null));
+        if (canPlaceOnTower)
+        {
+            if (!ghostOnTowerObject)
+            {
+                ghostOnTowerObject = LeanPool.Spawn(ResourceProvider.GetOnTowerObject(config.Type));
+            }
+
+            ghostOnTowerObject.transform.position = tower.AllyParent.position;
+            ghostOnTowerObject.transform.rotation = tower.AllyParent.rotation;
+        }
+        else
+        {
+            LeanPool.Despawn(ghostOnTowerObject);
+            ghostOnTowerObject = null;
+        }
+    }
+
     private void OnInputStateChanged(InputStateEnum state)
     {
-        LeanPool.Despawn(ghostObject);
-        placingSquare.gameObject.SetActive(false);
-        placingBoard.gameObject.SetActive(false);
-        ghostObject = null;
+        if (ghostObject != null)
+        {
+            LeanPool.Despawn(ghostObject);
+            placingSquare.gameObject.SetActive(false);
+            placingBoard.gameObject.SetActive(false);
+            ghostObject = null;
+        }
+
+        Towers.ForEach(t => t.ShowHighlightPlacement(false));
+        if (ghostOnTowerObject != null)
+        {
+            LeanPool.Despawn(ghostOnTowerObject);
+            ghostOnTowerObject = null;
+        }
     }
 
     public void PlaceObject(PlaceObjectEnum objectType, GridPos gPos)

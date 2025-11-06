@@ -82,8 +82,13 @@ public class GameInputController : MonoBehaviour
         switch (card)
         {
             case ICardPlayingTilePlace tilePlaceCard:
-                game.GameField.ShowGhostObject(wPos);
+                game.GameField.ShowGhostObjectOnTiles(wPos);
                 break;
+            case ICardPlayingOnTower onTowerCard:
+                {
+                    game.GameField.ShowGhostObjectOnTower(screenPos);
+                    break;
+                }
         }
     }
 
@@ -91,7 +96,7 @@ public class GameInputController : MonoBehaviour
     {
         Debug.Log($"Check Can Place On Tower {game.PlayingCard}");
 
-        var canPlaceOnTower = game.GameField.CheckTouchChooseTower(screenPos, card.Type, out var tower);
+        var canPlaceOnTower = game.GameField.CheckPlaceOnTowerPosition(screenPos, card.Type, out var tower);
         if (canPlaceOnTower)
         {
             card.Tower = tower;
@@ -99,6 +104,7 @@ public class GameInputController : MonoBehaviour
         }
         return false;
     }
+
     private bool TryFindTowerPlacement(Vector3 wPos, ICardPlayingTowerPlace card)
     {
         Debug.Log($"Check Can Place Tower {game.PlayingCard}");

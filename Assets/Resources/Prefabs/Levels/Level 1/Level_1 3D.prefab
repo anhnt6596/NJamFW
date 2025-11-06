@@ -284,7 +284,7 @@ GameObject:
   - component: {fileID: 2917893303549450345}
   - component: {fileID: 6816497737189827701}
   - component: {fileID: 1012508359075803874}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: HealthBarParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -343,7 +343,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!1 &1561319796788271961
 GameObject:
@@ -3273,15 +3273,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2107706315217688974, guid: ad83cf337a9df9e43a7a7b4d3b9e9bc7, type: 3}
       propertyPath: ambientColor.b
-      value: 0.23645426
+      value: 0.6335137
       objectReference: {fileID: 0}
     - target: {fileID: 2107706315217688974, guid: ad83cf337a9df9e43a7a7b4d3b9e9bc7, type: 3}
       propertyPath: ambientColor.g
-      value: 0.25126296
+      value: 0.7999103
       objectReference: {fileID: 0}
     - target: {fileID: 2107706315217688974, guid: ad83cf337a9df9e43a7a7b4d3b9e9bc7, type: 3}
       propertyPath: ambientColor.r
-      value: 0.254717
+      value: 0.8415094
       objectReference: {fileID: 0}
     - target: {fileID: 3781071600342696188, guid: ad83cf337a9df9e43a7a7b4d3b9e9bc7, type: 3}
       propertyPath: m_Name

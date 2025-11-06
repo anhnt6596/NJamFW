@@ -110,4 +110,14 @@ public static class GamePlayUtils
         }
         return enemyCounts;
     }
+
+    public static bool IsInRange(Vector3 p1, Vector3 p2, float range)
+    {
+        p1.y = 0f;
+        p2.y = 0f;
+
+        float sqrDist = (p1 - p2).sqrMagnitude;
+        float sqrRange = range * range;
+        return sqrDist <= sqrRange;
+    }
 }

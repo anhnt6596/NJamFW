@@ -111,7 +111,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5164173992794001771}
   - component: {fileID: 3694983551133903719}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: bone-bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}

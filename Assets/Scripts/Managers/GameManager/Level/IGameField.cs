@@ -12,12 +12,13 @@ public interface IGameField
     void FreezeEnemies(float duration);
     void ReverseEnemies(Vector3 wPos, Vector3 radius, float duration);
     void DropBomb(Vector3 position, Damage damage, Vector2 radius);
-    bool CheckTouchChooseTower(Vector3 screenPoint, OnTowerEnum type, out Tower tower);
+    bool CheckPlaceOnTowerPosition(Vector3 screenPoint, OnTowerEnum type, out Tower tower);
     bool CheckPlaceTowerPosition(Vector3 wPos, TowerEnum tower, out int placeIndex);
     void PlaceTower(int placeIndex, TowerEnum tower);
     bool IsWPosInPolygon(Vector3 wPos);
     bool CheckValidWPosOnGrid(Vector3 wPos, out GridPos pos);
-    void ShowGhostObject(Vector3 wPos);
+    void ShowGhostObjectOnTiles(Vector3 wPos);
+    void ShowGhostObjectOnTower(Vector3 screenPos);
     void SpawnAlly(AllyEnum allyType, Vector3 wPos);
     void DropNapalm(Vector3 position, int fireNumber, Vector2 radius, Damage instantlyDamage, float interval, float damagePerSec, Vector2 eachRadius);
     void DropMine(Vector3 wPos);
