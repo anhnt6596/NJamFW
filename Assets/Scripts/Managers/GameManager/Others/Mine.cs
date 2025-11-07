@@ -11,8 +11,8 @@ public class Mine : MonoBehaviour
     [SerializeField] SpriteRenderer eye;
     // setting truc tiep thong so, dua vao setup sau
     public Damage damage = new Damage(300, DamageEnum.Magic);
-    public Vector2 rangeCheck = new Vector2(1.5f, 1.05f);
-    public Vector2 range = new Vector2(2, 1.4f);
+    public float rangeCheck = 2;
+    public float range = 3;
 
     IGameField gamePlay;
     bool isExploded = false;
@@ -29,7 +29,6 @@ public class Mine : MonoBehaviour
     private void Update()
     {
         if (gamePlay == null || isExploded) return;
-        if (gamePlay.Enemies.Count == 0) return;
 
         timeCounter -= Time.deltaTime;
         if (timeCounter < 0)
@@ -41,14 +40,10 @@ public class Mine : MonoBehaviour
 
     private void CheckExplode()
     {
-        foreach (var enemy in gamePlay.Enemies)
-        {
-            if (GamePlayUtils.IsInRange(enemy.transform.position, transform.position, rangeCheck))
-            {
-                Explode();
-                break;
-            }
-        }
+        var enemies = new List<Enemy>(); // sau move ra thanh 1 field
+        gamePlay.EnemySpatialHash.Query(transform.position, rangeCheck, enemies);
+
+        if (enemies.Count > 0) Explode();
     }
 
     Sequence seq;
@@ -78,11 +73,9 @@ public class Mine : MonoBehaviour
 
     private void DealDamage()
     {
-        for (int i = gamePlay.Enemies.Count; i > 0 ; i--)
-        {
-            var enemy = gamePlay.Enemies[i - 1];
-            var v = GamePlayUtils.CheckElipse(enemy.transform.position, transform.position, range);
-            if (v < 1) enemy.TakeDamage(damage * GamePlayUtils.GetAoEDamageMultiplier(v, 0.45f));
-        }
+        var enemies = new List<Enemy>(); // sau move ra thanh 1 field
+        gamePlay.EnemySpatialHash.Query(transform.position, range, enemies);
+        enemies.ForEach(e => e.TakeDamage(damage));
+        // sau them tinh dmg aoe, ngoai ria nhan it dmg hon
     }
 }

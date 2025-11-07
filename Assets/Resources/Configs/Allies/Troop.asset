@@ -17,11 +17,11 @@ MonoBehaviour:
   def:
     armor: 0
     magicRes: 0
-  attackRange: {x: 0.3, y: 0.21}
+  attackRange: 0.5
   attackSpeed: 0.6
   attackDamage:
     amount: 25
     type: 0
   type: 1
-  detectionRadius: {x: 1.5, y: 1.05}
+  detectionRadius: 2
   healRegen: 5

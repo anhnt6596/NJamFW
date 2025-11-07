@@ -57,11 +57,6 @@ public static class ResourceProvider
         return Resources.Load<BaseBullet>($"Prefabs/Bullets/Bullet_{tower}");
     }
 
-    public static TowerOld GetTower(TowerEnum tower)
-    {
-        return Resources.Load<TowerOld>($"Prefabs/Towers/{tower}");
-    }
-
     public static PlaceObject GetPlaceObject(PlaceObjectEnum type)
     {
         // sau them level cua object, skin, de lay dung object

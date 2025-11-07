@@ -1,4 +1,5 @@
 using Lean.Pool;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class MageBullet : BaseBullet
@@ -40,21 +41,6 @@ public class MageBullet : BaseBullet
 
     private Enemy FindAnotherTarget()
     {
-        Enemy target = null;
-        var enemies = App.Get<GameManager>().RunningGame.GameField.Enemies;
-        if (enemies.Count == 0) return null;
-
-        float smallestMag = Mathf.Infinity;
-
-        foreach (var e in enemies)
-        {
-            var mag = (e.transform.position - transform.position).magnitude;
-            if (mag < smallestMag)
-            {
-                smallestMag = mag;
-                target = e;
-            }
-        }
-        return target;
+        return App.Get<GameManager>().RunningGame.GameField.EnemySpatialHash.GetNearest<Enemy>(transform.position, 10f);
     }
 }

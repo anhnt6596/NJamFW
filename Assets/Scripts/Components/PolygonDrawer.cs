@@ -57,7 +57,7 @@ public class PolygonDrawer : MonoBehaviour, IPolygon
         foreach (var t in nodes)
         {
             if (t == null) continue;
-            list.Add(new Vector2(t.position.x, t.position.y));
+            list.Add(new Vector2(t.position.x, t.position.z));
         }
         return list;
     }

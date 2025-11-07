@@ -5,12 +5,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public abstract class Unit : MonoBehaviour
+public abstract class Unit : MonoBehaviour, ISpatialKeyed
 {
+    public SpatialHash SpatialHash { get; set; }
+    public GridKey SpatialKey { get; set; }
+
+    public bool InPlay { get; private set; } = false;
+
     public float HP;
     public abstract float speed { get; }
     public abstract float maxHP { get; }
-    public abstract Vector2 attackRange { get; }
+    public abstract float attackRange { get; }
     public abstract float attackSpeed { get; }
     public DeffenseStats def;
     public bool isDead => HP <= 0;
@@ -25,6 +30,19 @@ public abstract class Unit : MonoBehaviour
     #endregion Visual
 
     public System.Action<Unit> OnDeath;
+
+    public void EnterPlay()
+    {
+        InPlay = true;
+        SpatialHash.Add(this);
+    }
+
+    public void ExitPlay()
+    {
+        SpatialHash.Remove(this);
+        InPlay = false;
+    }
+
     public virtual void TakeDamage(Damage dmgInput)
     {
         if (HP <= 0) return;

@@ -23,7 +23,7 @@ public class CardRoller
         // hard code 1st and 2nd roll
         List<CardEnum> newCards;
         if (true) newCards = new List<CardEnum>() {
-            CardEnum.Torch,
+            CardEnum.Troop,
             CardEnum.Tower,
             CardEnum.Archer,
         };

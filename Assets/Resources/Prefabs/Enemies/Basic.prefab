@@ -68,6 +68,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 7394377341007509395}
+  scaleNode: {fileID: 3699359279196357676}
+  dirType: 0
 --- !u!1 &1995906805110851241
 GameObject:
   m_ObjectHideFlags: 0

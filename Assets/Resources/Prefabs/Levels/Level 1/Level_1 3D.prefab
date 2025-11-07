@@ -230,6 +230,7 @@ MonoBehaviour:
   grid: {fileID: 7500653824182997321}
   placingSquare: {fileID: 9047071477036336544}
   placingBoard: {fileID: 3788536188660386568}
+  lanePoly: {fileID: 8256103225239388313}
 --- !u!114 &5444524046824588356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3272,16 +3273,28 @@ PrefabInstance:
     m_TransformParent: {fileID: 6049137742356315106}
     m_Modifications:
     - target: {fileID: 2107706315217688974, guid: ad83cf337a9df9e43a7a7b4d3b9e9bc7, type: 3}
+      propertyPath: fogColor.b
+      value: 0.0156140905
+      objectReference: {fileID: 0}
+    - target: {fileID: 2107706315217688974, guid: ad83cf337a9df9e43a7a7b4d3b9e9bc7, type: 3}
+      propertyPath: fogColor.g
+      value: 0.16226411
+      objectReference: {fileID: 0}
+    - target: {fileID: 2107706315217688974, guid: ad83cf337a9df9e43a7a7b4d3b9e9bc7, type: 3}
+      propertyPath: fogColor.r
+      value: 0.100671105
+      objectReference: {fileID: 0}
+    - target: {fileID: 2107706315217688974, guid: ad83cf337a9df9e43a7a7b4d3b9e9bc7, type: 3}
       propertyPath: ambientColor.b
-      value: 0.6335137
+      value: 0.4259238
       objectReference: {fileID: 0}
     - target: {fileID: 2107706315217688974, guid: ad83cf337a9df9e43a7a7b4d3b9e9bc7, type: 3}
       propertyPath: ambientColor.g
-      value: 0.7999103
+      value: 0.5772602
       objectReference: {fileID: 0}
     - target: {fileID: 2107706315217688974, guid: ad83cf337a9df9e43a7a7b4d3b9e9bc7, type: 3}
       propertyPath: ambientColor.r
-      value: 0.8415094
+      value: 0.6150943
       objectReference: {fileID: 0}
     - target: {fileID: 3781071600342696188, guid: ad83cf337a9df9e43a7a7b4d3b9e9bc7, type: 3}
       propertyPath: m_Name
@@ -3329,7 +3342,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5382231671218588767, guid: ad83cf337a9df9e43a7a7b4d3b9e9bc7, type: 3}
       propertyPath: m_LocalScale.x
-      value: 6.470582
+      value: 4.8742213
       objectReference: {fileID: 0}
     - target: {fileID: 5382231671218588767, guid: ad83cf337a9df9e43a7a7b4d3b9e9bc7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3341,7 +3354,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5910330754745463473, guid: ad83cf337a9df9e43a7a7b4d3b9e9bc7, type: 3}
       propertyPath: m_LocalScale.x
-      value: 6.599993
+      value: 4.9717054
       objectReference: {fileID: 0}
     - target: {fileID: 5910330754745463473, guid: ad83cf337a9df9e43a7a7b4d3b9e9bc7, type: 3}
       propertyPath: m_LocalPosition.y

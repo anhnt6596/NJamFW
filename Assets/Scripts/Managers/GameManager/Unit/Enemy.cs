@@ -17,7 +17,7 @@ public class Enemy : Unit
     }
 
     public override float maxHP => config.Hp;
-    public override Vector2 attackRange => config.AttackRange;
+    public override float attackRange => config.AttackRange;
     public override float attackSpeed => config.AttackSpeed;
     private enum State { Moving, Combat }
     private State state = State.Moving;
@@ -26,6 +26,7 @@ public class Enemy : Unit
     public System.Action<Enemy> OnReachDestination;
 
     public Ally CurrentTarget { get; private set; }
+
     public void Setup(IMovingPath line, EnemyConfig config)
     {
         this.line = line;
@@ -70,6 +71,7 @@ public class Enemy : Unit
         {
             var last = transform.position;
             transform.position = line.GetPointByDistance(movingDist);
+            SpatialHash?.Move(this);
             var dir = (int)MovingUtils.GetDirection2Index(transform.position - last, Camera.main.transform);
             unitAnimator.UpdateState(1);
             if (dir != -1) unitAnimator.UpdateDir(dir);
@@ -107,14 +109,9 @@ public class Enemy : Unit
 
         if (statusList.Exists(s => s.type == UnitStatusEnum.TimeFrozen)) return;
 
-        Vector2 totalAttackRange = attackRange + CurrentTarget.attackRange;
-        float dist = GamePlayUtils.CheckElipse(transform.position, CurrentTarget.transform.position, totalAttackRange);
-        if (dist > 1)
-        {
-            var dir = (int)MovingUtils.GetDirection2Index(CurrentTarget.transform.position - transform.position, Camera.main.transform);
-            unitAnimator.UpdateDir(dir);
-        }
-        else
+        float totalAttackRange = attackRange + CurrentTarget.attackRange;
+        var inRange = GamePlayUtils.IsInRange(transform.position, CurrentTarget.transform.position, totalAttackRange);
+        if (inRange)
         {
             var remainAttackTime = Time.time - lastAttackTime;
             var shootCycle = 1f / attackSpeed;
@@ -133,6 +130,9 @@ public class Enemy : Unit
                 hasAttackThisCycle = false;
             }
         }
+
+        var dir = (int)MovingUtils.GetDirection2Index(CurrentTarget.transform.position - transform.position, Camera.main.transform);
+        unitAnimator.UpdateDir(dir);
     }
 
     public void SetTarget(Ally ally)

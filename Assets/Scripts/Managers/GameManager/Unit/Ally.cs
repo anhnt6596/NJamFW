@@ -1,37 +1,34 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
-using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class Ally : Unit
 {
     private AllyConfig config;
     public override float speed => config.Speed;
     public override float maxHP => config.Hp;
-    public override Vector2 attackRange => config.AttackRange;
+    public override float attackRange => config.AttackRange;
     public override float attackSpeed => config.AttackSpeed;
 
-
-
+    public Vector3 AnchorPos { get; private set;}
     public Enemy CurrentTarget { get; set; }
     private float lastAttackTime;
     private float lastTakeDamageTime;
     private float outOfCombatRegenTime = 2f;
 
-    private IGameField level;
+    private IGameField gameField;
     private enum State { Search, Combat }
     private State state = State.Search;
 
-    public void Setup(IGameField level, AllyConfig config)
+    public void Setup(IGameField level, AllyConfig config, Vector3 anchorPos)
     {
-        this.level = level;
+        this.gameField = level;
         this.config = config;
         HP = config.Hp;
         def = config.Def;
         statusList = new();
         CurrentTarget = null;
+        AnchorPos = anchorPos;
+
+        transform.position = AnchorPos;
         unitAnimator.UpdateDir(1);
     }
 
@@ -55,23 +52,7 @@ public class Ally : Unit
     void SearchForTarget()
     {
         unitAnimator.UpdateState(0);
-        var enemies = level.Enemies;
-
-        Enemy nearestEnemy = null;
-        float smallestV = Mathf.Infinity;
-
-        foreach (var enemy in enemies)
-        {
-            if (enemy != null && !enemy.isDead && enemy.CurrentTarget == null)
-            {
-                var v = GamePlayUtils.CheckElipse(transform.position, enemy.transform.position, config.DetectionRadius);
-                if (v < 1 && v < smallestV)
-                {
-                    smallestV = v;
-                    nearestEnemy = enemy;
-                }
-            }
-        }
+        Enemy nearestEnemy = gameField.EnemySpatialHash.GetNearest<Enemy>(transform.position, config.DetectionRadius);
 
         if (nearestEnemy != null)
         {
@@ -79,6 +60,14 @@ public class Ally : Unit
             nearestEnemy.SetTarget(this);
             state = State.Combat;
             lastAttackTime = Time.time;
+        }
+        else if (Vector3.Magnitude(transform.position - AnchorPos) > 0.1f)
+        {
+            MoveTo(Vector3.MoveTowards(
+                transform.position,
+                AnchorPos,
+                config.Speed * Time.deltaTime
+            ));
         }
     }
 
@@ -93,10 +82,10 @@ public class Ally : Unit
             return;
         }
 
-        Vector2 totalAttackRange = attackRange + CurrentTarget.attackRange;
-        float dist = GamePlayUtils.CheckElipse(transform.position, CurrentTarget.transform.position, totalAttackRange);
+        float totalAttackRange = attackRange + CurrentTarget.attackRange;
+        bool inRange = GamePlayUtils.IsInRange(transform.position, CurrentTarget.transform.position, totalAttackRange);
 
-        if (dist <= 1)
+        if (inRange)
         {
             if (unitAnimator.State == 1) unitAnimator.UpdateState(0);
             var remainAttackTime = Time.time - lastAttackTime;
@@ -115,22 +104,26 @@ public class Ally : Unit
                 CurrentTarget.TakeDamage(config.AttackDamage);
                 hasAttackThisCycle = false;
             }
+            var dir = MovingUtils.GetDirection2Index(CurrentTarget.transform.position - transform.position, Camera.main.transform);
+            if (dir != Dir2.Unknown) unitAnimator.UpdateDir((int)dir);
         }
         else
         {
-            var nextPos = Vector3.MoveTowards(
+            MoveTo(Vector3.MoveTowards(
                 transform.position,
                 CurrentTarget.transform.position,
                 config.Speed * Time.deltaTime
-            );
-
-            var dir = MovingUtils.GetDirection2Index(nextPos - transform.position, Camera.main.transform);
-            unitAnimator.UpdateState(1);
-            if (dir != Dir2.Unknown) unitAnimator.UpdateDir((int)dir);
-            transform.position = nextPos;
-
+            ));
             lastAttackTime = Time.time;
         }
+    }
+
+    private void MoveTo(Vector3 nextPos)
+    {
+        var dir = MovingUtils.GetDirection2Index(nextPos - transform.position, Camera.main.transform);
+        if (dir != Dir2.Unknown) unitAnimator.UpdateDir((int)dir);
+        unitAnimator.UpdateState(1);
+        transform.position = nextPos;
     }
 
     public override void TakeDamage(Damage dmgInput)
@@ -167,13 +160,13 @@ public class Ally : Unit
         if (!config) return;
         Gizmos.color = Color.yellow;
 
-        Matrix4x4 matrix = Matrix4x4.TRS(transform.position, Quaternion.identity, new Vector3(config.AttackRange.x * 2, config.AttackRange.y * 2, 1));
+        Matrix4x4 matrix = Matrix4x4.TRS(transform.position, Quaternion.identity, new Vector3(config.AttackRange * 2, 1, config.AttackRange * 2));
         Gizmos.matrix = matrix;
         Gizmos.DrawWireSphere(Vector3.zero, 0.5f);
         Gizmos.matrix = Matrix4x4.identity;
 
         Gizmos.color = Color.red;
-        Matrix4x4 matrix2 = Matrix4x4.TRS(transform.position, Quaternion.identity, new Vector3(config.DetectionRadius.x * 2, config.DetectionRadius.y * 2, 1));
+        Matrix4x4 matrix2 = Matrix4x4.TRS(transform.position, Quaternion.identity, new Vector3(config.DetectionRadius * 2, 1, config.DetectionRadius * 2));
         Gizmos.matrix = matrix2;
         Gizmos.DrawWireSphere(Vector3.zero, 0.5f);
         Gizmos.matrix = Matrix4x4.identity;

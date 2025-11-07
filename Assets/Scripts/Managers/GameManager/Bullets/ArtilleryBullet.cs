@@ -18,13 +18,13 @@ public class ArtilleryBullet : BaseBullet
             {
                 LeanPool.Despawn(this);
                 App.Get<EffectManager>().SpawnExplodeEffect(transform.position, 0.25f);
-                var enemies = App.Get<GameManager>().RunningGame.GameField.Enemies;
-                for (int i = enemies.Count; i > 0; i--)
-                {
-                    var enemy = enemies[i - 1];
-                    var v = GamePlayUtils.CheckElipse(enemy.transform.position, transform.position, radius);
-                    if (v < 1) enemy.TakeDamage(damage * GamePlayUtils.GetAoEDamageMultiplier(v, 0.1f));
-                }
+                //var enemies = App.Get<GameManager>().RunningGame.GameField.Enemies;
+                //for (int i = enemies.Count; i > 0; i--)
+                //{
+                //    var enemy = enemies[i - 1];
+                //    var v = GamePlayUtils.CheckElipse(enemy.transform.position, transform.position, radius);
+                //    if (v < 1) enemy.TakeDamage(damage * GamePlayUtils.GetAoEDamageMultiplier(v, 0.1f));
+                //}
             });
     }
 }

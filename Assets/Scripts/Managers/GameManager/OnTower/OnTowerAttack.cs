@@ -1,4 +1,5 @@
 using Lean.Pool;
+using System.Collections.Generic;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -62,25 +63,25 @@ public class OnTowerAttack : OnTower
         }
     }
 
+    List<Enemy> inrangeEnemies = new List<Enemy>(); // gcalloc
     private void FindTarget()
     {
-        if (currentTarget != null && !currentTarget.isDead)
+        if (currentTarget != null && currentTarget.InPlay && !currentTarget.isDead)
         {
             // if last target in range, do not change
             if (GamePlayUtils.IsInRange(currentTarget.transform.position, transform.position, config.Range)) return;
         }
 
-        var enemies = gameField.Enemies;
+        //var enemies = gameField.Enemies;
+        var hash = gameField.EnemySpatialHash;
         currentTarget = null;
         float nearestDest = Mathf.Infinity;
 
-        foreach (var e in enemies)
+        hash.Query(transform.position, config.Range, inrangeEnemies);
+        foreach (var e in inrangeEnemies)
         {
-            Vector2 diff = e.transform.position - transform.position;
             var remainDest = e.remainingDist;
-            var inRange = GamePlayUtils.IsInRange(e.transform.position, transform.position, config.Range);
-
-            if (inRange && remainDest < nearestDest)
+            if (remainDest < nearestDest)
             {
                 nearestDest = remainDest;
                 currentTarget = e;

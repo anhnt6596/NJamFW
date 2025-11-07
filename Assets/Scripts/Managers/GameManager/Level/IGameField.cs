@@ -4,7 +4,7 @@ using UnityEngine;
 public interface IGameField
 {
     Game Game { get; set; }
-    List<Enemy> Enemies { get; }
+    SpatialHash<Enemy> EnemySpatialHash { get; }
     List<Tower> Towers { get; }
     void StartNewWave(TurnConfig waveConfig);
 

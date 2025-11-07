@@ -16,10 +16,10 @@ MonoBehaviour:
   waveConfigs:
   - enemySpawnGroups:
     - enemy: 1
-      quantity: 50
+      quantity: 1
       gateIdx: 0
       delay: 0
-      spawnTime: 49
+      spawnTime: 50
     turnEnergyGain: 5
     freeRollGain: 0
   - enemySpawnGroups:

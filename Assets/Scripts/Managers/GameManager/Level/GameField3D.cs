@@ -13,12 +13,16 @@ public class GameField3D : MonoBehaviour, IGameField
     [SerializeField] GameObject grid;
     [SerializeField] PlacingSquare placingSquare;
     [SerializeField] PlacingBoard placingBoard;
+    [SerializeField] PolygonDrawer lanePoly;
     public List<LineGroup> LineGroups { get; private set; } = new();
 
     private List<HealthBar> healthBars = new();
 
     private List<PlaceObject> placeObjects = new();
     public List<Tower> Towers { get; set; } = new();
+    public List<Enemy> Enemies { get; private set; } = new List<Enemy>();
+    public SpatialHash<Enemy> EnemySpatialHash { get; private set; } = new SpatialHash<Enemy>(2f);
+    public SpatialHash<Ally> AllySpatialHash { get; private set; } = new SpatialHash<Ally>(2f);
     protected IGrid Grid { get; set; }
     private void Awake()
     {
@@ -75,7 +79,8 @@ public class GameField3D : MonoBehaviour, IGameField
     {
         var enemy = LeanPool.Spawn(ResourceProvider.GetEnemyVisual(enemyType), unitParent);
         enemy.Setup(GetRandomMovingPath(gateIdx), Configs.GetEnemyConfig(enemyType));
-        Enemies.Add(enemy);
+        enemy.SpatialHash = EnemySpatialHash;
+        enemy.EnterPlay();
 
         var healthBar = LeanPool.Spawn(ResourceProvider.Component.HealthBar, healthBarParent);
         healthBar.Setup(enemy, Color.red);
@@ -91,7 +96,7 @@ public class GameField3D : MonoBehaviour, IGameField
         healthBars.Remove(healthBar);
         LeanPool.Despawn(healthBar);
 
-        Enemies.Remove(enemy);
+        enemy.ExitPlay();
         enemy.OnDeath -= OnEnemyDeath;
         enemy.OnReachDestination -= OnEnemyReachDestination;
         LeanPool.Despawn(enemy);
@@ -103,7 +108,7 @@ public class GameField3D : MonoBehaviour, IGameField
         DespawnEnemy(enemy);
         Game.State.energy += enemy.config.DeathEnergy;
         if (spawnCount == 0
-            && Enemies.Count == 0
+            && EnemySpatialHash.Count == 0
             && Game.State.baseHealth > 0)
         {
             App.Get<GUIEffectManager>().BannerAnounce($"Turn {Game.CurrentTurn + 1} completed!");
@@ -144,7 +149,6 @@ public class GameField3D : MonoBehaviour, IGameField
         return false;
     }
 
-    public List<Enemy> Enemies { get; private set; } = new List<Enemy>();
     public Game Game { get ; set; }
 
     public void CastLightning(int times, Damage damage)
@@ -194,7 +198,9 @@ public class GameField3D : MonoBehaviour, IGameField
 
     public bool IsWPosInPolygon(Vector3 wPos)
     {
-        throw new System.NotImplementedException();
+        var pts = lanePoly.GetPolygon2D();
+        var pos2D = new Vector2(wPos.x, wPos.z);
+        return PolygonHelper.PointInPoly(pos2D, pts);
     }
 
     public void PlaceTower(int placeIndex, TowerEnum tower)
@@ -209,7 +215,32 @@ public class GameField3D : MonoBehaviour, IGameField
 
     public void SpawnAlly(AllyEnum allyType, Vector3 wPos)
     {
-        throw new System.NotImplementedException();
+        var ally = LeanPool.Spawn(ResourceProvider.GetAlly(allyType), unitParent);
+        ally.Setup(this, Configs.GetAllyConfig(allyType), wPos);
+        ally.SpatialHash = AllySpatialHash;
+        ally.EnterPlay();
+
+        var healthBar = LeanPool.Spawn(ResourceProvider.Component.HealthBar, healthBarParent);
+        healthBar.Setup(ally, Color.red);
+        healthBars.Add(healthBar);
+
+        ally.OnDeath += OnAllyDeath;
+    }
+
+    private void OnAllyDeath(Unit unit)
+    {
+        DespawnAlly((Ally)unit);
+    }
+
+    private void DespawnAlly(Ally ally)
+    {
+        var healthBar = healthBars.First(h => h.Target == ally);
+        healthBars.Remove(healthBar);
+        LeanPool.Despawn(healthBar);
+
+        ally.ExitPlay();
+        ally.OnDeath -= OnAllyDeath;
+        LeanPool.Despawn(ally);
     }
 
     PlaceObject ghostObject;

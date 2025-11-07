@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e4f886127924e949a121cf3d8df114f, type: 3}
   m_Name: GameState
   m_EditorClassIdentifier: 
-  baseHealth: 99999999
-  energy: 9.600000068545341
+  baseHealth: 99999509
+  energy: 10
   cards: e8030000e9030000d0070000
   lockedCardIdxs: 
-  selectedCards: e9030000e9030000d0070000d0070000e9030000e9030000d0070000d0070000e9030000d0070000e8030000
-  freeRoll: 0
-  autoRolled: 2
-  proactiveRolled: 11
+  selectedCards: e9030000d0070000e9030000d0070000e9030000e9030000e9030000d0070000d0070000d0070000e9030000d0070000e9030000d0070000
+  freeRoll: 1
+  autoRolled: 3
+  proactiveRolled: 14
